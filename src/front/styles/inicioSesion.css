@@ -1,0 +1,37 @@
+.body-inicio {
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(91, 73, 62, 0.5); 
+  }
+.btn{
+    background-color: #F2E5D5 ;
+    border-color:  rgba(91, 73, 62, 0.5);
+
+}
+.button-pastel {
+    background-color:#DAB79F ; 
+    color: #5b493e; 
+    padding: 10px 20px;
+    border:#5b493e;
+    border-radius: 8px; 
+    font-size: 16px; 
+    font-weight: bold; 
+    cursor: pointer; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    transition: all 0.3s ease; 
+  }
+  
+  .button-pastel:hover {
+    background-color: #d8a380; 
+  }
+  
+  .logo-imagen {
+    max-width: 150px; 
+    border-radius: 50%; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); 
+}
+
+
+
+  
+ 
