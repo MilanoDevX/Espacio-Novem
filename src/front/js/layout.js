@@ -11,6 +11,7 @@ import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import {InicioSesion} from "./component/inicioSesion";
+import {ContactMap} from "./component/contactMap";
 
 //create your first component
 const Layout = () => {
@@ -19,8 +20,12 @@ const Layout = () => {
     const basename = process.env.BASENAME || "";
     
     if(!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL/ >;
+    
     const noNavbar = ["/inicioSesion"];
     const hideNavbar = noNavbar.includes(location.pathname); //saque el navabar del iniciosesion
+
+    const noFooter = ["/contactMap"];
+    const hideFooter = noFooter.includes(location.pathname);
 
     return (
         <div>
@@ -32,9 +37,10 @@ const Layout = () => {
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<InicioSesion />} path="/inicioSesion" />
+                        <Route element={<ContactMap />} path="/contactMap" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
-                    <Footer />
+                    {!hideFooter && <Footer />}
                 </ScrollToTop>
             </BrowserRouter>
         </div>
