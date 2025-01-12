@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import '../../styles/formReservations.css';
 
@@ -7,7 +8,6 @@ const FormReservations = ({ selectedDate }) => {
   // Simulación de datos desde el backend
   useEffect(() => {
     const fetchData = async () => {
-      // Aquí se haría una llamada real al backend
       const data = [
         { user: 'natali', date: '2025-01-15', hour: '11:00', consultories: [1] },
         { user: 'kate', date: '2025-01-15', hour: '11:00', consultories: [2] },
@@ -18,7 +18,7 @@ const FormReservations = ({ selectedDate }) => {
         { user: 'fio', date: '2025-01-19', hour: '17:00', consultories: [4] },
         { user: 'elias', date: '2025-01-19', hour: '18:00', consultories: [4] }
       ];
-      setSchedule(data.filter((entry) => entry.date === selectedDate)); // Filtrar por la fecha seleccionada
+      setSchedule(data.filter((entry) => entry.date === selectedDate));
     };
     fetchData();
   }, [selectedDate]);
@@ -33,7 +33,6 @@ const FormReservations = ({ selectedDate }) => {
   };
 
   const handleScheduleSubmit = () => {
-    // Lógica para enviar datos seleccionados al backend
     console.log("Datos enviados al backend");
   };
 
@@ -50,20 +49,22 @@ const FormReservations = ({ selectedDate }) => {
     };
   };
 
-  const isAvailable = (consultories) => consultories.length < 4; // Disponible si no todos los consultorios están reservados
+  const isAvailable = (consultories) => consultories.length < 4;
 
   return (
     <div className="form-reservations-container container mt-2">
       <table className="table table-bordered text-center">
-        <thead className="">
+        <thead>
           <tr>
-            <th>Horario</th>
-            <th>Estado</th>
-            <th>Consultorios:</th>
+            <th rowSpan="2" className="align-middle">Horario</th>
+            <th rowSpan="2" className="align-middle">Estado</th>
+            <th colSpan="4">Consultorios</th>
+            <th rowSpan="2" className="align-middle">Ninguno</th>
+          </tr>
+          <tr>
             {[1, 2, 3, 4].map((consultory) => (
               <th key={consultory}>{consultory}</th>
             ))}
-            <th>Ninguno</th>
           </tr>
         </thead>
         <tbody>
@@ -75,7 +76,6 @@ const FormReservations = ({ selectedDate }) => {
               <tr key={hour} className={status === 'No disponible' ? 'table-danger' : ''}>
                 <td>{row.hour}</td>
                 <td>{status}</td>
-                <td></td>
                 {[1, 2, 3, 4].map((consultory) => (
                   <td key={consultory}>
                     <input
@@ -84,7 +84,7 @@ const FormReservations = ({ selectedDate }) => {
                       value={consultory}
                       defaultChecked={row.default === consultory}
                       onChange={() => handleRadioChange(row.hour, consultory)}
-                      disabled={row.consultories.includes(consultory)} // Deshabilitado si el consultorio está reservado
+                      disabled={row.consultories.includes(consultory)}
                     />
                   </td>
                 ))}
@@ -93,9 +93,9 @@ const FormReservations = ({ selectedDate }) => {
                     type="radio"
                     name={`consultory-${row.hour}`}
                     value="Ninguno"
-                    defaultChecked={true} // Marcado por defecto
+                    defaultChecked={true}
                     onChange={() => handleRadioChange(row.hour, 'Ninguno')}
-                    disabled={!isAvailable(row.consultories)} // Deshabilitado si no hay consultorios disponibles
+                    disabled={!isAvailable(row.consultories)}
                   />
                 </td>
               </tr>

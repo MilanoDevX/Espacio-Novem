@@ -12,7 +12,7 @@
   .table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
+    margin: 10px 0;
   }
   
   /* Encabezado de la tabla */
@@ -100,7 +100,8 @@
   /* Ajuste de tabla para pantallas más pequeñas */
   @media (max-width: 768px) {
     .table {
-      font-size: 12px;
+      font-size: 10px;
+      padding: 0px;
     }
   
     .btn-primary {
