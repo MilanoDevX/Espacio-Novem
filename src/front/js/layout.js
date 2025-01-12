@@ -12,6 +12,7 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import {InicioSesion} from "./component/login";
 import {ContactMap} from "./component/contactMap";
+import { UserProfile } from "./component/userProfile";
 
 //create your first component
 const Layout = () => {
@@ -21,10 +22,10 @@ const Layout = () => {
     
     if(!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL/ >;
     
-    const noNavbar = ["/inicioSesion"];
+    const noNavbar = ["/login", "/contactMap"];
     const hideNavbar = noNavbar.includes(location.pathname); //saque el navabar del iniciosesion
 
-    const noFooter = ["/contactMap"];
+    const noFooter = ["/contactMap", "/userProfile"];
     const hideFooter = noFooter.includes(location.pathname);
 
     return (
@@ -38,6 +39,7 @@ const Layout = () => {
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<InicioSesion />} path="/login" />
                         <Route element={<ContactMap />} path="/contactMap" />
+                        <Route element={<UserProfile/>} path="/userProfile"/>
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     {!hideFooter && <Footer />}

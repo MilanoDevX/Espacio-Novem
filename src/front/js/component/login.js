@@ -1,8 +1,17 @@
 import React from "react";
 import "../../styles/inicioSesion.css";
 import image from '../../img/image.png';
+import { useNavigate } from 'react-router-dom';
 
 export const InicioSesion = () => {
+  
+const navigate = useNavigate();
+
+    const handleNavigate = () => {
+        navigate('/contactMap');
+      };
+
+
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
       <div className="col-10 col-sm-8 col-md-6 col-lg-5 col-xl-4">
@@ -46,9 +55,9 @@ export const InicioSesion = () => {
               He olvidado la contraseña
             </label>
           </div>
-
+{/* tiene que ir a pagina principal */}
           <div className="d-flex justify-content-end">
-            <button type="submit" className="button-pastel">Ingresar</button>
+          <button className="button-pastel" onClick={handleNavigate}>Ingresar</button> 
           </div>
 
         </form>

@@ -1,7 +1,14 @@
 import React from "react";
 import "../../styles/contactMap.css";
+import { useNavigate } from 'react-router-dom';
 
 export const ContactMap = () => {
+    const navigate = useNavigate();
+
+    const handleNavigate = () => {
+        navigate('/login');
+      };
+
     return (
         <div className="contact-container">
             <div className="contact-info">
@@ -11,7 +18,7 @@ export const ContactMap = () => {
             <div className="contact-detail">
                 <i className="fa-brands fa-whatsapp"></i>+598 91 744 816
             </div>
-            
+
             <div className="contact-detail">
                 <i className="fa-regular fa-envelope"></i>
                 <a href="mailto:espacionovem@gmail.com">espacionovem@gmail.com</a>
@@ -19,7 +26,7 @@ export const ContactMap = () => {
 
             <div className="contact-detail">
                 <i className="fa-brands fa-instagram"></i>
-                <a href="https://www.instagram.com/espacio_novem" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a href="https://www.instagram.com/espacio_novem" target="_blank" rel="noopener noreferrer">Espacio_Novem</a>
             </div>
 
             <div className="contact-map-container">
@@ -32,6 +39,7 @@ export const ContactMap = () => {
                     referrerPolicy="no-referrer-when-downgrade"
                 ></iframe>
             </div>
+            <button className="btn" onClick={handleNavigate}>Volver</button>
         </div>
     );
 };
