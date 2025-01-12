@@ -1,10 +1,12 @@
+
+
 import React, { useState } from 'react';
 import '../../styles/calendar.css';
 
-
-const Calendar = () => {
+const Calendar = ({ onDateSelect }) => {
   const today = new Date();
   const [currentDate, setCurrentDate] = useState(new Date(today.getFullYear(), today.getMonth(), 1));
+  const [selectedDate, setSelectedDate] = useState(null); // Estado para el día seleccionado
 
   const getDaysInMonth = (year, month) => {
     return new Date(year, month + 1, 0).getDate();
@@ -12,10 +14,17 @@ const Calendar = () => {
 
   const handlePreviousMonth = () => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
+    setSelectedDate(null); // Reinicia selección si se cambia de mes
   };
 
   const handleNextMonth = () => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
+    setSelectedDate(null); // Reinicia selección si se cambia de mes
+  };
+
+  const handleDayClick = (date) => {
+    setSelectedDate(date); // Actualiza el estado del día seleccionado
+    onDateSelect(date.toISOString().split('T')[0]); // Devuelve la fecha seleccionada en formato YYYY-MM-DD
   };
 
   const renderDays = () => {
@@ -28,10 +37,15 @@ const Calendar = () => {
       days.push(<div key={`blank-${i}`} className="calendar-day blank"></div>);
     }
 
-    // Fill in the days of the month
     for (let day = 1; day <= daysInMonth; day++) {
+      const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+
       days.push(
-        <div key={`day-${day}`} className="calendar-day">
+        <div
+          key={`day-${day}`}
+          className={`calendar-day ${selectedDate?.getTime() === date.getTime() ? 'selected' : ''}`}
+          onClick={() => handleDayClick(date)}
+        >
           {day}
         </div>
       );

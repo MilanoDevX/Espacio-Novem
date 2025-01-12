@@ -1,0 +1,111 @@
+
+/* Estilo general para el contenedor del formulario */
+.form-reservations-container {
+    background-color: #F2E5D5; /* Fondo beige */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Estilo de la tabla */
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+  
+  /* Encabezado de la tabla */
+  .table thead {
+    background-color: #AFB796; /* Verde claro */
+    color: #6A7562; /* Verde oscuro */
+  }
+  
+  .table th {
+    text-align: center;
+    padding: 8px;
+  }
+  
+  /* Estilo para ajustar el ancho de las columnas */
+  .table th,
+  .table td {
+    padding: 8px;
+    text-align: center;
+    margin: 0 3px; /* Margen para justificar ancho */
+    word-break: break-word;
+  }
+  
+  /* Estilo para las filas */
+  .table tbody tr {
+    background-color: #FFFFFF; /* Blanco */
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Horas no disponibles */
+  .table-danger {
+    background-color: #DAB79F; /* Naranja tierra */
+    color: white;
+  }
+  
+  /* Consultorios no disponibles */
+  .table tbody tr td input[type="radio"]:disabled {
+    background-color: #DAB79F; /* Naranja tierra */
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    border: 1px solid #FFFFFF;
+    pointer-events: none;
+  }
+  
+  /* Resaltar filas al pasar el ratón */
+  .table tbody tr:hover {
+    background-color: #AFB796; /* Verde claro */
+    cursor: pointer;
+  }
+  
+  /* Estilo de los radios disponibles */
+  .table tbody tr td input[type="radio"]:enabled {
+    cursor: pointer;
+  }
+  
+  /* Botón */
+  .btn-primary {
+    background-color: #6A7562; /* Verde oscuro */
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    background-color: #AFB796; /* Verde claro */
+    color: #6A7562; /* Verde oscuro */
+  }
+  
+  /* Texto centrado */
+  .text-center {
+    text-align: center;
+  }
+  
+  /* Títulos */
+  h1, h2 {
+    color: #6A7562; /* Verde oscuro */
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+
+  /* Ajuste de tabla para pantallas más pequeñas */
+  @media (max-width: 768px) {
+    .table {
+      font-size: 12px;
+    }
+  
+    .btn-primary {
+      font-size: 14px;
+    }
+  }
+
+

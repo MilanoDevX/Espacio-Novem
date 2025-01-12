@@ -2,28 +2,30 @@ import React, { useState } from 'react';
 import Calendar from '../component/calendar';
 import FormReservations from '../component/formReservations';
 
-export const  Reservations = () => {
+export const Reservations = () => {
+    const [selectedDate, setSelectedDate] = useState(null);
+
+    const handleDateSelect = (date) => {
+        setSelectedDate(date);
+    };
 
     return (
-        <div className="d-flex justify-content-center">
-            <div className="flex-direction-column">
-                <h1 className="my-3 d-flex justify-content-center">CALENDAR</h1>
-                <div className="my-3">
-                    <Calendar/>
-                </div>
-                <div>
-                    <FormReservations/>
-                </div>
+        <div>
+            <div className="d-flex my-2 justify-content-center">
+                <h1>Gestión de Alquiler de Consultorios</h1>
             </div>
-            
-
-
-
-
-
-
+            <Calendar onDateSelect={handleDateSelect} />
+            {selectedDate && (
+                <div>
+                    <div className="d-flex mt-4 justify-content-center">
+                        <h2>Reservas para el {selectedDate}</h2>
+                    </div>
+                        <FormReservations selectedDate={selectedDate} />
+                </div>
+            )}
         </div>
-    )
-
+    );
 }
+
+
 

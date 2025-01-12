@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/formReservations.css';
 
-const FormReservations = () => {
+const FormReservations = ({ selectedDate }) => {
   const [schedule, setSchedule] = useState([]);
 
   // Simulación de datos desde el backend
@@ -9,20 +9,19 @@ const FormReservations = () => {
     const fetchData = async () => {
       // Aquí se haría una llamada real al backend
       const data = [
-        { user: 'natali', hour: '11:00', consultories: [1] },
-        { user: 'kate', hour: '11:00', consultories: [2] },
-        { user: 'fio', hour: '11:00', consultories: [3] },
-        { user: 'elias', hour: '11:00', consultories: [4] },
-        { user: 'natali', hour: '15:00', consultories: [1] },
-        { user: 'kate', hour: '16:00', consultories: [1, 2, 3, 4] },
-        { user: 'fio', hour: '17:00', consultories: [1, 4] },
-        { user: 'elias', hour: '18:00', consultories: [2, 3, 4] },
-        { user: 'natali', hour: '19:00', consultories: [] }
+        { user: 'natali', date: '2025-01-15', hour: '11:00', consultories: [1] },
+        { user: 'kate', date: '2025-01-15', hour: '11:00', consultories: [2] },
+        { user: 'fio', date: '2025-01-15', hour: '11:00', consultories: [3] },
+        { user: 'elias', date: '2025-01-15', hour: '11:00', consultories: [4] },
+        { user: 'natali', date: '2025-01-17', hour: '15:00', consultories: [1] },
+        { user: 'kate', date: '2025-01-17', hour: '16:00', consultories: [3] },
+        { user: 'fio', date: '2025-01-19', hour: '17:00', consultories: [4] },
+        { user: 'elias', date: '2025-01-19', hour: '18:00', consultories: [4] }
       ];
-      setSchedule(data);
+      setSchedule(data.filter((entry) => entry.date === selectedDate)); // Filtrar por la fecha seleccionada
     };
     fetchData();
-  }, []);
+  }, [selectedDate]);
 
   const allHours = [
     '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00',
@@ -54,9 +53,9 @@ const FormReservations = () => {
   const isAvailable = (consultories) => consultories.length < 4; // Disponible si no todos los consultorios están reservados
 
   return (
-    <div className="form-reservations-container container mt-5">
-      <table className="table table-striped table-bordered text-center">
-        <thead className="table-dark">
+    <div className="form-reservations-container container mt-2">
+      <table className="table table-bordered text-center">
+        <thead className="">
           <tr>
             <th>Horario</th>
             <th>Estado</th>
