@@ -1,0 +1,38 @@
+.footer {
+    padding: 20px;
+    background-color: #F2E5D5;
+    color: black;
+    text-align: center;
+  }
+  
+  .footer-title {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: center;
+    gap: 20px; 
+  }
+  
+  .footer-item {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+  }
+  
+  .footer-item i {
+    background-color: #DAB79F;
+    color: #39472f;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    padding: 10px;
+  }
+  
+  .footer-item p {
+    margin: 0;
+    font-size: 16px; 
+  }
+  
