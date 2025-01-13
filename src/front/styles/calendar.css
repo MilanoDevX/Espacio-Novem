@@ -1,0 +1,136 @@
+
+/* 
+.calendar-container {
+    width: 300px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .calendar-nav {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-top: 10px;
+  }
+  
+  .calendar-day {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .blank {
+    background-color: #f0f0f0;
+  } */
+
+  /* Contenedor principal del calendario */
+
+.calendar-container {
+  background-color: #F2E5D5; /* Beige */
+  border: 2px solid #6A7562; /* Verde oscuro */
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 400px;
+  margin: auto;
+  font-family: Arial, sans-serif;
+}
+
+/* Encabezado del calendario */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #6A7562; /* Verde oscuro */
+  margin-bottom: 10px;
+}
+
+.calendar-header h2 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.calendar-nav {
+  background-color: #AFB796; /* Verde claro */
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: #6A7562; /* Verde oscuro */
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.calendar-nav:hover {
+  background-color: #DAB79F; /* Naranja tierra */
+  color: #FFFFFF; /* Blanco */
+}
+
+/* Diseño de la cuadrícula del calendario */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+/* Días del calendario */
+.calendar-day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  background-color: #AFB796; /* Verde claro */
+  color: #6A7562; /* Verde oscuro */
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s ease;
+}
+
+.calendar-day:hover {
+  transform: scale(1.1); /* Efecto de zoom */
+  background-color: #DAB79F; /* Naranja tierra */
+  color: #FFFFFF; /* Blanco */
+}
+
+/* Día seleccionado */
+.calendar-day.selected {
+  background-color: #DAB79F; /* Naranja tierra */
+  color: #FFFFFF; /* Blanco */
+  font-weight: bold;
+  transform: scale(1.1); /* Efecto visual adicional */
+}
+
+/* Días vacíos (espacios en blanco) */
+.calendar-day.blank {
+  background-color: transparent;
+  cursor: default;
+}
+
+/* Adaptación móvil */
+@media (max-width: 600px) {
+  .calendar-container {
+    padding: 10px;
+  }
+
+  .calendar-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .calendar-day {
+    height: 40px;
+    font-size: 0.9rem;
+  }
+}
