@@ -57,6 +57,36 @@
     pointer-events: none;
   }
   
+  /* .input-color:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: white;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid #6c7562;
+}
+
+.input-color:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: #b0b796;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid #6c7562;
+} */
+
+  
+
   /* Resaltar filas al pasar el ratón */
   .table tbody tr:hover {
     background-color: #AFB796; /* Verde claro */
@@ -99,6 +129,10 @@
 
   /* Ajuste de tabla para pantallas más pequeñas */
   @media (max-width: 768px) {
+    .form-reservations-container {
+      padding: 10px;
+    }
+
     .table {
       font-size: 10px;
       padding: 0px;
@@ -107,6 +141,7 @@
     .btn-primary {
       font-size: 14px;
     }
+  
   }
 
 

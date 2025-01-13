@@ -52,7 +52,7 @@ const FormReservations = ({ selectedDate }) => {
   const isAvailable = (consultories) => consultories.length < 4;
 
   return (
-    <div className="form-reservations-container container mt-2">
+    <div className="form-reservations-container container">
       <table className="table table-bordered text-center">
         <thead>
           <tr>
@@ -79,6 +79,7 @@ const FormReservations = ({ selectedDate }) => {
                 {[1, 2, 3, 4].map((consultory) => (
                   <td key={consultory}>
                     <input
+                      className="input-color"
                       type="radio"
                       name={`consultory-${row.hour}`}
                       value={consultory}
@@ -89,7 +90,7 @@ const FormReservations = ({ selectedDate }) => {
                   </td>
                 ))}
                 <td>
-                  <input
+                  <input className="input-color"
                     type="radio"
                     name={`consultory-${row.hour}`}
                     value="Ninguno"

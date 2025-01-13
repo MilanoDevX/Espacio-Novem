@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Calendar from '../component/calendar';
 import FormReservations from '../component/formReservations';
@@ -20,7 +21,7 @@ export const Reservations = () => {
                     <div className="d-flex mt-4 justify-content-center">
                         <h2>Reservas para el {selectedDate}</h2>
                     </div>
-                    <div className="col-12 col-md-8 mx-auto mt-3">
+                    <div className="col-12 col-md-8 mx-auto mt-1">
                         <FormReservations selectedDate={selectedDate} />
                     </div>
                 </div>
@@ -28,6 +29,4 @@ export const Reservations = () => {
         </div>
     );
 }
-
-
 
