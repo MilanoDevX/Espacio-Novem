@@ -1,0 +1,38 @@
+.btn{
+    margin: 7px 7px 0 7px;
+    border-color: rgba(91, 73, 62, 0.5);
+    background-color: #6A7562;
+    color:#F2E5D5 ;
+    border-radius: 5px;
+
+}
+.offcanvas-header{
+    background-color: #6A7562;
+    color: #F2E5D5;
+}
+
+.offcanvas-body{
+    background-color: #F2E5D5;
+    color: #6A7562;
+    font-size: 15px;
+}
+.card{
+    border-radius: 8px;
+    border-color: #F2E5D5;
+    
+}
+
+.card-img-top {
+    width: 100%;
+    height: auto;
+  }
+  
+  .card-body.text-center {
+    text-align: center;
+  }
+  
+  
+  .card-body {
+    text-align: left;
+  }
+  
