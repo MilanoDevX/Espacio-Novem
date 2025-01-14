@@ -5,6 +5,54 @@
     one more css for each page that will contain the selected used 
     on that page only (the ones not reused in other pages).
 */
+body {
+  background-color: #F2E5D5;
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  height: 100vh; 
+  margin: 0; 
+   font-family: "Josefin Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal; 
+  
+  color: #5b493e;
+}
+
+
+
+.body-inicio {
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(91, 73, 62, 0.5); 
+}
+
+.button-pastel {
+  background-color:#DAB79F ; 
+  color: #5b493e; 
+  padding: 10px 20px;
+  border:#5b493e;
+  border-radius: 8px; 
+  font-size: 16px; 
+  font-weight: bold; 
+  cursor: pointer; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  transition: all 0.3s ease; 
+}
+
+.button-pastel:hover {
+  background-color: #d8a380; 
+}
+
+.logo-imagen {
+  max-width: 150px; 
+  border-radius: 50%; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); 
+}
+
+
+
 
 .navbarcolor{
     background: #6a7562;
