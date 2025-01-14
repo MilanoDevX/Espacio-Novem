@@ -6,7 +6,7 @@ import consultorio3 from "../../img/consultorio3.webp";
 
 export const Cards = () => {
     return (
-        <div className=" mt-5">
+        <div className=" m-5">
             <h3 className="text-center title-espacio fs-2 ">Nuestros consultorios</h3>
             <div className="d-flex justify-content-center align-item-center">
                 <div className="card mx-3">

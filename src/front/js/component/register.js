@@ -1,16 +1,14 @@
 import React, { useContext, useState } from "react";
 import "/src/front/styles/register.css";
-import { Navbar } from "./navbar";
+
 
 export const Register = () => {
     return (
 
         <>
-            <Navbar />
-
-            <div className="mx-auto pt-5 register">
+            <div className="mx-auto pt-3 register">
                 <div className="text-center pt-5">
-                    <h1 className="text-center register color p-5">Registrarse</h1>
+                    <h1 className="text-center">Registrarse</h1>
                 </div>
                 <div className="mb-2">
                     <div class="coolinput">

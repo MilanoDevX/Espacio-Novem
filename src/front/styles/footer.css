@@ -1,7 +1,7 @@
 .footer {
     padding: 20px;
-    background-color: #F2E5D5;
-    color: black;
+    background-color: #6a7562;
+    color: #F2E5D5;
     text-align: center;
   }
   
@@ -24,7 +24,7 @@
   }
   
   .footer-item i {
-    background-color: #DAB79F;
+    background-color:#F2E5D5;
     color: #39472f;
     border-radius: 50%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 

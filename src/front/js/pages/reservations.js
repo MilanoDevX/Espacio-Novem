@@ -12,8 +12,8 @@ export const Reservations = () => {
 
     return (
         <div>
-            <div className="d-flex my-2 justify-content-center">
-                <h1>Gestión de Alquiler de Consultorios</h1>
+            <div>
+                <h1 className='text-center'>Gestión de Alquiler de Consultorios</h1>
             </div>
             <Calendar onDateSelect={handleDateSelect} />
             {selectedDate && (

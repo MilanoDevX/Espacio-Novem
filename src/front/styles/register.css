@@ -21,7 +21,6 @@
     background-color: #6A7562 ;
   }
   .register{
-
     color:  #6A7562  ;
     width: 350px;
   }
@@ -45,7 +44,7 @@
   top: 0.5rem;
   margin: 0 0 0 7px;
   padding: 0 3px;
-  background: #fefcfc;
+  background-color: #fefcfc;
   width: fit-content;
 }
 
