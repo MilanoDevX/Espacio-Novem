@@ -11,55 +11,57 @@ export const Register = () => {
                     <h1 className="text-center">Registrarse</h1>
                 </div>
                 <div className="mb-2">
-                    <div class="coolinput">
-                        <label for="input" class="text">Nombre</label>
-                        <input type="text" placeholder="Escribe tu nombre aqui..." name="input" class="input" />
+                    <div className="coolinput">
+                        <label for="input" className="text">Nombre</label>
+                        <input type="text" placeholder="Escribe tu nombre aqui..." name="input" className="input" />
                     </div>
                 </div>
 
                 <div className="mb-2">
-                    <div class="coolinput">
-                        <label for="input" class="text">Apellido</label>
-                        <input type="text" placeholder="Escribe tu apellido aqui..." name="input" class="input" />
-                    </div>
-
-                </div>
-
-                <div className="mb-2">
-                    <div class="coolinput">
-                        <label for="input" class="text">Teléfono</label>
-                        <input type="text" placeholder="Escribe tu teléfono aquí..." name="input" class="input" />
-                    </div>
-                </div>
-                <div className="mb-2">
-                    <div class="coolinput">
-                        <label for="input" class="text">Corre Electronico</label>
-                        <input type="text" placeholder="Escribe tu correo  aqui..." name="input" class="input" />
+                    <div className="coolinput">
+                        <label for="input" className="text">Apellido</label>
+                        <input type="text" placeholder="Escribe tu apellido aqui..." name="input" className="input" />
                     </div>
 
                 </div>
 
                 <div className="mb-2">
-                    <div class="coolinput">
-                        <label for="input" class="text">Contraseña</label>
-                        <input type="text" placeholder="Escribe tu contraseña aqui..." name="input" class="input" />
+                    <div className="coolinput">
+                        <label for="input" className="text">Teléfono</label>
+                        <input type="text" placeholder="Escribe tu teléfono aquí..." name="input" className="input" />
+                    </div>
+                </div>
+                <div className="mb-2">
+                    <div className="coolinput">
+                        <label for="input" className="text">Corre Electronico</label>
+                        <input type="text" placeholder="Escribe tu correo  aqui..." name="input" className="input" />
+                    </div>
+
+                </div>
+
+                <div className="mb-2">
+                    <div className="coolinput">
+                        <label for="input" className="text">Contraseña</label>
+                        <input type="text" placeholder="Escribe tu contraseña aqui..." name="input" className="input" />
                         <span id="passwordHelpInline" className="form-text">
-                            Debe contener de 8 a 20 caracteres.
+                            Debe contener de 8 a 20 caracteres. <button className="btn eye ">
+                                <i className="fa fa-eye-slash"></i> : <i className="fa fa-eye"></i>
+                            </button>
                         </span>
-                        <button className="btn eye btn-outline">
-                            <i className="fa fa-eye-slash"></i> : <i className="fa fa-eye"></i>
-                        </button>
+
                     </div>
 
                 </div>
                 <div className="mb-3">
-                    <div class="coolinput">
-                        <label for="input" class="text">Confirmar Contraseña</label>
-                        <input type="text" placeholder="Escribe tu contraseña aqui..." name="input" class="input" />
+                    <div className="coolinput">
+                        <label for="input" className="text">Confirmar Contraseña</label>
+                        <input type="text" placeholder="Escribe tu contraseña aqui..." name="input" className="input" />
+                        <span id="passwordHelpInline" className="form-text">
+                            Debe contener de 8 a 20 caracteres. <button className="btn eye ">
+                                <i className="fa fa-eye-slash"></i> : <i className="fa fa-eye"></i>
+                            </button>
+                        </span>
 
-                        <button className="btn eye btn-outline">
-                            <i className="fa fa-eye-slash"></i> : <i className="fa fa-eye"></i>
-                        </button>
                     </div>
 
 

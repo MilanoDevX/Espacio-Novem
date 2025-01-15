@@ -35,4 +35,10 @@
   .card-body {
     text-align: left;
   }
-  
+  /* userProfile.css */
+.user-info {
+  background-color:  #F2E5D5; 
+  padding: 5px; 
+
+  border-radius: 5px; 
+}

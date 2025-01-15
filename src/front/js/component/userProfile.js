@@ -42,11 +42,11 @@ export const UserProfile = () => {
                 alt="avatar" 
               />
               <div className="card-body text-center">
-                <h5 className="card-name">Name</h5>
+                <h5 className="card-name user-info">Name</h5>
               </div>
-              <div className="card-body">
-                <p className="card-email">Email</p>
-                <p className="card-phonenumber">Phone</p>
+              <div className="card-body user-info">
+                <p className="card-email user-info">Email</p>
+                <p className="card-phonenumber user-info">Phone</p>
               </div>
             </div>
           </div>
