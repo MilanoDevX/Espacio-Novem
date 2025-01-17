@@ -104,7 +104,7 @@ const FormReservations = ({ selectedDate }) => {
           })}
         </tbody>
       </table>
-      <div className="text-center mt-3">
+      <div className="text-center my-0">
         <button className="btn btn-primary" onClick={handleScheduleSubmit}>Agendar</button>
       </div>
     </div>
