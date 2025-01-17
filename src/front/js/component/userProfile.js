@@ -4,17 +4,7 @@ import "../../styles/userProfile.css";
 export const UserProfile = () => {
   return (
     <>
-      <button 
-        type="button" 
-        className="btn" 
-        data-bs-toggle="offcanvas" 
-        href="#offcanvasExample" 
-        role="button" 
-        aria-controls="offcanvasExample"
-      >
-        Perfil del Usuario
-      </button>
-      
+     
       <div 
         className="offcanvas offcanvas-start" 
         tabIndex="-1" 

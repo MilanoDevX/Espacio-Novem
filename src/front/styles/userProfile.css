@@ -1,9 +1,17 @@
 .btn{
     margin: 7px 7px 0 7px;
     border-color: rgba(91, 73, 62, 0.5);
-    background-color: #6A7562;
+    background-color:#afb796;
     color:#F2E5D5 ;
     border-radius: 5px;
+
+}
+.btn2{
+  margin: 7px 7px 0 7px;
+  border-color: rgba(91, 73, 62, 0.5);
+  background-color:#afb796;
+  color:#F2E5D5 ;
+  border-radius: 5px;
 
 }
 .offcanvas-header{

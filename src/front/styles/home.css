@@ -167,3 +167,31 @@ a{
   .solicitar{
     background-color: #dbb79f;
   }
+  .custom-link {
+    text-decoration: none !important;
+  color: white;
+  
+  }
+  .custom-link:hover{
+    color:#dbb79f;
+    background-color: #afb796;
+  }
+  .custom-links{
+    text-decoration: none !important;
+    color: #F2E5D5;
+  }
+
+  
+  .custom-links:hover{
+   
+    color:#6a7562
+    
+  }
+  .uno{
+    background-color:#F2E5D5;
+
+  }
+  .dos{
+    background-color: #afb796;
+
+}
