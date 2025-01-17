@@ -1,8 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../../styles/home.css";
 
 export const Navbar = () => {
+  const navigate = useNavigate();
+  const handleRegister =()=>{
+navigate("/register")
+  };
+  const handleLogin =()=>{
+    navigate("/")
+      };
+      
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary navbarcolor" aria-label="Eleventh navbar example mx-5">
       <div className="container-fluid">
@@ -27,27 +36,27 @@ export const Navbar = () => {
                 <path d="M5 12l-2 0l9 -9l9 9l-2 0"></path>
                 <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
                 <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path>
-              </svg></span><Link className="custom-link" to={"/"}>Inicio</Link></a>
+              </svg></span><Link className="customs-link" to={"/"}>Inicio</Link></a>
             </li>
 
             <li className="nav-item">
               <a className="nav-link text-light anchor"><span className="d-lg-none me-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
                 <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
                 <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
-              </svg></span>  <Link className="custom-link" to={"/aboutUs"}>Quienes Somos</Link></a>
+              </svg></span>  <Link className="customs-link" to={"/aboutUs"}>Quienes Somos</Link></a>
             </li>
             <li className="nav-item">
               <a className="nav-link text-light anchor"><span className="d-lg-none me-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
                 <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
                 <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
-              </svg></span>  <Link className="custom-link" to={"/reservations"}>Reservas</Link></a>
+              </svg></span>  <Link className="customs-link" to={"/reservations"}>Reservas</Link></a>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a className="nav-link text-light anchor"><span className="d-lg-none me-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
                 <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
                 <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
               </svg></span>  <Link className="custom-link" to={"/reservations"}>Agenda</Link></a>
-            </li>
+            </li> */}
             <li className="nav-item">
 
               <a className="nav-link text-light anchor"><span className="d-lg-none me-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
@@ -55,13 +64,13 @@ export const Navbar = () => {
                 <path d="M9 21v-6a2 2 0 0 1 2 -2h2"></path>
                 <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
                 <path d="M20.2 20.2l1.8 1.8"></path>
-              </svg></span> <Link className="custom-link" to={"/"}>Consultorios</Link></a>
+              </svg></span> <Link className="customs-link" to={"/"}>Consultorios</Link></a>
             </li>
             <li className="nav-item">
               <a className="nav-link text-light anchor"><span className="d-lg-none me-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
                 <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"></path>
                 <path d="M3 7l9 6l9 -6"></path>
-              </svg></span><Link className="custom-link" to={"/contactMap"}>Contacto</Link></a>
+              </svg></span><Link className="customs-link" to={"/contactMap"}>Contacto</Link></a>
             </li>
           </ul>
 
@@ -104,9 +113,10 @@ export const Navbar = () => {
                   </div>
 
                   <div className="d-flex justify-content-end">
-                    <button className="btn2 btn-lg btn-primary"><Link className="custom-links" to={"/register"}>Registro</Link></button>
-
-                    <button className="btn2 btn-lg btn-primary">Ingresar</button>
+                  <button className="btn btn-lg btn-primary btndos"  onClick={handleRegister}>Registro</button>
+                    
+                    <button className="btn btn-lg btn-primary btndos" onClick={handleLogin}>Ingresar</button>
+                 
                   </div>
                 </form>
               </div>

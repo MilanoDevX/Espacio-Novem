@@ -1,7 +1,11 @@
 import React from "react";
 import "../../styles/userProfile.css";
-
+import { useNavigate } from "react-router-dom";
 export const UserProfile = () => {
+  const navigate = useNavigate();
+  const handleLogout = ()=>{
+    navigate("/")
+  }
   return (
     <>
      
@@ -13,7 +17,7 @@ export const UserProfile = () => {
       >
         <div className="offcanvas-header">
           <h5 className="offcanvas-title" id="offcanvasExampleLabel">
-            Perfil del Usuario
+            Perfil del Usuario 🟢
           </h5>
           <button 
             type="button" 
@@ -38,6 +42,12 @@ export const UserProfile = () => {
                 <p className="card-email user-info">Email</p>
                 <p className="card-phonenumber user-info">Phone</p>
               </div>
+              <button 
+              className="btn btn-danger mt-3" 
+              onClick={handleLogout}
+            >
+              Cerrar sesión
+            </button>
             </div>
           </div>
         </div>
