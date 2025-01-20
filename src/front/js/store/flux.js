@@ -1,10 +1,10 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			user:null
+			user: null
 		},
 		actions: {
-			
+
 			signup: async (user) => {
 				try {
 					// fetching data from the backend
@@ -14,9 +14,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						body: JSON.stringify(user)
 
 					})
-					console.log(resp.status)
-					if (resp.status == 201) {
 
+					if (resp.status == 201) {
 						return true;
 					} else {
 						return false
