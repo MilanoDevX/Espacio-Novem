@@ -88,7 +88,7 @@ export const Register = () => {
             }
 
             let resp = await actions.signup(newUser)
-        
+
             // if (resp) {
             //     let userLogin = {
             //         email: email,
@@ -156,38 +156,67 @@ export const Register = () => {
                 </div>
 
                 <div className="mb-2">
-                    <div className="coolinput">
-                        <label htmlFor="input" className="text">Contraseña</label>
-                        <input type="text" value={password} onChange={(event) => setPassword(event.target.value)} id="inputPassword5" placeholder="Escribe tu contraseña aqui..." name="input" className="input" />
-                        <span id="passwordHelpInline" className="form-text">
-                            Debe contener de 8 a 20 caracteres. <button className="btn eye ">
-                                <i className="fa fa-eye-slash"></i> : <i className="fa fa-eye"></i>
+                    <div className="coolinput password-input">
+                        <label htmlFor="inputPassword5" className="text">Contraseña</label>
+                        <div className="input-container">
+                            <input
+                                type={shown ? "text" : "password"}
+                                value={password}
+                                onChange={(event) => setPassword(event.target.value)}
+                                id="inputPassword5"
+                                placeholder="Escribe tu contraseña aquí..."
+                                name="input"
+                                className="input"
+                            />
+                            <button
+                                type="button"
+                                className="eye"
+                                onClick={switchShown}
+                            >
+                                <i className={`fa ${shown ? "fa-eye" : "fa-eye-slash"}`}></i>
                             </button>
+                        </div>
+                        <span id="passwordHelpInline" className="form-text">
+                            Debe contener de 8 a 20 caracteres.
                         </span>
-
                     </div>
-
                 </div>
+
                 <div className="mb-3">
-                    <div className="coolinput">
-                        <label htmlFor="input" className="text">Confirmar Contraseña</label>
-                        <input type="text" value={confirmar} onChange={(event) => setConfirmar(event.target.value)} id="inputPassword6" placeholder="Escribe tu contraseña aqui..." name="input" className="input" />
-                        <span id="passwordHelpInline" className="form-text">
-                            Debe contener de 8 a 20 caracteres. <button className="btn eye ">
-                                <i className="fa fa-eye-slash"></i> : <i className="fa fa-eye"></i>
+                    <div className="coolinput password-input">
+                        <label htmlFor="inputPassword6" className="text">Confirmar Contraseña</label>
+                        <div className="input-container">
+                            <input
+                                type={shown ? "text" : "password"}
+                                value={confirmar}
+                                onChange={(event) => setConfirmar(event.target.value)}
+                                id="inputPassword6"
+                                placeholder="Escribe tu contraseña aquí..."
+                                name="input"
+                                className="input"
+                            />
+                            <button
+                                type="button"
+                                className="eye"
+                                onClick={switchShown}
+                            >
+                                <i className={`fa ${shown ? "fa-eye" : "fa-eye-slash"}`}></i>
                             </button>
+                        </div>
+                        <span id="passwordHelpInline" className="form-text">
+                            Debe contener de 8 a 20 caracteres.
                         </span>
-
                     </div>
-
-
                 </div>
-                <div className="text-center mb-4">
-                    <button type="button" className="boton " onClick={(event) => signup(event)}>Registrarse</button>
-                    <button type="button" className="boton " onClick={volver}>Volver</button>
-                </div>
+
 
             </div>
+            <div className="text-center mb-4">
+                <button type="button" className="boton " onClick={(event) => signup(event)}>Registrarse</button>
+                <button type="button" className="boton " onClick={volver}>Volver</button>
+            </div>
+
+        
         </>
     );
 };
