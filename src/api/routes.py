@@ -20,3 +20,27 @@ def handle_hello():
     }
 
     return jsonify(response_body), 200
+
+@api.route('/login', methods=['POST'])
+def login():
+    data= request.json
+    #info desde el frontend
+    email = data.get("email", None)
+    password = data.get("password", None)
+
+    user=User.query.filter_by(email=email).one_or_none()
+
+    if user == None:
+        return jsonify({"msg": f"Bad email or password"}), 404
+
+    if email != user.email or password != user.password:
+        return jsonify({"msg": "Bad username or password"}), 401
+    access_token = create_access_token(identity=email)
+    return jsonify(access_token=access_token, user=user.serialize()),200
+
+@api.route('/user/profile', methods=['GET'])
+    @jwt_required()
+   def get_user_profile():
+    email = get_jwt_identity()
+    user = User.query.filter_by(email=email).first()
+    return jsonify(user.serialize()), 200

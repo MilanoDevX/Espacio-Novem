@@ -48,6 +48,7 @@ export const UserProfile = () => {
                 <p className="card-email">Email</p>
                 <p className="card-phonenumber">Phone</p>
               </div>
+              <button className="btn btn-danger mt-3" onClick={() => console.log("Cerrar sesión")}>Cerrar sesión</button>
             </div>
           </div>
         </div>
