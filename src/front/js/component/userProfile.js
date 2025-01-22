@@ -1,20 +1,14 @@
 import React from "react";
 import "../../styles/userProfile.css";
-
+import { useNavigate } from "react-router-dom";
 export const UserProfile = () => {
+  const navigate = useNavigate();
+  const handleLogout = ()=>{
+    navigate("/")
+  }
   return (
     <>
-      <button 
-        type="button" 
-        className="btn" 
-        data-bs-toggle="offcanvas" 
-        href="#offcanvasExample" 
-        role="button" 
-        aria-controls="offcanvasExample"
-      >
-        Perfil del Usuario
-      </button>
-      
+     
       <div 
         className="offcanvas offcanvas-start" 
         tabIndex="-1" 
@@ -23,7 +17,7 @@ export const UserProfile = () => {
       >
         <div className="offcanvas-header">
           <h5 className="offcanvas-title" id="offcanvasExampleLabel">
-            Perfil del Usuario
+            Perfil del Usuario 🟢
           </h5>
           <button 
             type="button" 
@@ -42,12 +36,18 @@ export const UserProfile = () => {
                 alt="avatar" 
               />
               <div className="card-body text-center">
-                <h5 className="card-name">Name</h5>
+                <h5 className="card-name user-info">Name</h5>
               </div>
-              <div className="card-body">
-                <p className="card-email">Email</p>
-                <p className="card-phonenumber">Phone</p>
+              <div className="card-body user-info">
+                <p className="card-email user-info">Email</p>
+                <p className="card-phonenumber user-info">Phone</p>
               </div>
+              <button 
+              className="btn btn-danger mt-3" 
+              onClick={handleLogout}
+            >
+              Cerrar sesión
+            </button>
             </div>
           </div>
         </div>

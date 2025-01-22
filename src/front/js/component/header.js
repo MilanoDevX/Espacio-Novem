@@ -6,7 +6,8 @@ import { Benefits } from "./benefits";
 
 
 export const Header = () => {
-	return (<>
+	return (
+	<>
 		<div className="header d-flex flex-lg-row flex-column justify-content-center align-items-center">
 			<div className="title-espacio me-lg-5 mb-4 mb-lg-0">
 				<h1>Espacio</h1>
