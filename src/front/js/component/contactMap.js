@@ -7,7 +7,7 @@ export const ContactMap = () => {
 
     const handleNavigate = () => {
         navigate('/');
-      };
+    };
 
     return (
         <div className="contact-container">
@@ -16,8 +16,12 @@ export const ContactMap = () => {
             </div>
 
             <div className="contact-detail">
-                <i className="fa-brands fa-whatsapp"></i>+598 91 744 816
+                <i className="fa-brands fa-whatsapp"></i>
+                <a href="https://wa.me/59891744816" target="_blank" rel="noopener noreferrer">
+                    +598 91 744 816
+                </a>
             </div>
+
 
             <div className="contact-detail">
                 <i className="fa-regular fa-envelope"></i>
