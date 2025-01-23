@@ -28,12 +28,12 @@ export const Register = () => {
 
     const mensaje = (titulo) => {
         Swal.fire({
-            icon: "Error",
+            icon: "error", // Cambiado a minúsculas
             title: "Error de ingreso",
             text: titulo,
-
         });
-    }
+    };
+    
 
     const chequeo = () => {
         if (name == "") {
