@@ -6,6 +6,7 @@ const Calendar = ({ onDateSelect }) => {
   const today = new Date();
   const [currentDate, setCurrentDate] = useState(new Date(today.getFullYear(), today.getMonth(), 1));
   const [selectedDate, setSelectedDate] = useState(null); // Estado para el día seleccionado
+  console.log('Hoy es ' + today);
 
   const getDaysInMonth = (year, month) => {
     return new Date(year, month + 1, 0).getDate();

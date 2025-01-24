@@ -12,17 +12,18 @@ export const Reservations = () => {
 
     return (
         <div>
-            <div className="pt-4 pb-0 mb-0">
-                <h2 className="text-center">Gestión de Alquiler de Consultorios</h2>
+            <div className="pt-3 pb-0 mb-0">
+                <h2 className="text-center">Reservas de Consultorios</h2>
+                <h3 className="text-center mt-2">Disponibilidad para día 24/01/2025</h3>
             </div>
-            <div className="d-flex justify-content-center mb-3">
-                <div className="d-flex flex-column flex-md-row justify-content-center align-items-center mt-1 col-8">
+            <div className="container">
+                <div className="row d-flex align-items-center justify-content-center mb-3">
                     {/* Contenedor del calendario */}
-                    <div className="p-2 w-50 w-md-50 ">
+                    <div className="col-lg-4 col-12 mb-3 mb-lg-0">
                         <Calendar onDateSelect={handleDateSelect} selectedDate={selectedDate} />
                     </div>
                     {/* Contenedor del formulario */}
-                    <div className="p-0 w-75 w-md-50">
+                    <div className="col-lg-6 col-12">
                         <FormReservations selectedDate={selectedDate} />
                     </div>
                 </div>

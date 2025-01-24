@@ -120,7 +120,7 @@
 }
 
 /* Adaptación móvil */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .calendar-container {
     padding: 10px;
   }

@@ -6,7 +6,7 @@
     border: 2px solid #6A7562; /* Verde oscuro */
     border-radius: 10px;
     font-family: Arial, sans-serif;
-    width: 80%;
+    width: 95%;
   }
   
   /* Estilo de la tabla */
@@ -127,8 +127,14 @@
     color: #6A7562; /* Verde oscuro */
     font-weight: bold;
     margin-bottom: 0px;
-    font-size: 50px;
+    font-size: 40px;
   }
+
+  h3 {
+    color: #6A7562; /* Verde oscuro */
+    font-weight: bold;
+  }
+
   
 
   /* Ajuste de tabla para pantallas más pequeñas */
