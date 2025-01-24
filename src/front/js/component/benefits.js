@@ -33,7 +33,7 @@ export const Benefits = () => {
 
                     <div className="d-flex justify-content-center align-items-center  ">
 
-                        <h4 className="benefit-name my-0 me-1"><i class="fa-solid fa-wifi fa-2xl" style={{ color: "#ffffff;" }}></i></h4>
+                        <h4 className="benefit-name my-0 me-1"><i className="fa-solid fa-wifi fa-2xl" ></i></h4>
                         <div>
                             <h4 className="benefit-name my-0">Acceso a Wifi</h4>
                             <p className="benefit-description my-0">Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>

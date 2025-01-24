@@ -6,7 +6,7 @@ export const ContactMap = () => {
     const navigate = useNavigate();
 
     const handleNavigate = () => {
-        navigate('/login');
+        navigate('/');
       };
 
     return (
