@@ -7,7 +7,7 @@ import consultorio3 from "../../img/consultorio3.webp";
 export const Cards = () => {
     return (
         <div className=" m-5">
-            <h3 className="text-center title-espacio fs-2 ">Nuestros consultorios</h3>
+            <h3 className="text-center title-espacio fs-2">Nuestros consultorios</h3>
             <div className="d-flex justify-content-center align-item-center">
                 <div className="card mx-3">
                     <div>
@@ -17,7 +17,7 @@ export const Cards = () => {
                     <div className="heading">
                         A heading that must span over two lines
                     </div>
-                    <button className="btn solicitar text-light">Consultar</button>
+                    <a href="/office1" className="btn solicitar text-light">Consultar</a>
                 </div>
 
                 <div className="card mx-3">
@@ -28,7 +28,7 @@ export const Cards = () => {
                     <div className="heading">
                         A heading that must span over two lines
                     </div>
-                    <button className="btn solicitar text-light">Consultar</button>
+                    <a href="/office2" className="btn solicitar text-light">Consultar</a>
                 </div>
 
                 <div className="card mx-3">
@@ -39,10 +39,9 @@ export const Cards = () => {
                     <div className="heading">
                         A heading that must span over two lines
                     </div>
-                    <button className="btn solicitar text-light">Consultar</button>
+                    <a href="/office3" className="btn solicitar text-light">Consultar</a>
                 </div>
             </div>
-
         </div>
     );
 };

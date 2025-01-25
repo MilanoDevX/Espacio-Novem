@@ -75,8 +75,8 @@ export const Navbar = () => {
             </li> */}
 
 
-            <li className="nav-item">
-              <Link className="nav-link text-light anchor" to="/">
+            {/* <li className="nav-item">
+              <Link className="nav-link text-light anchor" to="/consultories">
                 <span className="d-lg-none me-1">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" width="24" height="24" strokeWidth="2">
                     <path d="M21 12l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h4.7"></path>
@@ -87,7 +87,7 @@ export const Navbar = () => {
                 </span>
                 Consultorios
               </Link>
-            </li>
+            </li> */}
             <li className="nav-item">
               <Link className="nav-link text-light anchor" to="/contactMap">
                 <span className="d-lg-none me-1">
