@@ -59,7 +59,7 @@ const FormReservations = ({ selectedDate }) => {
             <th rowSpan="2" className="align-middle">Horario</th>
             <th rowSpan="2" className="align-middle">Estado</th>
             <th colSpan="4">Consultorios</th>
-            <th rowSpan="2" className="align-middle">Ninguno</th>
+            <th rowSpan="2" className="align-middle">NA</th>
           </tr>
           <tr>
             {[1, 2, 3, 4].map((consultory) => (
@@ -73,7 +73,7 @@ const FormReservations = ({ selectedDate }) => {
             const status = isAvailable(row.consultories) ? 'Disponible' : 'No disponible';
 
             return (
-              <tr key={hour} className={status === 'No disponible' ? 'table-danger' : ''}>
+              <tr key={hour} className={status === 'No disponible' ? 'no-available' : ''}>
                 <td>{row.hour}</td>
                 <td>{status}</td>
                 {[1, 2, 3, 4].map((consultory) => (
@@ -105,7 +105,7 @@ const FormReservations = ({ selectedDate }) => {
         </tbody>
       </table>
       <div className="text-center my-0">
-        <button className="btn btn-primary" onClick={handleScheduleSubmit}>Agendar</button>
+        <button className="btn reservation-button" onClick={handleScheduleSubmit}>Agendar</button>
       </div>
     </div>
   );

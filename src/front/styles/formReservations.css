@@ -1,158 +1,140 @@
-
 /* Estilo general para el contenedor del formulario */
 .form-reservations-container {
-    background-color: #F2E5D5; /* Fondo beige */
-    padding: 15px;
-    border: 2px solid #6A7562; /* Verde oscuro */
-    border-radius: 10px;
-    font-family: Arial, sans-serif;
-    width: 95%;
-  }
-  
-  /* Estilo de la tabla */
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 10px 0;
-  }
-  
-  /* Encabezado de la tabla */
-  .table thead {
-    background-color: #6A7562; /* Verde claro */
-    color: #F2E5D5; /* Verde oscuro */
-  }
-  
-  .table th {
-    text-align: center;
-    padding: 3px;
-  }
-  
-  /* Estilo para ajustar el ancho de las columnas */
-  .table th,
-  .table td {
-    padding: 3px;
-    text-align: center;
-    margin: 0px; /* Margen para justificar ancho */
-    word-break: break-word;
-  }
-  
-  /* Estilo para las filas */
-  .table tbody tr {
-   /* background-color: rgb(194, 194, 215); Lila */
-  background-color: #AFB796;
-    transition: background-color 0.3s ease;
-  }
-  
-  /* Horas no disponibles */
-  .table-danger {
-    background-color: #DAB79F; /* Naranja tierra */
-    color: white;
-  }
-  
-  /* Consultorios no disponibles */
-  .table tbody tr td input[type="radio"]:disabled {
-    background-color: #DAB79F; /* Naranja tierra */
-    border-radius: 50%;
-    width: 15px;
-    height: 15px;
-    border: 1px solid #FFFFFF;
-    pointer-events: none;
-  }
-  
-  /* .input-color:after {
-    width: 15px;
-    height: 15px;
-    border-radius: 15px;
-    top: -2px;
-    left: -1px;
-    position: relative;
-    background-color: white;
-    content: '';
-    display: inline-block;
-    visibility: visible;
-    border: 2px solid #6c7562;
+  background-color: #F2E5D5; /* Fondo beige */
+  padding: 15px;
+  border: 2px solid #6A7562; /* Verde oscuro */
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+  width: 95%;
 }
 
-.input-color:checked:after {
-    width: 15px;
-    height: 15px;
-    border-radius: 15px;
-    top: -2px;
-    left: -1px;
-    position: relative;
-    background-color: #b0b796;
-    content: '';
-    display: inline-block;
-    visibility: visible;
-    border: 2px solid #6c7562;
-} */
+/* Estilo de la tabla */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+}
 
-  
+/* Encabezado de la tabla */
+.table thead {
+  background-color: #6A7562; /* Verde oscuro */
+  color: #F2E5D5; /* Beige */
+}
 
-  /* Resaltar filas al pasar el ratón */
-  .table tbody tr:hover {
-    /* background-color: #AFB796; Verde claro */
-    background-color: #DAB79F; /* naranja tierra */
-    cursor: pointer;
+.table th {
+  text-align: center;
+  padding: 3px;
+}
+
+/* Estilo para ajustar el ancho de las columnas */
+.table th,
+.table td {
+  padding: 3px;
+  text-align: center;
+  margin: 0px; /* Margen para justificar ancho */
+  word-break: break-word;
+}
+
+/* Estilo para las filas */
+.table tbody tr {
+  /* background-color: rgb(194, 194, 215); Lila */
+  background-color: #AFB796;  /* Verde claro */
+  transition: background-color 0.3s ease;
+}
+
+/* Resaltar filas al pasar el ratón */
+.table tbody tr:hover {
+  background-color: #DAB79F;  /* naranja tierra */
+  cursor: pointer;
+}
+
+/* Horas no disponibles */
+.no-available td {
+  background-color: rgb(172, 169, 169); /* gris */
+  color: white;
+}
+
+/* Estilo de los radios disponibles */
+.table tbody tr td input[type="radio"]:enabled {
+  cursor: pointer;
+}
+
+/* Cambiar color del interior de los radios seleccionados */
+.table tbody tr td input[type="radio"]:checked {
+  accent-color: rgb(179, 110, 67);
+}
+
+/* Estilo de los radios no disponibles */
+.table tbody tr td input[type="radio"]:disabled {
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* Botón */
+.reservation-button {
+  background-color: #6A7562; /* verde oscuro */
+  /* Verde oscuro */
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.reservation-button:hover {
+  background-color: #AFB796;  /* Verde claro */
+  color: #6A7562;  /* Verde oscuro */
+}
+
+/* Texto centrado */
+.text-center {
+  text-align: center;
+}
+
+/* Títulos */
+h1,
+h2 {
+  color: #6A7562;  /* Verde oscuro */
+  font-weight: bold;
+  margin-bottom: 0px;
+  font-size: 40px;
+}
+
+h3 {
+  color: #6A7562;  /* Verde oscuro */
+  font-weight: bold;
+}
+
+
+
+/* Ajuste de tabla para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .form-reservations-container {
+    padding: 10px;
+    width: auto;
   }
-  
+
+  .table {
+    font-size: 12px;
+    padding: 0px;
+  }
+
+  .reservation-button {
+    font-size: 14px;
+  }
+
+  /* Ajustar texto en celdas */
+.table th,
+.table td {
+  padding: 5px 8px 0px 8px;
+  text-align: center;
+}
+
   /* Estilo de los radios disponibles */
-  .table tbody tr td input[type="radio"]:enabled {
-    cursor: pointer;
-  }
-  
-  /* Botón */
-  .btn-primary {
-    background-color: #6A7562; /* Verde oscuro */
-    border: none;
-    padding: 10px 20px;
-    color: white;
-    font-size: 16px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .btn-primary:hover {
-    background-color: #AFB796; /* Verde claro */
-    color: #6A7562; /* Verde oscuro */
-  }
-  
-  /* Texto centrado */
-  .text-center {
-    text-align: center;
-  }
-  
-  /* Títulos */
-  h1, h2 {
-    color: #6A7562; /* Verde oscuro */
-    font-weight: bold;
-    margin-bottom: 0px;
-    font-size: 40px;
-  }
-
-  h3 {
-    color: #6A7562; /* Verde oscuro */
-    font-weight: bold;
-  }
-
-  
-
-  /* Ajuste de tabla para pantallas más pequeñas */
-  @media (max-width: 768px) {
-    .form-reservations-container {
-      padding: 10px;
-      width:auto;
-    }
-
-    .table {
-      font-size: 10px;
-      padding: 0px;
-    }
-  
-    .btn-primary {
-      font-size: 14px;
-    }
-  
-  }
+.table tbody tr td input[type="radio"]:enabled {
+  cursor: pointer;
+}
 
 
+}
