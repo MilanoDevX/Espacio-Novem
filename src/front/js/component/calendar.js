@@ -1,35 +1,44 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { format, addMonths, subMonths, startOfMonth, getDaysInMonth, getDay } from 'date-fns';
 import '../../styles/calendar.css';
 
 const Calendar = ({ onDateSelect }) => {
   const today = new Date();
-  const [currentDate, setCurrentDate] = useState(new Date(today.getFullYear(), today.getMonth(), 1));
-  const [selectedDate, setSelectedDate] = useState(null); // Estado para el día seleccionado
-  console.log('Hoy es ' + today);
+  const [currentDate, setCurrentDate] = useState(startOfMonth(today));
+  const [selectedDate, setSelectedDate] = useState(today); // Estado para el día seleccionado, inicializado con la fecha actual
 
-  const getDaysInMonth = (year, month) => {
-    return new Date(year, month + 1, 0).getDate();
-  };
+  useEffect(() => {
+    onDateSelect(format(today, 'yyyy-MM-dd')); // Selecciona la fecha actual al renderizar la página
+  }, [onDateSelect, today]);
 
   const handlePreviousMonth = () => {
-    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
+    setCurrentDate(subMonths(currentDate, 1));
     setSelectedDate(null); // Reinicia selección si se cambia de mes
   };
 
   const handleNextMonth = () => {
-    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
+    setCurrentDate(addMonths(currentDate, 1));
     setSelectedDate(null); // Reinicia selección si se cambia de mes
   };
 
   const handleDayClick = (date) => {
     setSelectedDate(date); // Actualiza el estado del día seleccionado
-    onDateSelect(date.toISOString().split('T')[0]); // Devuelve la fecha seleccionada en formato YYYY-MM-DD
+    onDateSelect(format(date, 'yyyy-MM-dd')); // Devuelve la fecha seleccionada en formato YYYY-MM-DD
+  };
+
+  const renderDaysOfWeek = () => {
+    const daysOfWeek = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+    return daysOfWeek.map((day, index) => (
+      <div key={`dayOfWeek-${index}`} className="calendar-day-of-week">
+        {day}
+      </div>
+    ));
   };
 
   const renderDays = () => {
-    const daysInMonth = getDaysInMonth(currentDate.getFullYear(), currentDate.getMonth());
-    const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
+    const daysInMonth = getDaysInMonth(currentDate);
+    const firstDayOfMonth = getDay(startOfMonth(currentDate));
     const days = [];
 
     // Fill in blank spaces for the first week
@@ -68,7 +77,11 @@ const Calendar = ({ onDateSelect }) => {
         </h2>
         <button onClick={handleNextMonth} className="calendar-nav">&#8594;</button>
       </div>
+      <div className="calendar-days-of-week">
+        {renderDaysOfWeek()}
+      </div>
       <div className="calendar-grid">
+        
         {renderDays()}
       </div>
     </div>
@@ -76,5 +89,3 @@ const Calendar = ({ onDateSelect }) => {
 };
 
 export default Calendar;
-
-

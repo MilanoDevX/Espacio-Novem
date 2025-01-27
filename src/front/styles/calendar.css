@@ -54,12 +54,29 @@
   justify-content: space-between;
   align-items: center;
   color: #6A7562; /* Verde oscuro */
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 
 .calendar-header h2 {
   font-size: 1.5rem;
   margin: 0;
+}
+
+.calendar-day-of-week {
+  width: 46px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  color: #6A7562; /* Verde oscuro */
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.calendar-days-of-week {
+  display: flex;
+  justify-content: space-between;
+
 }
 
 .calendar-nav {
@@ -83,6 +100,7 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 5px;
+  
 }
 
 /* Días del calendario */
@@ -133,4 +151,8 @@
     height: 40px;
     font-size: 0.9rem;
   }
+}
+
+.calendar-day-of-week {
+  font-size: 1rem;
 }
