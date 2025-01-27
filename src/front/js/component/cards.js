@@ -93,7 +93,7 @@ export const Cards = () => {
                                     onClick={() => toggleModal(null)}
                                 ></button>
                             </div>
-                            <div className="modal-body d-flex flex-column flex-md-row align-items-center" style={{backgroundColor: "#F2E5D5"}}>
+                            <div className="modal-body d-flex flex-column flex-md-row align-items-center" style={{ backgroundColor: "#F2E5D5" }}>
                                 <img
                                     src={selectedOffice.img}
                                     alt={selectedOffice.name}
@@ -103,8 +103,8 @@ export const Cards = () => {
                                         width: "100%",
                                         maxWidth: "300px",
                                         height: "auto",
-                                      
-                                    
+
+
                                     }}
                                 />
                                 <div className="ms-md-3">
@@ -113,7 +113,7 @@ export const Cards = () => {
                                     <p>{selectedOffice.description}</p>
                                 </div>
                             </div>
-                            <div className="modal-footer"style={{backgroundColor: "#F2E5D5"}}>
+                            <div className="modal-footer" style={{ backgroundColor: "#F2E5D5" }}>
                                 <button
                                     type="button"
                                     className="btn btn-secondary"
