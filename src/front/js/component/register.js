@@ -12,7 +12,7 @@ export const Register = () => {
 
     const navigate = useNavigate();
     const volver = () => {
-        navigate(-1);
+        navigate("/");
     };
 
 

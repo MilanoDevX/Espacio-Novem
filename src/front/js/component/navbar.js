@@ -7,32 +7,20 @@ import { Context } from "../store/appContext";
 
 export const Navbar = () => {
  
-const navigate = useNavigate();
-const { store, actions } = useContext(Context);
+  const navigate = useNavigate(); 
+  const { actions } = useContext(Context);
 
-    const handleNavigate = () => {
-        navigate('/contactMap');
-      };
-      
-  const [user, setUser] = useState({ email: "" })
+  
+  const [user, setUser] = useState({ email: "" });
 
-  const loginUser = async () => {
-    const resp = await actions.login(user)
-    if (resp.status && !resp.rol) {
-      navigate("/menu")
-    }
+  const registerUser = () => {
+    navigate("/register"); 
+  };
 
-    if (resp) {
-      console.log(store.user)
-      if(store.user.is_admin){
-        navigate("/admin")
-      }
-      
-      if(user.email == "espacionovem@gmail.com"){
-        navigate("/admin")
-      }
-    }
-  }
+
+  const loginUser = () => {
+    navigate("/send-email"); 
+  };
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary navbarcolor" aria-label="Eleventh navbar example mx-5">
       <div className="container-fluid">
@@ -117,14 +105,14 @@ const { store, actions } = useContext(Context);
               Inicio Sesión
             </button>
             <ul className="dropdown-menu dos">
-              <div className="card-login p-3 dos" style={{ width: '25rem' }}>
-                <form className="body-inicio">
+              <div className="card-login p-3 dos " style={{ width: '25rem' }}>
+                <form className="body-inicio uno">
                   <div className="mb-4">
                     <label htmlFor="exampleInputEmail1" className="form-label">Correo Electrónico</label>
                     <input
                       type="email"
                       value={user.email || ""}
-                      className="form-control form-control-lg"
+                      className="form-control form-control-lg dos"
                       id="exampleInputEmail1"
                       aria-describedby="emailHelp"
                       onChange={event => setUser({
@@ -139,7 +127,7 @@ const { store, actions } = useContext(Context);
                     <input
                       type="password"
                       value={user.password || ""}
-                      className="form-control form-control-lg"
+                      className="form-control form-control-lg dos"
                       id="exampleInputPassword1"
                       onChange={event => setUser({
                         ...user,
@@ -149,17 +137,20 @@ const { store, actions } = useContext(Context);
                   </div>
 
                   <div className="mb-4 form-check">
-                    <Link to={"/register"} className="custom-link trans">
+                    <Link to={"/send-email"} className="custom-link trans">
                       <p className="">¿Olvidaste tu contraseña?</p>
                     </Link>
                   </div>
+                  <div className="d-flex justify-content-end ">
+                  <div className="d-flex justify-content-end m-2 ">
+          <button className="button-pastel btndos"onClick={registerUser}>Registro</button>
+          </div>
                   {/* tiene que ir a pagina principal */}
-                  <div className="d-flex justify-content-end">
-                    <button className="button-pastel" onClick={() =>
-                      loginUser()
-                    } >Ingresar</button>
+                  <div className="d-flex justify-content-end m-2">
+                    <button className="button-pastel btndos" 
+                      onClick={loginUser}>Ingresar</button>
                   </div>
-
+                  </div>
                 </form>
               </div>
             </ul>
@@ -168,4 +159,4 @@ const { store, actions } = useContext(Context);
       </div>
     </nav>
   );
-};
+}
