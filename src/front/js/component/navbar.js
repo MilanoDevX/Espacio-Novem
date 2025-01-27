@@ -1,17 +1,38 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import "../../styles/inicioSesion.css";
+import image from '../../img/image.png';
+import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import "../../styles/home.css";
+import { Context } from "../store/appContext";
 
 export const Navbar = () => {
-  const navigate = useNavigate();
-  const handleRegister = () => {
-    navigate("/register")
-  };
-  const handleLogin = () => {
-    navigate("/")
-  };
+ 
+const navigate = useNavigate();
+const { store, actions } = useContext(Context);
 
+    const handleNavigate = () => {
+        navigate('/contactMap');
+      };
+      
+  const [user, setUser] = useState({ email: "" })
+
+  const loginUser = async () => {
+    const resp = await actions.login(user)
+    if (resp.status && !resp.rol) {
+      navigate("/menu")
+    }
+
+    if (resp) {
+      console.log(store.user)
+      if(store.user.is_admin){
+        navigate("/admin")
+      }
+      
+      if(user.email == "espacionovem@gmail.com"){
+        navigate("/admin")
+      }
+    }
+  }
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary navbarcolor" aria-label="Eleventh navbar example mx-5">
       <div className="container-fluid">
@@ -75,19 +96,7 @@ export const Navbar = () => {
             </li> */}
 
 
-            <li className="nav-item">
-              <Link className="nav-link text-light anchor" to="/">
-                <span className="d-lg-none me-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" width="24" height="24" strokeWidth="2">
-                    <path d="M21 12l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h4.7"></path>
-                    <path d="M9 21v-6a2 2 0 0 1 2 -2h2"></path>
-                    <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                    <path d="M20.2 20.2l1.8 1.8"></path>
-                  </svg>
-                </span>
-                Consultorios
-              </Link>
-            </li>
+
             <li className="nav-item">
               <Link className="nav-link text-light anchor" to="/contactMap">
                 <span className="d-lg-none me-1">
@@ -109,14 +118,19 @@ export const Navbar = () => {
             </button>
             <ul className="dropdown-menu dos">
               <div className="card-login p-3 dos" style={{ width: '25rem' }}>
-                <form className="body-inicio uno">
+                <form className="body-inicio">
                   <div className="mb-4">
                     <label htmlFor="exampleInputEmail1" className="form-label">Correo Electrónico</label>
                     <input
                       type="email"
-                      className="form-control form-control-lg dos"
+                      value={user.email || ""}
+                      className="form-control form-control-lg"
                       id="exampleInputEmail1"
                       aria-describedby="emailHelp"
+                      onChange={event => setUser({
+                        ...user,
+                        email: event.target.value
+                      })}
                     />
                   </div>
 
@@ -124,28 +138,28 @@ export const Navbar = () => {
                     <label htmlFor="exampleInputPassword1" className="form-label">Contraseña</label>
                     <input
                       type="password"
-                      className="form-control form-control-lg dos"
-                      id="exampleInputPassword1 "
+                      value={user.password || ""}
+                      className="form-control form-control-lg"
+                      id="exampleInputPassword1"
+                      onChange={event => setUser({
+                        ...user,
+                        password: event.target.value
+                      })}
                     />
                   </div>
 
                   <div className="mb-4 form-check">
-                    <input
-                      type="checkbox"
-                      className="form-check-input dos"
-                      id="exampleCheck1"
-                    />
-                    <label className="form-check-label " htmlFor="exampleCheck1">
-                      He olvidado la contraseña
-                    </label>
+                    <Link to={"/register"} className="custom-link trans">
+                      <p className="">¿Olvidaste tu contraseña?</p>
+                    </Link>
                   </div>
-
+                  {/* tiene que ir a pagina principal */}
                   <div className="d-flex justify-content-end">
-                    <button className="btn btn-lg btn-primary btndos" onClick={handleRegister}>Registro</button>
-
-                    <button className="btn btn-lg btn-primary btndos" onClick={handleLogin}>Ingresar</button>
-
+                    <button className="button-pastel" onClick={() =>
+                      loginUser()
+                    } >Ingresar</button>
                   </div>
+
                 </form>
               </div>
             </ul>
