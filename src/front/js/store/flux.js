@@ -8,7 +8,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			signup: async (user) => {
 				try {
 					// fetching data from the backend
-					const resp = await fetch(process.env.BACKEND_URL + "api/signup", {
+					const resp = await fetch(process.env.BACKEND_URL + "/api/signup", {
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
 						body: JSON.stringify(user)
