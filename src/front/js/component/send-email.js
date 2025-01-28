@@ -3,6 +3,8 @@ import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"
 
+import mujer from "../../img/mujer.png";
+
 
 
 
@@ -40,7 +42,7 @@ export const SendEmail = () => {
             <div className="mt-5 mx-auto d-flex flex-wrap justify-content-center login" >
 
                 <div className="text-center">
-                    <img className="loginimage m-2" src="https://static.vecteezy.com/system/resources/thumbnails/009/493/294/small/the-concept-of-a-man-thinking-behind-a-laptop-vector.jpg" alt="Descripción de la imagen" />
+                    <img className="loginimage m-2" src={mujer} alt="Descripción de la imagen" />
                 </div>
                 <form className="form content" style={{ width: "370px" }}>
                     <h3>Olvidaste tu Contraseña</h3>
@@ -51,7 +53,7 @@ export const SendEmail = () => {
 
                     <div className="text-center">
 
-                        <button type="button" onClick={(e) => envio(e)} className="btn btn-primary"><Link className="custom-link text-light " to={"/recuperar-password"}>
+                        <button type="button" onClick={(e) => envio(e)} className="btn btn-primary"><Link className="custom-link text-light " to={"/reset-password"}>
                             Enviar Correo
                         </Link>
                         </button>
