@@ -19,7 +19,7 @@ export const Navbar = () => {
 
 
   const loginUser = () => {
-    navigate("/send-email"); 
+    navigate("/"); 
   };
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary navbarcolor" aria-label="Eleventh navbar example mx-5">
