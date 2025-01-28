@@ -12,7 +12,7 @@ export const Register = () => {
 
     const navigate = useNavigate();
     const volver = () => {
-        navigate(-1);
+        navigate("/");
     };
 
 
@@ -44,15 +44,16 @@ export const Register = () => {
             mensaje("Falta ingresar el apellido")
             return false
         }
+        if (phone == "") {
+            mensaje("Falta ingresar el telefono")
+            return false
+        }
 
         if (email == "") {
             mensaje("Falta ingresar el email")
             return false
         }
-        if (phone == "") {
-            mensaje("Falta ingresar el telefono")
-            return false
-        }
+       
         if (password == "") {
             mensaje("Falta ingresar el contraseña")
             return false
