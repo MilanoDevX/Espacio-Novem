@@ -9,19 +9,14 @@ import json
 import os
 import random
 import string
-# import smtplib
-# from email.mime.text import MIMEText
-# from email.mime.multipart import MIMEMultipart
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
-# from flask_jwt_extended import create_access_token
-# from flask_jwt_extended import get_jwt_identity
-# from flask_jwt_extended import jwt_required
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
 
-
-# import cloudinary
-# import cloudinary.uploader
-# from cloudinary.utils import cloudinary_url
-# from datetime import datetime
 
 from flask_cors import CORS
 
@@ -161,3 +156,34 @@ def register():
     db.session.commit()
     # send_signup_email([email])
     return jsonify({"message":"User crated successfully"}),201
+
+@api.route('/login', methods=['POST'])
+def login():
+    data= request.json
+    #info desde el frontend
+    email = data.get("email", None)
+    password = data.get("password", None)
+
+    user=User.query.filter_by(email=email).one_or_none()
+
+    if user == None:
+        return jsonify({"msg": f"Bad email or password"}), 404
+
+    if email != user.email or password != user.password:
+        return jsonify({"msg": "Bad username or password"}), 401
+    access_token = create_access_token(identity=email)
+    return jsonify(access_token=access_token, user=user.serialize()),200
+
+@api.route('/user/profile', methods=['GET'])
+@jwt_required()
+def get_user_profile():
+    email = get_jwt_identity()
+    user = User.query.filter_by(email=email).first()
+    return jsonify(user.serialize()), 200
+
+@api.route("/protected", methods=["GET"])
+@jwt_required()
+def protected():
+    # Access the identity of the current user with get_jwt_identity
+    current_user = get_jwt_identity()
+    return jsonify(logged_in_as=current_user), 200

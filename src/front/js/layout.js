@@ -12,14 +12,11 @@ import { Header } from "./component/header";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-import {InicioSesion} from "./component/login";
 import {ContactMap} from "./component/contactMap";
 import { UserProfile } from "./component/userProfile";
 import { Register } from "./component/register";
 import { AboutUs } from "./component/aboutUs";
-import { Consultorio1 } from "./component/office1";
-import { Consultorio2 } from "./component/office2";
-import { Consultorio3 } from "./component/office3";
+
 
 //create your first component
 const Layout = () => {
@@ -46,14 +43,10 @@ const Layout = () => {
                         <Route element={<AboutUs/>} path="/aboutUs" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<Reservations />} path="/reservations" />
-                        <Route element={<InicioSesion />} path="/login" />
                         <Route element={<ContactMap />} path="/contactMap" />
                         <Route element={<UserProfile/>} path="/userProfile"/>
                         <Route element={<Register />} path="/register" />
                         <Route element={<Header />} path="/home" />
-                        <Route element= {<Consultorio1/>} path="/office1"/>
-                        <Route element= {<Consultorio2/>} path="/office2"/>
-                        <Route element= {<Consultorio3/>} path="/office3"/>
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     {!hideFooter && <Footer />}
