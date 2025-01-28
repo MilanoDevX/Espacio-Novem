@@ -1,8 +1,8 @@
 rm -R -f ./migrations &&
 pipenv run init &&
-dropdb -h localhost -U postgres example || true &&
-createdb -h localhost -U postgres example || true &&
-psql -h localhost example -U postgres -c 'CREATE EXTENSION unaccent;' || true &&
+psql -U postgres -c "DROP DATABASE IF EXIST example";
+psql -U postgres -c "CREATE DATABASE example";
+psql -U postgres -c "CREATE EXTENSION unaccent" -d example;
 pipenv run migrate &&
 pipenv run upgrade
 
