@@ -1,43 +1,5 @@
 
-/* 
-.calendar-container {
-    width: 300px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  
-  .calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .calendar-nav {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
-  
-  .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
-    margin-top: 10px;
-  }
-  
-  .calendar-day {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-  }
-  
-  .blank {
-    background-color: #f0f0f0;
-  } */
-
   /* Contenedor principal del calendario */
-
 .calendar-container {
   background-color: #F2E5D5; /* Beige */
   border: 2px solid #6A7562; /* Verde oscuro */

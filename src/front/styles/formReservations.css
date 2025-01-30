@@ -1,3 +1,4 @@
+
 /* Estilo general para el contenedor del formulario */
 .form-reservations-container {
   background-color: #F2E5D5; /* Fondo beige */
@@ -24,7 +25,6 @@
 .table td {
   color: #6A7562; /* Verde oscuro */
   font-weight: bold;
-  
 }
 
 /* Estilo para ajustar el ancho de las columnas */
@@ -94,8 +94,7 @@
 }
 
 /* Títulos */
-h1,
-h2 {
+h1, h2 {
   color: #6A7562;  /* Verde oscuro */
   font-weight: bold;
   margin-bottom: 0px;
@@ -107,7 +106,7 @@ h3 {
   font-weight: bold;
 }
 
-/* Ajuste de tabla para pantallas más pequeñas */
+/* Adaptación móvil */
 @media (max-width: 768px) {
   .form-reservations-container {
     padding: 10px;

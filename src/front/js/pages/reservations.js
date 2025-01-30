@@ -5,7 +5,7 @@ import FormReservations from '../component/formReservations';
 import { format, startOfToday, parseISO } from 'date-fns';
 
 export const Reservations = () => {
-    const today = format(startOfToday(), 'yyyy-MM-dd'); // Formato correcto
+    const today = format(startOfToday(), 'yyyy-MM-dd'); // Aplicando formato
     const [selectedDate, setSelectedDate] = useState(today);
 
     const handleDateSelect = (date) => {
