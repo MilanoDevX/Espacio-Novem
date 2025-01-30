@@ -2,19 +2,25 @@
 import React, { useState } from 'react';
 import Calendar from '../component/calendar';
 import FormReservations from '../component/formReservations';
+import { format, startOfToday, parseISO } from 'date-fns';
 
 export const Reservations = () => {
-    const [selectedDate, setSelectedDate] = useState(new Date().toLocaleDateString());
+    const today = format(startOfToday(), 'yyyy-MM-dd'); // Formato correcto
+    const [selectedDate, setSelectedDate] = useState(today);
 
     const handleDateSelect = (date) => {
-        setSelectedDate(date);
+        const parsedDate = typeof date === 'string' ? parseISO(date) : date;
+        const formattedDate = format(parsedDate, 'yyyy-MM-dd'); // Formato estándar para la comparación
+        setSelectedDate(formattedDate);
     };
 
     return (
         <div>
             <div className="pt-3 pb-0 mb-0">
                 <h2 className="text-center">Reservas de Consultorios</h2>
-                <h3 className="text-center mt-2">Disponibilidad para día 24/01/2025</h3>
+                <h3 className="text-center mt-2">
+                    Disponibilidad para día {format(parseISO(selectedDate), 'dd/MM/yyyy')}
+                </h3>
             </div>
             <div className="container">
                 <div className="row d-flex align-items-center justify-content-center mb-3">

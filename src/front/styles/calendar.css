@@ -45,7 +45,8 @@
   padding: 20px;
   max-width: 400px;
   margin: auto;
-  font-family: Arial, sans-serif;
+  /*font-family: Arial, sans-serif;*/
+  font-family: "Josefin Sans", serif;
 }
 
 /* Encabezado del calendario */
@@ -67,10 +68,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px;
+  height: 30px;
   color: #6A7562; /* Verde oscuro */
   font-size: 1.1rem;
   font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  
 }
 
 .calendar-days-of-week {
@@ -154,5 +158,5 @@
 }
 
 .calendar-day-of-week {
-  font-size: 1rem;
+  font-size: 1.1rem;
 }

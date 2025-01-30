@@ -5,21 +5,27 @@ import '../../styles/formReservations.css';
 const FormReservations = ({ selectedDate }) => {
   const [schedule, setSchedule] = useState([]);
 
+
   // Simulación de datos desde el backend
   useEffect(() => {
+    if (!selectedDate) return;
+
     const fetchData = async () => {
       const data = [
-        { user: 'natali', date: '2025-01-15', hour: '11:00', consultories: [1] },
-        { user: 'kate', date: '2025-01-15', hour: '11:00', consultories: [2] },
-        { user: 'fio', date: '2025-01-15', hour: '11:00', consultories: [3] },
-        { user: 'elias', date: '2025-01-15', hour: '11:00', consultories: [4] },
-        { user: 'natali', date: '2025-01-17', hour: '15:00', consultories: [1] },
-        { user: 'kate', date: '2025-01-17', hour: '16:00', consultories: [3] },
-        { user: 'fio', date: '2025-01-19', hour: '17:00', consultories: [4] },
-        { user: 'elias', date: '2025-01-19', hour: '18:00', consultories: [4] }
+        { user: 'natali', date: '2025-01-29', hour: '11:00', consultories: [1] },
+        { user: 'kate', date: '2025-01-29', hour: '11:00', consultories: [2] },
+        { user: 'fio', date: '2025-01-29', hour: '11:00', consultories: [3] },
+        { user: 'elias', date: '2025-01-29', hour: '11:00', consultories: [4] },
+        { user: 'natali', date: '2025-01-30', hour: '15:00', consultories: [1] },
+        { user: 'kate', date: '2025-01-30', hour: '16:00', consultories: [3] },
+        { user: 'fio', date: '2025-01-31', hour: '17:00', consultories: [4] },
+        { user: 'elias', date: '2025-01-31', hour: '18:00', consultories: [4] }
       ];
-      setSchedule(data.filter((entry) => entry.date === selectedDate));
+
+      const filteredData = data.filter((entry) => entry.date === selectedDate);
+      setSchedule(filteredData);
     };
+
     fetchData();
   }, [selectedDate]);
 
@@ -38,9 +44,7 @@ const FormReservations = ({ selectedDate }) => {
 
   const getRowData = (hour) => {
     const filteredEntries = schedule.filter((entry) => entry.hour === hour);
-    const reservedConsultories = filteredEntries.reduce((acc, entry) => {
-      return acc.concat(entry.consultories);
-    }, []);
+    const reservedConsultories = filteredEntries.flatMap(entry => entry.consultories);
 
     return {
       hour,

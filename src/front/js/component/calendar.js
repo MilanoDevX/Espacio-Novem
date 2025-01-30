@@ -1,36 +1,31 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { format, addMonths, subMonths, startOfMonth, getDaysInMonth, getDay } from 'date-fns';
 import '../../styles/calendar.css';
 
 const Calendar = ({ onDateSelect }) => {
   const today = new Date();
   const [currentDate, setCurrentDate] = useState(startOfMonth(today));
-  const [selectedDate, setSelectedDate] = useState(today); // Estado para el día seleccionado, inicializado con la fecha actual
-
-  useEffect(() => {
-    onDateSelect(format(today, 'yyyy-MM-dd')); // Selecciona la fecha actual al renderizar la página
-  }, [onDateSelect, today]);
+  const [selectedDate, setSelectedDate] = useState(format(today, 'yyyy-MM-dd')); // Estado para el día seleccionado, inicializado con la fecha actual
 
   const handlePreviousMonth = () => {
     setCurrentDate(subMonths(currentDate, 1));
-    setSelectedDate(null); // Reinicia selección si se cambia de mes
   };
 
   const handleNextMonth = () => {
     setCurrentDate(addMonths(currentDate, 1));
-    setSelectedDate(null); // Reinicia selección si se cambia de mes
   };
 
   const handleDayClick = (date) => {
-    setSelectedDate(date); // Actualiza el estado del día seleccionado
-    onDateSelect(format(date, 'yyyy-MM-dd')); // Devuelve la fecha seleccionada en formato YYYY-MM-DD
+    const formattedDate = format(date, 'yyyy-MM-dd');
+    setSelectedDate(formattedDate); // Actualiza el estado del día seleccionado
+    onDateSelect(formattedDate); // Enviar fecha formateada correctamente
   };
 
   const renderDaysOfWeek = () => {
     const daysOfWeek = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
     return daysOfWeek.map((day, index) => (
-      <div key={`dayOfWeek-${index}`} className="calendar-day-of-week">
+      <div key={index} className="calendar-day-of-week">
         {day}
       </div>
     ));
@@ -48,11 +43,12 @@ const Calendar = ({ onDateSelect }) => {
 
     for (let day = 1; day <= daysInMonth; day++) {
       const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+      const formattedDate = format(date, 'yyyy-MM-dd');
 
       days.push(
         <div
           key={`day-${day}`}
-          className={`calendar-day ${selectedDate?.getTime() === date.getTime() ? 'selected' : ''}`}
+          className={`calendar-day ${selectedDate === formattedDate ? 'selected' : ''}`}
           onClick={() => handleDayClick(date)}
         >
           {day}
@@ -81,7 +77,6 @@ const Calendar = ({ onDateSelect }) => {
         {renderDaysOfWeek()}
       </div>
       <div className="calendar-grid">
-        
         {renderDays()}
       </div>
     </div>
