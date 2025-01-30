@@ -44,12 +44,13 @@ const Calendar = ({ onDateSelect }) => {
     for (let day = 1; day <= daysInMonth; day++) {
       const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
       const formattedDate = format(date, 'yyyy-MM-dd');
+      const isPast = date < today.setHours(0, 0, 0, 0); // Verifica si la fecha es anterior a hoy
 
       days.push(
         <div
           key={`day-${day}`}
-          className={`calendar-day ${selectedDate === formattedDate ? 'selected' : ''}`}
-          onClick={() => handleDayClick(date)}
+          className={`calendar-day ${selectedDate === formattedDate ? 'selected' : ''} ${isPast ? 'disabled' : ''}`}
+          onClick={isPast ? null : () => handleDayClick(date)} // Evita clics en días pasados
         >
           {day}
         </div>

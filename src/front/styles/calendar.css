@@ -141,6 +141,14 @@
   cursor: default;
 }
 
+/* Días deshabilitados (pasados) */
+.calendar-day.disabled {
+  background-color: #D3D3D3; /* Gris */
+  color: #A0A0A0; /* Gris oscuro */
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 /* Adaptación móvil */
 @media (max-width: 768px) {
   .calendar-container {
