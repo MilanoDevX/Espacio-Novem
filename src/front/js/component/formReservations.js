@@ -5,21 +5,27 @@ import '../../styles/formReservations.css';
 const FormReservations = ({ selectedDate }) => {
   const [schedule, setSchedule] = useState([]);
 
+
   // Simulación de datos desde el backend
   useEffect(() => {
+    if (!selectedDate) return;
+
     const fetchData = async () => {
       const data = [
-        { user: 'natali', date: '2025-01-15', hour: '11:00', consultories: [1] },
-        { user: 'kate', date: '2025-01-15', hour: '11:00', consultories: [2] },
-        { user: 'fio', date: '2025-01-15', hour: '11:00', consultories: [3] },
-        { user: 'elias', date: '2025-01-15', hour: '11:00', consultories: [4] },
-        { user: 'natali', date: '2025-01-17', hour: '15:00', consultories: [1] },
-        { user: 'kate', date: '2025-01-17', hour: '16:00', consultories: [3] },
-        { user: 'fio', date: '2025-01-19', hour: '17:00', consultories: [4] },
-        { user: 'elias', date: '2025-01-19', hour: '18:00', consultories: [4] }
+        { user: 'natali', date: '2025-01-29', hour: '11:00', consultories: [1] },
+        { user: 'kate', date: '2025-01-29', hour: '11:00', consultories: [2] },
+        { user: 'fio', date: '2025-01-29', hour: '11:00', consultories: [3] },
+        { user: 'elias', date: '2025-01-29', hour: '11:00', consultories: [4] },
+        { user: 'natali', date: '2025-01-30', hour: '15:00', consultories: [1] },
+        { user: 'kate', date: '2025-01-30', hour: '16:00', consultories: [3] },
+        { user: 'fio', date: '2025-01-31', hour: '17:00', consultories: [4] },
+        { user: 'elias', date: '2025-01-31', hour: '18:00', consultories: [4] }
       ];
-      setSchedule(data.filter((entry) => entry.date === selectedDate));
+
+      const filteredData = data.filter((entry) => entry.date === selectedDate);
+      setSchedule(filteredData);
     };
+
     fetchData();
   }, [selectedDate]);
 
@@ -38,9 +44,7 @@ const FormReservations = ({ selectedDate }) => {
 
   const getRowData = (hour) => {
     const filteredEntries = schedule.filter((entry) => entry.hour === hour);
-    const reservedConsultories = filteredEntries.reduce((acc, entry) => {
-      return acc.concat(entry.consultories);
-    }, []);
+    const reservedConsultories = filteredEntries.flatMap(entry => entry.consultories);
 
     return {
       hour,
@@ -59,7 +63,7 @@ const FormReservations = ({ selectedDate }) => {
             <th rowSpan="2" className="align-middle">Horario</th>
             <th rowSpan="2" className="align-middle">Estado</th>
             <th colSpan="4">Consultorios</th>
-            <th rowSpan="2" className="align-middle">Ninguno</th>
+            <th rowSpan="2" className="align-middle">NA</th>
           </tr>
           <tr>
             {[1, 2, 3, 4].map((consultory) => (
@@ -73,7 +77,7 @@ const FormReservations = ({ selectedDate }) => {
             const status = isAvailable(row.consultories) ? 'Disponible' : 'No disponible';
 
             return (
-              <tr key={hour} className={status === 'No disponible' ? 'table-danger' : ''}>
+              <tr key={hour} className={status === 'No disponible' ? 'no-available' : ''}>
                 <td>{row.hour}</td>
                 <td>{status}</td>
                 {[1, 2, 3, 4].map((consultory) => (
@@ -104,8 +108,8 @@ const FormReservations = ({ selectedDate }) => {
           })}
         </tbody>
       </table>
-      <div className="text-center mt-3">
-        <button className="btn btn-primary" onClick={handleScheduleSubmit}>Agendar</button>
+      <div className="text-center my-0">
+        <button className="btn reservation-button" onClick={handleScheduleSubmit}>Agendar</button>
       </div>
     </div>
   );
