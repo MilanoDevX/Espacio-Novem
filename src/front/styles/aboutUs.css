@@ -1,9 +1,53 @@
-.about{
-    color: #6A7562 ;
+.about {
+  color: #6A7562;
+}
+
+.juntas {
+  width: 250px;
+}
+
+/* Estilo para el título */
+.about-us {
+  font-style: italic;
+}
+
+/* Contenedor principal: Ajusta la dirección en pantallas pequeñas */
+@media (max-width: 768px) {
+  .d-flex {
+    flex-direction: column; /* Apila los elementos en pantallas pequeñas */
+    align-items: center; /* Centra el contenido */
+    text-align: center; /* Asegura que el texto esté alineado */
   }
-  .juntas{
-    width: 250px;
+
+  .card-img {
+    width: 90%; /* Ajusta la imagen al tamaño del contenedor */
+    max-width: 400px; /* Evita que se haga demasiado grande */
+    margin: 10px 0; /* Espaciado entre elementos */
   }
-  .about-us{
-    font-style: italic;
+
+  .card-img-overlay {
+    position: static; /* Evita que el texto se superponga en pantallas pequeñas */
+    background: rgba(255, 255, 255, 0.8); /* Añade un fondo para mejorar legibilidad */
+    padding: 15px; /* Espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
   }
+
+  .registeruser {
+    width: 150px; /* Reduce el tamaño de las imágenes de perfil */
+  }
+}
+
+/* Ajustes para pantallas aún más pequeñas (móviles) */
+@media (max-width: 480px) {
+  .juntas {
+    width: 180px; /* Ajusta tamaño de imagen en móviles */
+  }
+
+  .about {
+    font-size: 14px; /* Reduce el tamaño del texto para mejor lectura */
+  }
+
+  .card-title {
+    font-size: 18px;
+  }
+}
