@@ -16,6 +16,8 @@ import {ContactMap} from "./component/contactMap";
 import { UserProfile } from "./component/userProfile";
 import { Register } from "./component/register";
 import { AboutUs } from "./component/aboutUs";
+import { SendEmail } from "./component/send-email";
+import { ResetPassword } from "./component/reset-password";
 
 
 //create your first component
@@ -43,8 +45,10 @@ const Layout = () => {
                         <Route element={<AboutUs/>} path="/aboutUs" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<Reservations />} path="/reservations" />
+                        <Route element={<SendEmail />} path="/send-email" />
                         <Route element={<ContactMap />} path="/contactMap" />
                         <Route element={<UserProfile/>} path="/userProfile"/>
+                        <Route element={<ResetPassword/>} path="/reset-password"/>
                         <Route element={<Register />} path="/register" />
                         <Route element={<Header />} path="/home" />
                         <Route element={<h1>Not found!</h1>} />

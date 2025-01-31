@@ -172,6 +172,7 @@ def login():
     if email != user.email or password != user.password:
         return jsonify({"msg": "Bad username or password"}), 401
     access_token = create_access_token(identity=email)
+<<<<<<< HEAD
     return jsonify(access_token=access_token, user=user.serialize()),200
 
 @api.route('/user/profile', methods=['GET'])
@@ -187,3 +188,6 @@ def protected():
     # Access the identity of the current user with get_jwt_identity
     current_user = get_jwt_identity()
     return jsonify(logged_in_as=current_user), 200
+=======
+    return jsonify(access_token=access_token, user=user.serialize()),200
+>>>>>>> 226b948d1df88e919ed5adc973058d597d04860b
