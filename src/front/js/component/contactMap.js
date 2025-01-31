@@ -6,8 +6,9 @@ export const ContactMap = () => {
     const navigate = useNavigate();
 
     const handleNavigate = () => {
-        navigate('/');
-      };
+    navigate('/');  // Cambia la ruta
+    window.scrollTo(0, 0);  // Reinicia el scroll
+};
 
     return (
         <div className="contact-container">
