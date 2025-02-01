@@ -28,17 +28,13 @@ const Layout = () => {
     
     if(!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL/ >;
     
-    const noNavbar = ["/login", "/contactMap"];
-    const hideNavbar = noNavbar.includes(location.pathname); //saque el navabar del iniciosesion
-
-    const noFooter = ["/contactMap", "/userProfile"];
-    const hideFooter = noFooter.includes(location.pathname);
+ 
 
     return (
         <div>
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
-                {!hideNavbar && <Navbar />}
+                    <Navbar />
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<Demo />} path="/demo" />
@@ -52,8 +48,8 @@ const Layout = () => {
                         <Route element={<Register />} path="/register" />
                         <Route element={<Header />} path="/home" />
                         <Route element={<h1>Not found!</h1>} />
-                    </Routes>
-                    {!hideFooter && <Footer />}
+                        </Routes>
+                    <Footer />
                 </ScrollToTop>
             </BrowserRouter>
         </div>

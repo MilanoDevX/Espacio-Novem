@@ -7,6 +7,7 @@ export const ContactMap = () => {
 
     const handleNavigate = () => {
         navigate('/');
+        window.scrollTo(0,0);
     };
 
     return (
