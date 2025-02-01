@@ -1,38 +1,31 @@
 import React from "react";
 import "../../styles/contactMap.css";
 import { useNavigate } from 'react-router-dom';
-
 export const ContactMap = () => {
     const navigate = useNavigate();
-
     const handleNavigate = () => {
-    navigate('/');  // Cambia la ruta
-    window.scrollTo(0, 0);  // Reinicia el scroll
-};
-
+        navigate('/');
+        window.scrollTo(0,0);
+    };
     return (
-        <div className="contact-container">
+        <div className="contact-container m-3">
             <div className="contact-info">
                 <h2>Espacio Novem</h2>
             </div>
-
             <div className="contact-detail">
                 <i className="fa-brands fa-whatsapp"></i>
                 <a href="https://wa.me/59891744816?text=Hola,%20quiero%20más%20información" target="_blank" rel="noopener noreferrer">
                     +598 91 744 816
                 </a>
             </div>
-
             <div className="contact-detail">
                 <i className="fa-regular fa-envelope"></i>
                 <a href="mailto:espacionovem@gmail.com">espacionovem@gmail.com</a>
             </div>
-
             <div className="contact-detail">
                 <i className="fa-brands fa-instagram"></i>
                 <a href="https://www.instagram.com/espacio_novem" target="_blank" rel="noopener noreferrer">Espacio_Novem</a>
             </div>
-
             <div className="politica-reserva">
                 <h3>Política de Reserva</h3>
                 <p>
@@ -40,7 +33,6 @@ export const ContactMap = () => {
                 </p>
                 <h3>Política de cancelación:</h3> <p>Puedes cancelar o reprogramar hasta 24 horas antes de la cita.</p>
             </div>
-
             <div className="contact-map-container">
                 <iframe
                     title="Google Map"
@@ -51,7 +43,6 @@ export const ContactMap = () => {
                     referrerPolicy="no-referrer-when-downgrade"
                 ></iframe>
             </div>
-
             <button className="btn" onClick={handleNavigate}>Volver</button>
         </div>
     );
