@@ -13,13 +13,13 @@ import { Header } from "./component/header";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-import {InicioSesion} from "./component/login";
 import {ContactMap} from "./component/contactMap";
 import { UserProfile } from "./component/userProfile";
 import { Register } from "./component/register";
 import { AboutUs } from "./component/aboutUs";
 import { SendEmail } from "./component/send-email";
 import { ResetPassword } from "./component/reset-password";
+
 
 //create your first component
 const Layout = () => {
@@ -48,7 +48,6 @@ const Layout = () => {
                         <Route element={<Reservations />} path="/reservations" />
                         <Route element={<Agenda />} path="/agenda" />
                         <Route element={<SendEmail />} path="/send-email" />
-                        <Route element={<InicioSesion />} path="/login" />
                         <Route element={<ContactMap />} path="/contactMap" />
                         <Route element={<UserProfile/>} path="/userProfile"/>
                         <Route element={<ResetPassword/>} path="/reset-password"/>

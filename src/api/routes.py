@@ -9,19 +9,14 @@ import json
 import os
 import random
 import string
-# import smtplib
-# from email.mime.text import MIMEText
-# from email.mime.multipart import MIMEMultipart
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 
-
-# import cloudinary
-# import cloudinary.uploader
-# from cloudinary.utils import cloudinary_url
-# from datetime import datetime
 
 from flask_cors import CORS
 
