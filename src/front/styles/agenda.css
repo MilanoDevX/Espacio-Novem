@@ -1,1 +1,91 @@
 
+.agenda-container {
+    background-color: #F2E5D5;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.agenda-header {
+    text-align: center;
+    background-color: #DAB79F;
+    padding: 15px;
+    border-radius: 8px;
+    color: #6A7562;
+    font-size: 1.5em;
+}
+
+.agenda-table-container {
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+.agenda-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #AFB796;
+    color: #6A7562;
+    border-radius: 8px;
+    table-layout: auto;
+}
+
+.agenda-table th, .agenda-table td {
+    padding: 12px;
+    border: 1px solid #6A7562;
+    text-align: center;
+    white-space: nowrap; /* Evita que el contenido se divida en varias líneas */
+}
+
+.agenda-table th {
+    background-color: #DAB79F;
+    color: #F2E5D5;
+}
+
+.auto-width {
+    width: auto;
+}
+
+.same-height-row {
+    height: 50px; /* Ajusta la altura de todas las filas */
+}
+
+.delete-btn {
+    background-color: #6A7562;
+    color: #F2E5D5;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.delete-btn:hover {
+    background-color: #AFB796;
+}
+
+.past-date-row {
+    background-color: #d3d3d3;
+    color: #6A7562;
+    pointer-events: none;
+}
+
+/* Estilos Responsivos */
+@media screen and (max-width: 768px) {
+    .agenda-header {
+        font-size: 1.2em;
+    }
+
+    .agenda-table-container {
+        overflow-x: auto;
+    }
+
+    .agenda-table th, .agenda-table td {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+
+    .delete-btn {
+        padding: 6px 10px;
+        font-size: 0.8em;
+    }
+}
