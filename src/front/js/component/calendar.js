@@ -1,35 +1,39 @@
 
-
 import React, { useState } from 'react';
+import { format, addMonths, subMonths, startOfMonth, getDaysInMonth, getDay } from 'date-fns';
 import '../../styles/calendar.css';
 
 const Calendar = ({ onDateSelect }) => {
   const today = new Date();
-  const [currentDate, setCurrentDate] = useState(new Date(today.getFullYear(), today.getMonth(), 1));
-  const [selectedDate, setSelectedDate] = useState(null); // Estado para el día seleccionado
-
-  const getDaysInMonth = (year, month) => {
-    return new Date(year, month + 1, 0).getDate();
-  };
+  const [currentDate, setCurrentDate] = useState(startOfMonth(today));
+  const [selectedDate, setSelectedDate] = useState(format(today, 'yyyy-MM-dd')); // Estado para el día seleccionado, inicializado con la fecha actual
 
   const handlePreviousMonth = () => {
-    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
-    setSelectedDate(null); // Reinicia selección si se cambia de mes
+    setCurrentDate(subMonths(currentDate, 1));
   };
 
   const handleNextMonth = () => {
-    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
-    setSelectedDate(null); // Reinicia selección si se cambia de mes
+    setCurrentDate(addMonths(currentDate, 1));
   };
 
   const handleDayClick = (date) => {
-    setSelectedDate(date); // Actualiza el estado del día seleccionado
-    onDateSelect(date.toISOString().split('T')[0]); // Devuelve la fecha seleccionada en formato YYYY-MM-DD
+    const formattedDate = format(date, 'yyyy-MM-dd');
+    setSelectedDate(formattedDate); // Actualiza el estado del día seleccionado
+    onDateSelect(formattedDate); // Enviar fecha formateada correctamente
+  };
+
+  const renderDaysOfWeek = () => {
+    const daysOfWeek = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+    return daysOfWeek.map((day, index) => (
+      <div key={index} className="calendar-day-of-week">
+        {day}
+      </div>
+    ));
   };
 
   const renderDays = () => {
-    const daysInMonth = getDaysInMonth(currentDate.getFullYear(), currentDate.getMonth());
-    const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
+    const daysInMonth = getDaysInMonth(currentDate);
+    const firstDayOfMonth = getDay(startOfMonth(currentDate));
     const days = [];
 
     // Fill in blank spaces for the first week
@@ -39,12 +43,14 @@ const Calendar = ({ onDateSelect }) => {
 
     for (let day = 1; day <= daysInMonth; day++) {
       const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+      const formattedDate = format(date, 'yyyy-MM-dd');
+      const isPast = date < today.setHours(0, 0, 0, 0); // Verifica si la fecha es anterior a hoy
 
       days.push(
         <div
           key={`day-${day}`}
-          className={`calendar-day ${selectedDate?.getTime() === date.getTime() ? 'selected' : ''}`}
-          onClick={() => handleDayClick(date)}
+          className={`calendar-day ${selectedDate === formattedDate ? 'selected' : ''} ${isPast ? 'disabled' : ''}`}
+          onClick={isPast ? null : () => handleDayClick(date)} // Evita clics en días pasados
         >
           {day}
         </div>
@@ -67,6 +73,9 @@ const Calendar = ({ onDateSelect }) => {
           {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
         </h2>
         <button onClick={handleNextMonth} className="calendar-nav">&#8594;</button>
+      </div>
+      <div className="calendar-days-of-week">
+        {renderDaysOfWeek()}
       </div>
       <div className="calendar-grid">
         {renderDays()}

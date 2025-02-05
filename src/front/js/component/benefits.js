@@ -27,7 +27,7 @@ export const Benefits = () => {
 
                         <div>
                             <h4 className="benefit-name my-0">Portería</h4>
-                            <p className="benefit-description my-0">Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
+            
                         </div>
                     </div>
 

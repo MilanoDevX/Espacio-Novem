@@ -1,9 +1,53 @@
-.about{
-    color: #6A7562 ;
+.about {
+  color: #6A7562;
+}
+
+.juntas {
+  width: 250px;
+}
+
+
+.about-us {
+  font-style: italic;
+}
+
+
+@media (max-width: 768px) {
+  .d-flex {
+    flex-direction: column; 
+    align-items: center;
+    text-align: center; 
   }
-  .juntas{
-    width: 250px;
+
+  .card-img {
+    width: 90%; 
+    max-width: 400px;
+    margin: 10px 0; 
   }
-  .about-us{
-    font-style: italic;
+
+  .card-img-overlay {
+    position: static; 
+    background: rgba(255, 255, 255, 0.8); 
+    padding: 15px; 
+    border-radius: 10px;
   }
+
+  .registeruser {
+    width: 150px; 
+  }
+}
+
+
+@media (max-width: 480px) {
+  .juntas {
+    width: 180px; 
+  }
+
+  .about {
+    font-size: 14px; 
+  }
+
+  .card-title {
+    font-size: 18px;
+  }
+}

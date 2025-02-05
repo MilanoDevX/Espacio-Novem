@@ -4,22 +4,15 @@ import image from '../../img/image.png';
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-
 export const Navbar = () => {
- 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const { actions } = useContext(Context);
-
-  
   const [user, setUser] = useState({ email: "" });
-
   const registerUser = () => {
-    navigate("/register"); 
+    navigate("/register");
   };
-
-
   const loginUser = () => {
-    navigate("/"); 
+    navigate("/");
   };
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary navbarcolor" aria-label="Eleventh navbar example mx-5">
@@ -52,8 +45,6 @@ export const Navbar = () => {
                 Inicio
               </Link>
             </li>
-
-
             <li className="nav-item">
               <Link className="nav-link text-light anchor" to="/aboutUs">
                 <span className="d-lg-none me-1">
@@ -82,9 +73,6 @@ export const Navbar = () => {
                 <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
               </svg></span>  <Link className="custom-link" to={"/reservations"}>Agenda</Link></a>
             </li> */}
-
-
-
             <li className="nav-item">
               <Link className="nav-link text-light anchor" to="/contactMap">
                 <span className="d-lg-none me-1">
@@ -97,8 +85,6 @@ export const Navbar = () => {
               </Link>
             </li>
           </ul>
-
-
           {/* Dropdown for login */}
           <div className="btn-group dropstart ">
             <button type="button" className="btn btn-secondary dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">
@@ -121,7 +107,6 @@ export const Navbar = () => {
                       })}
                     />
                   </div>
-
                   <div className="mb-4">
                     <label htmlFor="exampleInputPassword1" className="form-label">Contraseña</label>
                     <input
@@ -135,7 +120,6 @@ export const Navbar = () => {
                       })}
                     />
                   </div>
-
                   <div className="mb-4 form-check">
                     <Link to={"/send-email"} className="custom-link trans">
                       <p className="">¿Olvidaste tu contraseña?</p>
@@ -147,7 +131,7 @@ export const Navbar = () => {
           </div>
                   {/* tiene que ir a pagina principal */}
                   <div className="d-flex justify-content-end m-2">
-                    <button className="button-pastel btndos" 
+                    <button className="button-pastel btndos"
                       onClick={loginUser}>Ingresar</button>
                   </div>
                   </div>

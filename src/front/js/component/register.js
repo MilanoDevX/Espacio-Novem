@@ -13,6 +13,7 @@ export const Register = () => {
     const navigate = useNavigate();
     const volver = () => {
         navigate("/");
+        window.scrollTo(0, 0); 
     };
 
 
@@ -28,12 +29,12 @@ export const Register = () => {
 
     const mensaje = (titulo) => {
         Swal.fire({
-            icon: "Error",
+            icon: "error", // Cambiado a minúsculas
             title: "Error de ingreso",
             text: titulo,
-
         });
-    }
+    };
+    
 
     const chequeo = () => {
         if (name == "") {
