@@ -4,10 +4,12 @@ import image from '../../img/image.png';
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+
 export const Navbar = () => {
   const navigate = useNavigate();
   const { actions } = useContext(Context);
   const [user, setUser] = useState({ email: "" });
+  
   const registerUser = () => {
     navigate("/register");
   };
@@ -126,14 +128,14 @@ export const Navbar = () => {
                     </Link>
                   </div>
                   <div className="d-flex justify-content-end ">
-                  <div className="d-flex justify-content-end m-2 ">
-          <button className="button-pastel btndos"onClick={registerUser}>Registro</button>
-          </div>
-                  {/* tiene que ir a pagina principal */}
-                  <div className="d-flex justify-content-end m-2">
-                    <button className="button-pastel btndos"
-                      onClick={loginUser}>Ingresar</button>
-                  </div>
+                    <div className="d-flex justify-content-end m-2 ">
+                      <button className="button-pastel btndos" onClick={registerUser}>Registro</button>
+                    </div>
+                    {/* tiene que ir a pagina principal */}
+                    <div className="d-flex justify-content-end m-2">
+                      <button className="button-pastel btndos"
+                        onClick={loginUser}>Ingresar</button>
+                    </div>
                   </div>
                 </form>
               </div>

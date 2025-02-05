@@ -29,16 +29,14 @@ export const SendEmail = () => {
             return
         }
         let resp = await actions.restablecerPassword(email)
-        if (resp) {
-
-        } else {
+        if (!resp) {
             mensaje("Usuario no registrado")
             navigate("/register")
         }
     }
     return (
         <>
-         
+
             <div className="mt-5 mx-auto d-flex flex-wrap justify-content-center login" >
 
                 <div className="text-center">

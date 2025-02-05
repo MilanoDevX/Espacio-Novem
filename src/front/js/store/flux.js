@@ -6,12 +6,12 @@ const getState = ({ getStore, getActions, setStore }) => {
         actions: {
             login: async (useNew) => {
                 try {
-                    const resp = await fetch(process.env.BACKEND_URL + "api/login", {
+                    const resp = await fetch(process.env.BACKEND_URL + "/login", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(useNew)
                     })
-                    console.log(resp.status)
+                    console.log(resp)
                     const data = await resp.json()
                     if (resp.ok) {
                         console.log(data, "token")
@@ -33,19 +33,23 @@ const getState = ({ getStore, getActions, setStore }) => {
                         status: false
                     };
                 }
-            }, logout: () => {
-                localStorage.removeItem("access_token");
-                setStore({ user: null, token: null, auth: false });
-                console.log("Sesión cerrada");
             },
+            //  logout: () => {
+            //     localStorage.removeItem("access_token");
+            //     setStore({ user: null, token: null, auth: false });
+            //     console.log("Sesión cerrada");
+            // },
             signup: async (user) => {
+                // console.log(user)
+                // console.log(process.env.BACKEND_URL+"/signup")
                 try {
                     // fetching data from the backend
-                    const resp = await fetch(process.env.BACKEND_URL + "api/signup", {
+                    const resp = await fetch(process.env.BACKEND_URL + "/signup", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(user)
                     })
+                    // console.log(resp)
                     if (resp.status == 201) {
                         return true;
                     } else {
@@ -62,7 +66,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
             restablecerPassword: async (email) => {
                 try {
-                    const response = await fetch(process.env.BACKEND_URL + "api/send-email", {
+                    const response = await fetch(process.env.BACKEND_URL + "/send-email", {
                         method: "PUT",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
@@ -84,7 +88,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             recuperarPassword: async (email, nueva, aleatoria) => {
                 console.log(email, nueva, aleatoria)
                 try {
-                    const response = await fetch(process.env.BACKEND_URL + "api/recuperar-password", {
+                    const response = await fetch(process.env.BACKEND_URL + "/recuperar-password", {
                         method: "PUT",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
