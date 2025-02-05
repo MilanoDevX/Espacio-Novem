@@ -6,7 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		actions: {
 			login: async (useNew) => {
 				try {
-					const resp = await fetch(process.env.BACKEND_URL + "api/login", {
+					const resp = await fetch(process.env.BACKEND_URL + "/login", {
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
 						body: JSON.stringify(useNew)
@@ -43,7 +43,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			signup: async (user) => {
 				try {
 					// fetching data from the backend
-					const resp = await fetch(process.env.BACKEND_URL + "api/signup", {
+					const resp = await fetch(process.env.BACKEND_URL + "/signup", {
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
 						body: JSON.stringify(user)
@@ -69,7 +69,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			restablecerPassword: async (email) => {
 				try {
 
-					const response = await fetch(process.env.BACKEND_URL + "api/send-email", {
+					const response = await fetch(process.env.BACKEND_URL + "/send-email", {
 						method: "PUT",
 						headers: { "Content-Type": "application/json" },
 						body: JSON.stringify({
@@ -93,7 +93,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log(email, nueva, aleatoria)
 				try {
 
-					const response = await fetch(process.env.BACKEND_URL + "api/recuperar-password", {
+					const response = await fetch(process.env.BACKEND_URL + "/recuperar-password", {
 						method: "PUT",
 						headers: { "Content-Type": "application/json" },
 						body: JSON.stringify({
