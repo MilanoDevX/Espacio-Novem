@@ -220,3 +220,14 @@ a{
   border-radius: 5px;
  
 }
+.custom-link {
+  text-decoration: none; /* Quita la línea azul */
+  color:#6A7562;
+}
+
+
+.custom-link:hover {
+  text-decoration: none; 
+  color:#afb796
+ 
+}

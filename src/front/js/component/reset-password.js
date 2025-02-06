@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"
+import "/src/front/styles/sendEmail.css";
 
 import mujerbombilla from "../../img/mujerbombilla.webp";
 import Swal from 'sweetalert2'
@@ -80,8 +81,8 @@ export const ResetPassword = () => {
                     </div>
 
                     <div className="text-center mt-2">
-                        <Link to={"/register"}>
-                            <p className="text-info">Registrarse</p>
+                        <Link to={"/register"} className="customs-links">
+                            <p>Registrarse</p>
                         </Link>
                     </div>
 
