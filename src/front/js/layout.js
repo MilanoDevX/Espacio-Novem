@@ -12,7 +12,6 @@ import { Header } from "./component/header";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-import { ContactMap } from "./component/contactMap";
 import { UserProfile } from "./component/userProfile";
 import { Register } from "./component/register";
 import { AboutUs } from "./component/aboutUs";
@@ -43,7 +42,6 @@ const Layout = () => {
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<Reservations />} path="/reservations" />
                         <Route element={<SendEmail />} path="/send-email" />
-                        <Route element={<ContactMap />} path="/contactMap" />
                         <Route element={<UserProfile />} path="/userProfile" />
                         <Route element={<ResetPassword />} path="/reset-password" />
                         <Route element={<Admin />} path="/admin" />
