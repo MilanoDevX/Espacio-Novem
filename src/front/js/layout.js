@@ -2,14 +2,13 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
-
 import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import { Reservations } from "./pages/reservations";
+import { Agenda } from "./pages/agenda";
 import injectContext from "./store/appContext";
 import { Header } from "./component/header";
-
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { UserProfile } from "./component/userProfile";
@@ -42,6 +41,7 @@ const Layout = () => {
                         <Route element={<AboutUs />} path="/aboutUs" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<Reservations />} path="/reservations" />
+                        <Route element={<Agenda />} path="/agenda" />
                         <Route element={<SendEmail />} path="/send-email" />
                         <Route element={<UserProfile />} path="/userProfile" />
                         <Route element={<ResetPassword />} path="/reset-password" />
@@ -57,5 +57,18 @@ const Layout = () => {
         </div>
     );
 };
-
 export default injectContext(Layout);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
