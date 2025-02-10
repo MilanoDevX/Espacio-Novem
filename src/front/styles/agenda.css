@@ -1,0 +1,101 @@
+
+.agenda-container {
+    background-color: #F2E5D5;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 100%;
+    overflow-x: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.agenda-header {
+    text-align: center;
+    color: #6A7562;
+    font-size: 1.5em;
+}
+
+.agenda-table-container {
+    margin-top: 20px;
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.agenda-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #AFB796;
+    color: #6A7562;
+    border-radius: 8px;
+    table-layout: auto;
+}
+
+.agenda-table th, .agenda-table td {
+    padding: 5px 30px;
+    border: 1px solid #6A7562;
+    text-align: center;
+    white-space: nowrap; /* Evita que el contenido se divida en varias líneas */
+    height: 50px; /* Ajusta la altura de todas las filas */
+}
+
+.agenda-table th {
+    background-color: #6A7562; /* Verde oscuro */
+    color: #F2E5D5;
+}
+
+.auto-width {
+    width: auto;
+}
+
+.delete-btn {
+    background-color: #6A7562;
+    color: #F2E5D5;
+    border: none;
+    padding: 5px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.delete-btn:hover {
+    background-color: #AFB796;
+}
+
+.past-date-row {
+    background-color: #d3d3d3;
+    color: #6A7562;
+    pointer-events: none;
+}
+
+.within-24h-row {
+    background-color: #DAB79F;  /* naranja tierra */
+    color: #6A7562;
+    pointer-events: none;
+}
+
+.italic {
+    font-size: 110% ;  
+}
+
+/* Estilos Responsivos */
+@media screen and (max-width: 768px) {
+    .agenda-header {
+        font-size: 0.8em;
+    }
+
+    .agenda-table-container {
+        overflow-x: auto;
+    }
+
+    .agenda-table th, .agenda-table td {
+        padding: 6px;
+        font-size: 0.75em;
+        height: 35px; /* Ajusta la altura de todas las filas */
+
+    }
+
+    .delete-btn {
+        padding: 6px 10px;
+        font-size: 0.9em;
+    }
+}
