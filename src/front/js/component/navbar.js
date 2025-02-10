@@ -67,12 +67,17 @@ export const Navbar = () => {
                 Reservas
               </Link>
             </li>
-            {/* <li className="nav-item">
-              <a className="nav-link text-light anchor"><span className="d-lg-none me-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" width="24" height="24" strokeWidth="2">
-                <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
-                <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
-              </svg></span>  <Link className="custom-link" to={"/reservations"}>Agenda</Link></a>
-            </li> */}
+            <li className="nav-item">
+              <Link className="nav-link text-light anchor" to="/agenda">
+                <span className="d-lg-none me-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" width="24" height="24" strokeWidth="2">
+                    <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
+                    <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+                  </svg>
+                </span>
+                Agenda
+              </Link>
+            </li>
             <li className="nav-item">
               <Link className="nav-link text-light anchor" to="/contactMap">
                 <span className="d-lg-none me-1">
