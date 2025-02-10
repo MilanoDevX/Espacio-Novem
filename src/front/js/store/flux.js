@@ -6,42 +6,45 @@ const getState = ({ getStore, getActions, setStore }) => {
         actions: {
             login: async (useNew) => {
                 try {
-                    const resp = await fetch(process.env.BACKEND_URL + "api/login", {
+                    console.log("Iniciando sesión...");
+            
+                    const resp = await fetch(`${process.env.BACKEND_URL}/login`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(useNew)
-                    })
-                    console.log(resp.status)
-                    const data = await resp.json()
-                    if (resp.ok) {
-                        console.log(data, "token")
-                        setStore({ user: data.user, token: data.access_token, auth: true })
-                        localStorage.setItem("access_token", data.access_token)
-                        return {
-                            status: true,
-                            rol: data.user.is_admin
-                        };
+                        body: JSON.stringify(useNew),
+                    });
+            
+                    console.log("Estado de respuesta:", resp.status);
+            
+                    if (!resp.ok) {
+                        console.log("Error en la respuesta del backend:", await resp.text());
+                        setStore({ auth: false });
+                        return { status: false };
                     }
-                    setStore({ auth: false })
-                    return {
-                        status: false
+            
+                    const data = await resp.json();
+                    console.log("Datos recibidos:", data);
+            
+                    if (data.access_token) {
+                        localStorage.setItem("access_token", data.access_token);
+                        setStore({ user: data.user, token: data.access_token, auth: true });
+            
+                        return { status: true, rol: data.user.is_admin };
+                    } else {
+                        console.log("El token no está presente en la respuesta.");
+                        setStore({ auth: false });
+                        return { status: false };
                     }
                 } catch (error) {
-                    console.log("Error loading message from backend", error)
-                    setStore({ user: false })
-                    return {
-                        status: false
-                    };
+                    console.error("Error en la solicitud:", error);
+                    setStore({ auth: false });
+                    return { status: false };
                 }
-            }, logout: () => {
-                localStorage.removeItem("access_token");
-                setStore({ user: null, token: null, auth: false });
-                console.log("Sesión cerrada");
             },
             signup: async (user) => {
                 try {
                     // fetching data from the backend
-                    const resp = await fetch(process.env.BACKEND_URL + "api/signup", {
+                    const resp = await fetch(process.env.BACKEND_URL + "/signup", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(user)
@@ -62,7 +65,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
             restablecerPassword: async (email) => {
                 try {
-                    const response = await fetch(process.env.BACKEND_URL + "api/send-email", {
+                    const response = await fetch(process.env.BACKEND_URL + "/send-email", {
                         method: "PUT",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
@@ -84,7 +87,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             recuperarPassword: async (email, nueva, aleatoria) => {
                 console.log(email, nueva, aleatoria)
                 try {
-                    const response = await fetch(process.env.BACKEND_URL + "api/recuperar-password", {
+                    const response = await fetch(process.env.BACKEND_URL + "/recuperar-password", {
                         method: "PUT",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
