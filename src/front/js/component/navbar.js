@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import "../../styles/inicioSesion.css";
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
@@ -9,7 +8,9 @@ export const Navbar = () => {
   const { actions } = useContext(Context);
   const [user, setUser] = useState({ email: "" });
   
-
+  const registerUser = () => {
+    navigate("/register");
+  };
 
   const loginUser = async () => {
     const resp = await actions.login(user);
@@ -23,7 +24,7 @@ export const Navbar = () => {
         navigate("/admin");
       }
 
-      if (user.email === "espacionovem@gmail.com") {
+      if (user.email === "espacionovem@anda.com") {
         navigate("/admin");
       }
     } // <-- Se cerró correctamente el bloque de la función loginUser
