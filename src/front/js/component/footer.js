@@ -41,11 +41,11 @@ export const Footer = () => {
                     </div>
 
                     <div className="politica-reserva">
-                        <h3>Política de Reserva</h3>
+                        <h3 className="reserva-title">Política de Reserva</h3>
                         <p>
                             Bienvenidos a nuestro espacio. Te recordamos que si necesitas camilla o mesa para niños debes agendarlo coincidiendo con el horario destinado a tales fines (4 y 5).
                         </p>
-                        <h3>Política de cancelación:</h3>
+                        <h3 className="reserva-title">Política de cancelación:</h3>
                         <p>Puedes cancelar o reprogramar hasta 24 horas antes de la cita.</p>
                     </div>
                 </div>

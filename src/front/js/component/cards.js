@@ -13,23 +13,32 @@ export const Cards = () => {
             id: 1,
             img: consultorio1,
             name: "Consultorio 1",
-            description: "Descripción del consultorio 1.",
+            description: "1- Este consultorio está diseñado para atender a niños, adolescentes y adultos. Ofreciendo un espacio cálido, acogedor y versátil. La decoración genera una sensación de tranquilidad y confianza.\n\nEquipado con juegos didácticos, cartas emocionales, herramientas para la intervención, materiales de arte y alfombra cómoda para trabajar desde lo lúdico.\n\nEl consultorio está disponible para profesionales que necesiten un espacio flexible por hora o por franjas de tiempo.\nSe fomenta un ambiente de compañerismo y apoyo entre colegas, con la posibilidad de intercambiar experiencias y materiales.\nEsperamos que tanto pacientes como profesionales se sientan cómodos y contenidos.",
             price: "200",
         },
         {
             id: 2,
             img: consultorio2,
             name: "Consultorio 2",
-            description: "Descripción del consultorio 2.",
+            description: "2- Espacio cálido, moderno y funcional. Diseñado para brindar comodidad y privacidad en sesiones terapéuticas. La decoración combina colores neutros, con luz natural, creando un ambiente acogedor y profesional.\n\nAlquiler flexible por horas o franjas horarias. Espacio ideal para sesiones individuales, de pareja o familiares.\nAmbiente profesional con buena onda y compañerismo entre colegas.\nUn lugar pensado para brindar bienestar tanto a terapeutas como a pacientes.",
             price: "300",
         },
         {
             id: 3,
             img: consultorio3,
             name: "Consultorio 3",
-            description: "Descripción del consultorio 3.",
+            description: "3- Espacio acogedor, minimalista y profesional. Ideal para sesiones terapéuticas con adolescentes y adultos.\nAmbientación diseñada para generar confianza y comodidad. Iluminación cálida y detalles que favorecen la relajación.\nDos sillones cómodos, ubicados estratégicamente para una conversación fluida y cercana.\nAlquiler para psicólogos, disponibilidad horaria amplia.\nUn lugar pensado para el bienestar del terapeuta y el paciente. Con todo lo necesario para un trabajo cómodo y efectivo.",
             price: "400",
         },
+
+        {
+            id: 4,
+            img: consultorio3,
+            name: "Consultorio 4",
+            description: "Espacio cálido y funcional, diseñado para generar un ambiente de confianza y comodidad en sesiones terapéuticas. Atmósfera tranquila y segura. Ideal para sesiones individuales, de pareja o familia. Amplia disponibilidad horaria. Espacio versátil.Un lugar pensado para el bienestar del terapeuta y el paciente, con todo lo necesario para un trabajo cómodo y efectivo.",
+            price: "400",
+        }
+
     ];
 
     const toggleModal = (office) => {
@@ -54,8 +63,9 @@ export const Cards = () => {
                                 <h5 className="card-title">{office.name}</h5>
                                 <p className="card-text">Precio: ${office.price}</p>
                                 <button
-                                    className="btn btn-primary"
+                                    className="btn-consult"
                                     onClick={() => toggleModal(office)}
+                                    aria-label={`Consultar ${office.name}`}
                                 >
                                     Consultar
                                 </button>
@@ -83,7 +93,7 @@ export const Cards = () => {
                                     backgroundColor: "#6A7562",
                                 }}
                             >
-                                <h5 className="modal-title" style={{ color: "#F2E5D5", }}>
+                                <h5 className="modal-title" style={{ color: "#F2E5D5" }}>
                                     {selectedOffice.name}
                                 </h5>
                                 <button
@@ -103,8 +113,6 @@ export const Cards = () => {
                                         width: "100%",
                                         maxWidth: "300px",
                                         height: "auto",
-
-
                                     }}
                                 />
                                 <div className="ms-md-3">

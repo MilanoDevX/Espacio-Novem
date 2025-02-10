@@ -4,6 +4,7 @@ import colegascharlando from "../../img/colegascharlando.webp";
 import user from "../../img/user.webp";
 
 
+
 export const AboutUs = () => {
     return (
         <>

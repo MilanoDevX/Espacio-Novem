@@ -41,7 +41,7 @@
 }
 
 .contact-details {
-    list-style: none; /* Quita los puntos de la lista */
+    list-style: none;
     padding: 0;
     margin: 0;
 }
@@ -50,41 +50,42 @@
     display: flex;
     align-items: center;
     margin: 10px 0;
-    font-size: 16px; /* Tamaño de fuente un poco más grande */
+    font-size: 16px; 
 }
 
 .contact-detail i {
     margin-right: 10px;
     font-size: 20px;
-    color: #d4af37; /* Color de icono más elegante */
+    color: #d4af37; 
 }
 
 .contact-detail a {
     text-decoration: none;
-    color: antiquewhite; /* Color de enlace más elegante */
-    transition: color 0.3s ease; /* Transición suave de color */
+    color: antiquewhite;
+    transition: color 0.3s ease; 
 }
 
 .contact-detail a:hover {
     text-decoration: underline;
-    color: #d4af37; /* Color de enlace al pasar el mouse */
+    color: #d4af37; 
 }
 
 .politica-reserva {
     margin-top: 20px;
-    font-size: 14px; /* Tamaño de fuente más pequeño */
-    color: #ddd; /* Color de texto más claro */
+    font-size: 14px;
+    color: #ddd; 
 }
 
-h3 {
+.reserva-title {
     color: antiquewhite;
-    margin-bottom: 10px; /* Espacio entre el título y el texto */
+    margin-bottom: 10px; 
 }
 .map-container {
-    width: 30%; /* Ancho del 70% del contenedor padre */
-    height: 100px; /* Altura automática */
-    /* Opcional: si quieres una altura mínima */
+    width: 30%; 
+    height: 100px; 
+    
     min-height: 300px;
     padding: 10px;
     margin-top: 70px;
 }
+

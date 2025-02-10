@@ -18,6 +18,7 @@ import { AboutUs } from "./component/aboutUs";
 import { SendEmail } from "./component/send-email";
 import { ResetPassword } from "./component/reset-password";
 import { Admin } from "./component/admin";
+import { FooterLogin } from "./component/footerLogin";
 
 
 //create your first component
@@ -47,6 +48,7 @@ const Layout = () => {
                         <Route element={<Admin />} path="/admin" />
                         <Route element={<Register />} path="/register" />
                         <Route element={<Header />} path="/home" />
+                        <Route element={<FooterLogin />} path="/footerLogin" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
