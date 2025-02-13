@@ -18,6 +18,7 @@ import { ResetPassword } from "./component/reset-password";
 import { Admin } from "./component/admin";
 import { Footer } from "./component/footer"; 
 import { FooterLogin } from "./component/footerLogin"; 
+import { Benefits } from "./component/benefits";
 
 // Componente que decide si renderizar Footer o FooterLogin
 const FooterComponent = () => {
@@ -49,6 +50,7 @@ const Layout = () => {
                         <Route element={<ResetPassword />} path="/reset-password" />
                         <Route element={<Admin />} path="/admin" />
                         <Route element={<Register />} path="/register" />
+                        <Route element={<Benefits />} path="/benefits" />
                         <Route element={<Header />} path="/home" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>

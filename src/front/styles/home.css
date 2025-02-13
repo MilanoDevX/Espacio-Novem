@@ -56,7 +56,6 @@ body {
 .titlenovem {
   font-family: "Playfair Display", serif;
   font-style: italic;
-  color: rgb(0, 38, 255);
 }
 
 h1,
@@ -77,6 +76,51 @@ h2 {
 
 a {
   cursor: pointer;
+}
+
+.benefits {
+  background-color: #afb796;
+  text-align: center;
+}
+
+.benefit {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.benefit-item {
+  flex: 1;
+  min-width: 180px; 
+  margin: 5px;
+}
+
+.icon-img {
+  width: 45px; 
+  height: auto;
+}
+
+.benefit-description {
+  font-size: 13px;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .benefit {
+      font-size: 30px;
+  }
+
+  .benefit-description {
+      font-size: 12px;
+  }
+
+  .icon-img {
+      width: 35px;
+  }
+
+  .d-flex {
+      flex-direction: column;
+      align-items: center;
+  }
 }
 
 .porteria {

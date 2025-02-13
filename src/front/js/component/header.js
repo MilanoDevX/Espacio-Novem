@@ -1,7 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "../../styles/header.css";
-import consultories from "../../img/flores.jpg";
+import consultories from "../../img/consultorio.jpg";
+import { Benefits } from "./benefits";
 
 
 export const Header = () => {
@@ -17,6 +17,7 @@ export const Header = () => {
 				<div>
 				</div>
 			</div>
+			<Benefits/>
 		</>
 	)
 }
