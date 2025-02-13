@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../styles/home.css";
+import "../../styles/card.css";
 import consultorio1 from "../../img/consultorio1.webp";
 import consultorio2 from "../../img/consultorio2.webp";
 import consultorio3 from "../../img/consultorio3.webp";
@@ -48,32 +48,25 @@ export const Cards = () => {
 
     return (
         <div className="container my-5">
-            <h3 className="text-center title-espacio fs-2">Nuestros consultorios</h3>
-            <div className="row justify-content-center">
-                {offices.map((office) => (
-                    <div className="col-12 col-sm-6 col-md-4 d-flex justify-content-center mb-4" key={office.id}>
-                        <div className="card" style={{ width: "100%", maxWidth: "300px" }}>
-                            <img
-                                className="card-img-top"
-                                src={office.img}
-                                alt={office.name}
-                                style={{ objectFit: "cover", height: "200px" }}
-                            />
-                            <div className="card-body text-center">
-                                <h5 className="card-title">{office.name}</h5>
-                                <p className="card-text">Precio: ${office.price}</p>
-                                <button
-                                    className="btn-consult"
-                                    onClick={() => toggleModal(office)}
-                                    aria-label={`Consultar ${office.name}`}
-                                >
-                                    Consultar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
+  <h3 className="text-center title-espacio fs-2">Nuestros consultorios</h3>
+  <div className="card-container">
+    {offices.map((office) => (
+      <div className="card" key={office.id}>
+        <img className="card-image" src={office.img} alt={office.name} />
+        <div className="card-body text-center">
+          <h5 className="card-title">{office.name}</h5>
+          <p className="card-text">Precio: ${office.price}</p>
+          <button
+            className="btn-consult"
+            onClick={() => toggleModal(office)}
+            aria-label={`Consultar ${office.name}`}
+          >
+            Consultar
+          </button>
+        </div>
+      </div>
+    ))}
+  </div>
 
             {/* Modal */}
             {showModal && selectedOffice && (

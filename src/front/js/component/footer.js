@@ -1,10 +1,7 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom';
 import '../../styles/footer.css';
 
 export const Footer = () => {
-    const navigate = useNavigate();
-
     return (
         <footer className="footer-container">
             <div className="footer-content">
@@ -18,10 +15,9 @@ export const Footer = () => {
                         referrerPolicy="no-referrer-when-downgrade"
                     ></iframe>
                 </div>
+
                 <div className="contact-container">
-                    <div className="contact-info">
-                        <h2>Espacio Novem</h2>
-                    </div>
+                    <h2>Espacio Novem</h2>
 
                     <div className="contact-detail">
                         <i className="fa-brands fa-whatsapp"></i>
@@ -37,15 +33,17 @@ export const Footer = () => {
 
                     <div className="contact-detail">
                         <i className="fa-brands fa-instagram"></i>
-                        <a href="https://www.instagram.com/espacio_novem" target="_blank" rel="noopener noreferrer">Espacio_Novem</a>
+                        <a href="https://www.instagram.com/espacio_novem" target="_blank" rel="noopener noreferrer">
+                            Espacio_Novem
+                        </a>
                     </div>
 
                     <div className="politica-reserva">
                         <h3 className="reserva-title">Política de Reserva</h3>
                         <p>
-                            Bienvenidos a nuestro espacio. Te recordamos que si necesitas camilla o mesa para niños debes agendarlo coincidiendo con el horario destinado a tales fines (4 y 5).
+                            Si necesitas camilla o mesa para niños, agéndalo en los horarios 4 y 5.
                         </p>
-                        <h3 className="reserva-title">Política de cancelación:</h3>
+                        <h3 className="reserva-title">Política de cancelación</h3>
                         <p>Puedes cancelar o reprogramar hasta 24 horas antes de la cita.</p>
                     </div>
                 </div>
