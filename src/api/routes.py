@@ -1,6 +1,4 @@
-"""
-This module takes care of starting the API Server, Loading the DB and Adding the endpoints
-"""
+
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
@@ -26,7 +24,7 @@ CORS(app)
 
 api = Blueprint('api', __name__)
 
-# Allow CORS requests to this API
+
 CORS(api)
 
 aleatorio=""
@@ -44,32 +42,32 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
-# def send_signup_email(receivers_email):
-#    message = MIMEMultipart("alternative")
+def send_signup_email(receivers_email):
+   message = MIMEMultipart("alternative")
 
-#    message["Subject"] = "Bienvenido a Espacio Novem !"
-#    message["From"] = os.getenv("SMTP_USERNAME")
-#    message["To"] = ",".join(receivers_email)
+   message["Subject"] = "Bienvenido a Espacio Novem !"
+   message["From"] = os.getenv("SMTP_USERNAME")
+   message["To"] = ",".join(receivers_email)
     
-#    html_content = """
-#        <html>
-#            <body>
-#                <h1>Bienvenido a Espacio Novem !</h1>
-#                <p>¿Olvidaste la contraseña?</p>
-#                <p>Por favor, ingresa el correo electrónico que usas en la aplicación para continuar.</p>
-#            </body>
-#        </html>
-#    """
-#    text = "Correo enviado desde la API Espacio Novem. Saludos👋."
+   html_content = """
+       <html>
+           <body>
+               <h1>Bienvenido a Espacio Novem !</h1>
+               <p>¿Olvidaste la contraseña?</p>
+               <p>Por favor, ingresa el correo electrónico que usas en la aplicación para continuar.</p>
+           </body>
+       </html>
+   """
+   text = "Correo enviado desde la API Espacio Novem. Saludos👋."
 
-#    message.attach(MIMEText(text, "plain"))
-#    message.attach(MIMEText(html_content, "html"))
+   message.attach(MIMEText(text, "plain"))
+   message.attach(MIMEText(html_content, "html"))
 
-#    server = smtplib.SMTP(smtp_host, smtp_port)
-#    server.starttls()
-#    server.login(sender_email, sender_password)
-#    server.sendmail(sender_email, receivers_email, message.as_string())
-#    server.quit()
+   server = smtplib.SMTP(smtp_host, smtp_port)
+   server.starttls()
+   server.login(sender_email, sender_password)
+   server.sendmail(sender_email, receivers_email, message.as_string())
+   server.quit()
 
    
 def generate_random_password(length=10):
@@ -104,7 +102,7 @@ def send_email():
    message = MIMEMultipart("alternative")
 
    message["Subject"] = "Olvido de contraseña - Espacio Novem"
-   message["From"] = "espacionovem@gmail.com"
+   message["From"] = "andamanagment@gmail.com"
    message["To"] = ",".join(receivers_email)
    
 
@@ -131,6 +129,32 @@ def send_email():
 
    return jsonify({"msg": "Correo enviado correctamente"}), 200
 
+@api.route('/recuperar-password', methods=['PUT'])
+def recuperar_password():
+    data=request.json
+    email=data.get("email")
+    nueva=data.get("nueva")
+    aleatoria=data.get("aleatoria")
+   
+    exist_user=User.query.filter_by(email=email).first()
+   
+    if email is None :
+        return jsonify({"msg":"Falta ingresar email"}),404
+    
+    if exist_user is None :
+       return jsonify({"msg":"Usuario no registrado"}),401
+    
+    print(exist_user.password,aleatoria)
+
+    if exist_user.password != aleatoria:
+        return jsonify({"msg":"El password enviado no coincide"}),403
+    
+    if user_random_password==aleatorio:
+     exist_user.password=nueva
+    db.session.commit()
+    return jsonify({"msg":"Contraseña actualizada con exito"}),200
+    return jsonify({"msg":"Paso algo inesperado"}),500
+
 
 
 @api.route('/signup', methods=['POST'])
@@ -154,20 +178,19 @@ def register():
     )
     db.session.add(new_user)
     db.session.commit()
-    # send_signup_email([email])
+    send_signup_email([email])
     return jsonify({"message":"User crated successfully"}),201
 
 @api.route('/login', methods=['POST'])
 def login():
     data= request.json
-    #info desde el frontend
     email = data.get("email", None)
     password = data.get("password", None)
 
-    user=User.query.filter_by(email=email).one_or_none()
-
-    if user == None:
-        return jsonify({"msg": f"Bad email or password"}), 404
+    user=User.query.filter_by(email=email).first()
+    print(user)
+    if user is None:
+        return jsonify({"msg": f"No existe el usuario"}), 404
 
     if email != user.email or password != user.password:
         return jsonify({"msg": "Bad username or password"}), 401
