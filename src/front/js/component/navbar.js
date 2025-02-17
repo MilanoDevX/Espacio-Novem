@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 
-import Login from "./login";
+import Login from "./Login";
 
 export const Navbar = () => {
   const navigate = useNavigate();
