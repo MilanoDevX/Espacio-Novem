@@ -90,12 +90,12 @@ a {
 
 .benefit-item {
   flex: 1;
-  min-width: 180px; 
+  min-width: 180px;
   margin: 5px;
 }
 
 .icon-img {
-  width: 45px; 
+  width: 45px;
   height: auto;
 }
 
@@ -106,20 +106,20 @@ a {
 
 @media (max-width: 768px) {
   .benefit {
-      font-size: 30px;
+    font-size: 30px;
   }
 
   .benefit-description {
-      font-size: 12px;
+    font-size: 12px;
   }
 
   .icon-img {
-      width: 35px;
+    width: 35px;
   }
 
   .d-flex {
-      flex-direction: column;
-      align-items: center;
+    flex-direction: column;
+    align-items: center;
   }
 }
 
@@ -210,4 +210,3 @@ a {
   border-color: #F2E5D5;
   border-radius: 5px;
 }
-

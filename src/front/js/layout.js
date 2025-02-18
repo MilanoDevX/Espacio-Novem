@@ -16,17 +16,18 @@ import { AboutUs } from "./component/aboutUs";
 import { SendEmail } from "./component/send-email";
 import { ResetPassword } from "./component/reset-password";
 import { Admin } from "./component/admin";
-import { Footer } from "./component/footer"; 
-import { FooterLogin } from "./component/footerLogin"; 
+import { Footer } from "./component/footer";
+import { FooterLogin } from "./component/footerLogin";
 import { Benefits } from "./component/benefits";
 
-// Componente que decide si renderizar Footer o FooterLogin
+// Componente que decide si renderizar Footer o FooterLogin y sacar eel admin
 const FooterComponent = () => {
     const location = useLocation();
-    const isHomePage = location.pathname === "/";
+    const isAdminRoute = location.pathname.startsWith("/admin");
 
-    return isHomePage ? <Footer /> : <FooterLogin />;
+    return isAdminRoute ? null : (location.pathname === "/" ? <Footer /> : <FooterLogin />);
 };
+
 
 const Layout = () => {
     const basename = process.env.BASENAME || "";

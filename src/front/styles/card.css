@@ -69,11 +69,13 @@
     max-width: 300px;
     height: auto;
     object-fit: cover;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    padding: 10px;
 }
 
 .modal-content {
-    max-width: 90%;
+    max-width: 500%;
+    margin: 5px;
 }
 
 /* Responsividad */
