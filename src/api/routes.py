@@ -22,7 +22,6 @@ app = Flask(__name__)
 CORS(app)
 
 
-api = Blueprint('api', __name__)
 
 
 CORS(api)

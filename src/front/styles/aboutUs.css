@@ -1,53 +1,32 @@
 .about {
   color: #6A7562;
 }
-
 .juntas {
   width: 250px;
 }
-
-
 .about-us {
   font-style: italic;
 }
-
-
-@media (max-width: 768px) {
+/* :chincheta: Para tablets y pantallas medianas */
+@media screen and (max-width: 768px) {
   .d-flex {
-    flex-direction: column; 
+    flex-direction: column;
     align-items: center;
-    text-align: center; 
+    text-align: center;
   }
-
-  .card-img {
-    width: 90%; 
-    max-width: 400px;
-    margin: 10px 0; 
+  .juntas {
+    width: 200px; /* Reducimos tamaño en pantallas medianas */
   }
-
-  .card-img-overlay {
-    position: static; 
-    background: rgba(255, 255, 255, 0.8); 
-    padding: 15px; 
-    border-radius: 10px;
-  }
-
-  .registeruser {
-    width: 150px; 
+  .about {
+    font-size: 1rem;
   }
 }
-
-
-@media (max-width: 480px) {
+/* :chincheta: Para móviles */
+@media screen and (max-width: 480px) {
   .juntas {
-    width: 180px; 
+    width: 150px; /* Hacemos las imágenes más pequeñas */
   }
-
   .about {
-    font-size: 14px; 
-  }
-
-  .card-title {
-    font-size: 18px;
+    font-size: 0.9rem;
   }
 }
