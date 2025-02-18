@@ -1,0 +1,11 @@
+.customs-links {
+    text-decoration: none; /* Quita la línea azul */
+    color:#6A7562;
+  }
+  
+  
+  .customs-links:hover {
+    text-decoration: none; 
+    color:#afb796
+   
+  }
