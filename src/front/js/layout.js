@@ -24,10 +24,16 @@ import { Benefits } from "./component/benefits";
 const FooterComponent = () => {
     const location = useLocation();
     const isAdminRoute = location.pathname.startsWith("/admin");
+    const isRegister = location.pathname.startsWith("/register");
+    const isSendEmail = location.pathname.startsWith("/send-email");
+    const isResetPass = location.pathname.startsWith("/reset-password");
 
-    return isAdminRoute ? null : (location.pathname === "/" ? <Footer /> : <FooterLogin />);
+    if (isAdminRoute || isRegister || isSendEmail || isResetPass) {
+        return null;
+    }
+
+    return location.pathname === "/" ? <Footer /> : <FooterLogin />;
 };
-
 
 const Layout = () => {
     const basename = process.env.BASENAME || "";

@@ -1,9 +1,38 @@
-.about{
-    color: #6A7562 ;
+.about {
+  color: #6A7562;
+}
+
+.juntas {
+  width: 250px;
+}
+
+.about-us {
+  font-style: italic;
+}
+
+@media screen and (max-width: 768px) {
+  .d-flex {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
-  .juntas{
-    width: 250px;
+
+  .juntas {
+    width: 200px;
   }
-  .about-us{
-    font-style: italic;
+
+  .about {
+    font-size: 1rem;
   }
+}
+
+
+@media screen and (max-width: 480px) {
+  .juntas {
+    width: 150px;
+  }
+
+  .about {
+    font-size: 0.9rem;
+  }
+}
