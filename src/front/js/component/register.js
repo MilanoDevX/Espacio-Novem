@@ -13,6 +13,7 @@ export const Register = () => {
     const navigate = useNavigate();
     const volver = () => {
         navigate("/");
+        window.scrollTo(0, 0); 
     };
 
 
