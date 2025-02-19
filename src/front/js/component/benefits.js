@@ -9,7 +9,7 @@ export const Benefits = () => {
             <div className="container">
                 <div className="d-flex flex-wrap justify-content-between align-items-center">
                     <div className="benefit-item d-flex align-items-center">
-                        <h3 className="benefit me-2">5</h3>
+                        <h3 className="benefit me-2">4</h3>
                         <div>
                             <h4 className="benefit-name my-0">Consultorios</h4>
                             <p className="benefit-description my-0">Flexibilidad y comodidad para profesionales.</p>

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 import Login from "./Login";
 
@@ -26,18 +27,18 @@ export const Navbar = () => {
       <div className="container-fluid">
         <button
           type="button"
-          className="btn dos d-lg-none"
+          className="btn dos"
           data-bs-toggle="offcanvas"
           data-bs-target="#offcanvasExample"
           aria-controls="offcanvasExample"
         >
           Espacio Novem
         </button>
-        {/* Mobile Toggler */}
+        {/* Botón del toggler */}
         <button className="navbar-toggler text-light border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
-
+        
         {/* Navbar Links */}
         <div className="collapse navbar-collapse justify-content-end" id="navbarContent">
           <ul className="navbar-nav me-3 mb-2 mb-lg-0">

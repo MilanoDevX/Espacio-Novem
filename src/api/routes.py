@@ -1,25 +1,21 @@
-from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
-from api.utils import generate_sitemap, APIException
+from flask import Flask, request, jsonify, Blueprint
+from api.models import db, User, Reservation
 from flask_cors import CORS
-import json
 import os
 import random
 import string
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from flask_jwt_extended import create_access_token
-from flask_jwt_extended import get_jwt_identity
-from flask_jwt_extended import jwt_required
-from flask_cors import CORS
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from werkzeug.security import generate_password_hash, check_password_hash
 
+app = Flask(__name__)
+CORS(app)
 
-from flask_cors import CORS
-
-api = Flask(__name__)
-
+api = Blueprint('api', __name__)
 CORS(api)
+
 
 aleatorio=""
 sender_email = os.getenv("SMTP_USERNAME")
@@ -27,164 +23,247 @@ sender_password = os.getenv("SMTP_APP_PASSWORD")
 smtp_host = os.getenv("SMTP_HOST")
 smtp_port = os.getenv("SMTP_PORT")
 
+# receivers_email = "fiorellaviscardi.2412@gmail.com", "natimartalvarez@gmail.com", "eliasmilano@gmail.com"
 
-@api.route('/hello', methods=['POST', 'GET'])
-def handle_hello():
 
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
-    }
-
-    return jsonify(response_body), 200
-
+# Función para enviar correo de bienvenida
 def send_signup_email(receivers_email):
-   message = MIMEMultipart("alternative")
+    if not sender_email or not sender_password or not smtp_host or not smtp_port:
+        print("Faltan variables de entorno necesarias para la conexión SMTP.")
+        return False
 
-   message["Subject"] = "Bienvenido a Espacio Novem !"
-   message["From"] = os.getenv("SMTP_USERNAME")
-   message["To"] = ",".join(receivers_email)
+    try:
+       
+        message = MIMEMultipart()
+        message["Subject"] = "Bienvenido a Espacio Novem!"
+        message["From"] = sender_email
+        message["To"] = ",".join(receivers_email)
+
+        # Cuerpo del mensaje en texto y HTML
+        html_content = """
+            <html>
+                <body>
+                    <h1>Bienvenido a Espacio Novem!</h1>
+                    <p>¿Olvidaste la contraseña?</p>
+                    <p>Por favor, ingresa el correo electrónico que usas en la aplicación para continuar.</p>
+                </body>
+            </html>
+        """
+        text = "Correo enviado desde la API Espacio Novem. Saludos👋."
+        message.attach(MIMEText(text, "plain"))
+        message.attach(MIMEText(html_content, "html"))
+
+      
+        with smtplib.SMTP(smtp_host, smtp_port) as server:
+            server.starttls()
+            server.login(sender_email, sender_password)
+            server.sendmail(sender_email, receivers_email, message.as_string())
+        
+        print("Correo enviado exitosamente.")
+        return True
+
+    except smtplib.SMTPAuthenticationError as e:
+        print(f"Error de autenticación SMTP: {str(e)}")
+    except smtplib.SMTPConnectError as e:
+        print(f"Error al conectar con el servidor SMTP: {str(e)}")
+    except smtplib.SMTPException as e:
+        print(f"Error SMTP general: {str(e)}")
+    except Exception as e:
+        print(f"Error inesperado al enviar el correo: {str(e)}")
     
-   html_content = """
-       <html>
-           <body>
-               <h1>Bienvenido a Espacio Novem !</h1>
-               <p>¿Olvidaste la contraseña?</p>
-               <p>Por favor, ingresa el correo electrónico que usas en la aplicación para continuar.</p>
-           </body>
-       </html>
-   """
-   text = "Correo enviado desde la API Espacio Novem. Saludos👋."
+    return False
 
-   message.attach(MIMEText(text, "plain"))
-   message.attach(MIMEText(html_content, "html"))
 
-   server = smtplib.SMTP(smtp_host, smtp_port)
-   server.starttls()
-   server.login(sender_email, sender_password)
-   server.sendmail(sender_email, receivers_email, message.as_string())
-   server.quit()
-
-   
+# Generar contraseña aleatoria
 def generate_random_password(length=10):
-  
-  chars = string.ascii_letters + string.digits + string.punctuation
- 
-  password = ''.join(random.choice(chars) for _ in range(length))
-  return password
+    chars = string.ascii_letters + string.digits + string.punctuation
+    password = ''.join(random.choice(chars) for _ in range(length))
+    return password
 
 
 
-
-@api.route('/send-email', methods=['PUT'])
-def send_email():
-   data=request.json
-   receivers_email=data["email"]
-   user_random_password=generate_random_password()
-    
-   exist_user=User.query.filter_by(email=receivers_email).first()
-   
-   if receivers_email is None :
-       return jsonify({"msg":"Falta ingresar email"}),404
-    
-   if exist_user is None :
-       return jsonify({"msg":"Usuario no registrado"}),404
-    
-#    if user_random_password==aleatorio:
-   exist_user.password=user_random_password
-   db.session.commit()
- 
-
-   message = MIMEMultipart("alternative")
-
-   message["Subject"] = "Olvido de contraseña - Espacio Novem"
-   message["From"] = "andamanagment@gmail.com"
-   message["To"] = ",".join(receivers_email)
-   
-
-   html_content = f"""
-       <html>
-           <body>
-               <h1>Bienvenido a Espacio Novem !</h1>
-               <p>¿Olvidaste la contraseña?</p>
-               <p>Tu password aleatorio es : {user_random_password}.</p>
-               <p>Recuerda volver a la aplicacion web para continuar el cambio de contraseña</p>
-           </body>
-       </html>
-   """
-   text = "Correo enviado desde la API Espacio Novem !. Saludos👋."
-
-   message.attach(MIMEText(text, "plain"))
-   message.attach(MIMEText(html_content, "html"))
-
-   server = smtplib.SMTP(smtp_host, smtp_port)
-   server.starttls()
-   server.login(sender_email, sender_password)
-   server.sendmail(sender_email, receivers_email, message.as_string())
-   server.quit()
-
-   return jsonify({"msg": "Correo enviado correctamente"}), 200
-
-@api.route('/recuperar-password', methods=['PUT'])
-def recuperar_password():
-    data=request.json
-    email=data.get("email")
-    nueva=data.get("nueva")
-    aleatoria=data.get("aleatoria")
-   
-    exist_user=User.query.filter_by(email=email).first()
-   
-    if email is None :
-        return jsonify({"msg":"Falta ingresar email"}),404
-    
-    if exist_user is None :
-       return jsonify({"msg":"Usuario no registrado"}),401
-    
-    print(exist_user.password,aleatoria)
-
-    if exist_user.password != aleatoria:
-        return jsonify({"msg":"El password enviado no coincide"}),403
-    
-    # if user_random_password==aleatorio:
-    #  exist_user.password=nueva
-    # db.session.commit()
-    # return jsonify({"msg":"Contraseña actualizada con exito"}),200
-    # return jsonify({"msg":"Paso algo inesperado"}),500
-
-
+# Registro de usuario
 
 @api.route('/signup', methods=['POST'])
 def register():
-    data=request.json
-    name=data.get("name")
-    last_name=data.get("last_name")
-    email=data.get("email")
-    password=data.get("password")
-    telefono=data.get("telefono")
-    exist_user=User.query.filter_by(email=email).first()
+    data = request.json
+    
+    print(data)  
+    
+    name = data.get("name")
+    last_name = data.get("last_name")
+    email = data.get("email")
+    password = data.get("password")
+    telefono = data.get("telefono")
+    is_admin = data.get("is_admin", False)
+
+    if not all([name, last_name, email, password, telefono]) or is_admin is None:
+        return jsonify({"status": "error", "message": "Todos los campos son obligatorios"}), 400
+
+    exist_user = User.query.filter_by(email=email).first()
     if exist_user:
-        return jsonify({"msg":"El usuario ya existe"}),400
-    new_user=User(
-        name=name,
-        last_name=last_name,
-        email=email,
-        password=password,
-        telefono=telefono
-    )
-    db.session.add(new_user)
-    db.session.commit()
-    send_signup_email([email])
-    return jsonify({"message":"User crated successfully"}),201
+        return jsonify({"status": "error", "message": "El usuario ya existe"}), 400
+
+    try:
+       
+        new_user = User(
+            name=name,
+            last_name=last_name,
+            email=email,
+            password=password,
+            telefono=telefono,
+            is_admin=is_admin,
+            is_active=True  
+        )
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        # Enviar correo de bienvenida
+        if send_signup_email([email]):
+            return jsonify({"status": "success", "message": "Usuario creado exitosamente"}), 201
+        else:
+          
+            db.session.rollback()  
+            return jsonify({"status": "error", "message": "Usuario creado, pero no se pudo enviar el correo de bienvenida"}), 500
+
+    except Exception as e:
+        db.session.rollback()
+        print(f"Error al registrar usuario: {str(e)}")
+        return jsonify({"status": "error", "message": "Hubo un problema al crear el usuario"}), 500
+
+
+# Login de usuario
 
 @api.route('/login', methods=['POST'])
 def login():
-    data= request.json
-    email = data.get("email", None)
-    password = data.get("password", None)
-    user=User.query.filter_by(email=email).first()
-    print(user)
+    data = request.json
+    email = data.get("email")
+    password = data.get("password")
+
+    user = User.query.filter_by(email=email).first()
+
     if user is None:
-        return jsonify({"msg": f"No existe el usuario"}), 404
-    if email != user.email or password != user.password:
-        return jsonify({"msg": "Bad username or password"}), 401
+        return jsonify({"status": "error", "message": "No existe el usuario"}), 404
+
+    if not check_password_hash(user.password, password):
+        return jsonify({"status": "error", "message": "Bad username or password"}), 401
+
     access_token = create_access_token(identity=email)
-    return jsonify(access_token=access_token, user=user.serialize()),200
+    return jsonify(access_token=access_token, user=user.serialize()), 200
+
+
+# Recuperar contraseña
+@api.route('/recuperar-password', methods=['PUT'])
+def recuperar_password():
+    data = request.json
+    email = data.get("email")
+    nueva = data.get("nueva")
+    aleatoria = data.get("aleatoria")
+
+    if not email:
+        return jsonify({"status": "error", "message": "Falta ingresar email"}), 404
+
+    exist_user = User.query.filter_by(email=email).first()
+
+    if not exist_user:
+        return jsonify({"status": "error", "message": "Usuario no registrado"}), 404
+
+    if exist_user.password != aleatoria:
+        return jsonify({"status": "error", "message": "El password enviado no coincide"}), 403
+
+    exist_user.password = generate_password_hash(nueva, method='sha256')
+    db.session.commit()
+
+    return jsonify({"status": "success", "message": "Contraseña actualizada con éxito"}), 200
+
+# Rutas de reservas protegidas
+@api.route("/reservations", methods=["GET"])
+@jwt_required()
+def get_reservations():
+    current_user_email = get_jwt_identity()
+    user = User.query.filter_by(email=current_user_email).first()
+
+    if user and not user.is_admin:
+        return jsonify({"status": "error", "message": "Acceso denegado"}), 403
+
+    reservations = Reservation.query.all()
+    return jsonify([reservation.serialize() for reservation in reservations])
+
+# Crear una nueva reserva
+@api.route("/reservations", methods=["POST"])
+@jwt_required()
+def create_reservation():
+    current_user_email = get_jwt_identity()
+    user = User.query.filter_by(email=current_user_email).first()
+
+    if user and not user.is_admin:
+        return jsonify({"status": "error", "message": "Acceso denegado"}), 403
+
+    data = request.json
+    new_reservation = Reservation(
+        consultorio=data["consultorio"],
+        date=data["date"],
+        time=data["time"],
+        user=data["user"]
+    )
+    db.session.add(new_reservation)
+    db.session.commit()
+    return jsonify(new_reservation.serialize()), 201
+
+# Editar una reserva existente
+@api.route("/reservations/<int:id>", methods=["PUT"])
+@jwt_required()
+def update_reservation(id):
+    current_user_email = get_jwt_identity()
+    user = User.query.filter_by(email=current_user_email).first()
+
+    if user and not user.is_admin:
+        return jsonify({"status": "error", "message": "Acceso denegado"}), 403
+
+    reservation = Reservation.query.get(id)
+    if not reservation:
+        return jsonify({"status": "error", "message": "Reservation not found"}), 404
+
+    data = request.json
+    reservation.consultorio = data.get("consultorio", reservation.consultorio)
+    reservation.date = data.get("date", reservation.date)
+    reservation.time = data.get("time", reservation.time)
+    reservation.user = data.get("user", reservation.user)
+
+    db.session.commit()
+    return jsonify(reservation.serialize()), 200
+
+# Eliminar una reserva
+@api.route("/reservations/<int:id>", methods=["DELETE"])
+@jwt_required()
+def delete_reservation(id):
+    current_user_email = get_jwt_identity()
+    user = User.query.filter_by(email=current_user_email).first()
+
+    if user and not user.is_admin:
+        return jsonify({"status": "error", "message": "Acceso denegado"}), 403
+
+    reservation = Reservation.query.get(id)
+    if not reservation:
+        return jsonify({"status": "error", "message": "Reservation not found"}), 404
+
+    db.session.delete(reservation)
+    db.session.commit()
+    return jsonify({"status": "success", "message": "Reservation deleted"}), 200
+
+#Perfil de usuario
+
+@api.route("/userProfile", methods=["GET"])
+@jwt_required()
+def user_profile():
+    user_id = get_jwt_identity()  
+    user = get_user_from_db(user_id)  # Función para obtener datos del usuario desde la BD
+
+    if user:
+        return jsonify({
+            "name": user.name,
+            "email": user.email,
+            "telefono": user.telefono
+        }), 200
+    return jsonify({"error": "User not found"}), 404

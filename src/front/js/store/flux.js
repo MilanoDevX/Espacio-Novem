@@ -1,122 +1,104 @@
 const getState = ({ getStore, getActions, setStore }) => {
     return {
         store: {
-            user: null
+            user: null,
+            token: null,
+            auth: false
         },
         actions: {
-            login: async (useNew) => {
+            login: async (email, password) => {
                 try {
-                    console.log("Iniciando sesión...");
-
-                    const resp = await fetch(`${process.env.BACKEND_URL}/login`, {
+                    const response = await fetch("http://localhost:3001/login", {
                         method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(useNew),
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ email, password })
                     });
-
-                    console.log("Estado de respuesta:", resp.status);
-
-                    if (!resp.ok) {
-                        console.log("Error en la respuesta del backend:", await resp.text());
-                        setStore({ auth: false });
-                        return { status: false };
+            
+                    if (response.ok) {
+                        const data = await response.json();
+                        localStorage.setItem("token", data.token);
+                        setStore({ auth: true });
+            
+                        getActions().getUserProfile(); 
+                        return true;
                     }
+                    return false;
+                } catch (error) {
+                    console.error("Error en login:", error);
+                    return false;
+                }
+            },
+            
 
+            signup: async (user) => {
+                try {
+                    const resp = await fetch(`${process.env.BACKEND_URL}/signup`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(user),
+                    });
+            
                     const data = await resp.json();
-                    console.log("Datos recibidos:", data);
-
-                    if (data.access_token) {
-                        localStorage.setItem("access_token", data.access_token);
-                        setStore({ user: data.user, token: data.access_token, auth: true });
-
-                        return { status: true, rol: data.user.is_admin };
-                    } else {
-                        console.log("El token no está presente en la respuesta.");
-                        setStore({ auth: false });
-                        return { status: false };
+                    if (!resp.ok) {
+                        console.error("Error en el backend:", data);
                     }
+                    return data;
                 } catch (error) {
                     console.error("Error en la solicitud:", error);
-                    setStore({ auth: false });
-                    return { status: false };
                 }
             },
-            //  logout: () => {
-            //     localStorage.removeItem("access_token");
-            //     setStore({ user: null, token: null, auth: false });
-            //     console.log("Sesión cerrada");
-            // },
-            signup: async (user) => {
-                // console.log(user)
-                // console.log(process.env.BACKEND_URL+"/signup")
+            
+
+            recuperarPassword: async (email, nueva, aleatoria) => {
+                console.log(email, nueva, aleatoria);
                 try {
-                    // fetching data from the backend
-                    const resp = await fetch(process.env.BACKEND_URL + "/signup", {
-                        method: "POST",
+                    const response = await fetch(`${process.env.BACKEND_URL}/recuperar-password`, {
+                        method: "PUT",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(user)
-                    })
-                    // console.log(resp)
-                    if (resp.status == 201) {
+                        body: JSON.stringify({ email, nueva, aleatoria }),
+                    });
+
+                    if (response.status === 200) {
+                        console.log("Contraseña actualizada correctamente");
                         return true;
                     } else {
-                        return false
-                    }
-                } catch (error) {
-                    console.log("Error loading message from backend", error)
-                }
-            },
-            logout: () => {
-                localStorage.removeItem("access_token");
-                setStore({ user: null, token: null, auth: false });
-                console.log("Sesión cerrada");
-            },
-            restablecerPassword: async (email) => {
-                try {
-                    const response = await fetch(process.env.BACKEND_URL + "/send-email", {
-                        method: "PUT",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            email: email
-                        }),
-                    });
-                    console.log(response);
-                    if (response.status == 200) {
-                        return true;
-                    }
-                    if (response.status == 404) {
+                        const data = await response.json();
+                        console.error("Error en el backend:", data.message || "No se pudo actualizar la contraseña");
                         return false;
                     }
                 } catch (error) {
-                    console.log(error);
+                    console.log("Error en la solicitud:", error);
                     return false;
                 }
             },
-            recuperarPassword: async (email, nueva, aleatoria) => {
-                console.log(email, nueva, aleatoria)
+            getUserProfile: async () => {
                 try {
-                    const response = await fetch(process.env.BACKEND_URL + "/recuperar-password", {
-                        method: "PUT",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            email,
-                            nueva,
-                            aleatoria
-                        }),
+                    const token = localStorage.getItem("token"); 
+                    if (!token) return;
+            
+                    const response = await fetch("http://localhost:5000/user/profile", {
+                        method: "GET",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        }
                     });
-                    console.log(response);
-                    if (response.status == 200) {
-                        return true;
-                    }
-                    if (response.status == 404) {
-                        return false;
+            
+                    if (response.ok) {
+                        const data = await response.json();
+                        setStore({ user: data });
                     }
                 } catch (error) {
-                    console.log(error);
-                    return false;
+                    console.error("Error obteniendo perfil:", error);
                 }
-            },
+            }
+            
         }
     };
 };
+
 export default getState;
