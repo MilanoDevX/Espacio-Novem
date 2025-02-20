@@ -1,4 +1,3 @@
-
 import React, { useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Context } from "../store/appContext";
@@ -7,12 +6,14 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
     const { actions } = useContext(Context);
-    const [user, setUser] = useState({ email: "" });
+    const [user, setUser] = useState({ email: "", password: "" });
+    
     const registerUser = () => {
         navigate("/register");
     };
 
-    const loginUser = async () => {
+    const loginUser = async (e) => {
+        e.preventDefault()
         console.log(user)
         const resp = await actions.login(user);
         console.log(resp);
@@ -72,7 +73,7 @@ const Login = () => {
                                 </Link>
                             </div>
                             <div className="d-flex justify-content-end">
-                                <button className="button-pastel btndos" onClick={loginUser}>Ingresar</button>
+                                <button className="button-pastel btndos" onClick={(e)=> loginUser(e)}>Ingresar</button>
                             </div>
                         </form>
                     </div>
@@ -83,4 +84,3 @@ const Login = () => {
 }
 
 export default Login
-
