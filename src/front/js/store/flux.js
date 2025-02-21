@@ -54,27 +54,27 @@ const getState = ({ getStore, getActions, setStore }) => {
             
 
             recuperarPassword: async (email, nueva, aleatoria) => {
-                console.log(email, nueva, aleatoria);
                 try {
-                    const response = await fetch(`${process.env.BACKEND_URL}/recuperar-password`, {
-                        method: "PUT",
-                        headers: { "Content-Type": "application/json" },
+                    const response = await fetch('/api/recuperar-password', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
                         body: JSON.stringify({ email, nueva, aleatoria }),
                     });
-
-                    if (response.status === 200) {
-                        console.log("Contraseña actualizada correctamente");
-                        return true;
-                    } else {
-                        const data = await response.json();
-                        console.error("Error en el backend:", data.message || "No se pudo actualizar la contraseña");
-                        return false;
+        
+                    if (!response.ok) {
+                        throw new Error('Error al actualizar la contraseña');
                     }
+        
+                    const data = await response.json();
+                    return data; // Debes retornar lo que recibes del servidor
                 } catch (error) {
-                    console.log("Error en la solicitud:", error);
-                    return false;
+                    console.error(error);
+                    return null;  // En caso de error
                 }
             },
+        
             getUserProfile: async () => {
                 try {
                     const token = localStorage.getItem("token"); 
