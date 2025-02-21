@@ -12,14 +12,14 @@ const FormReservations = ({ selectedDate }) => {
 
     const fetchData = async () => {
       const data = [
-        { id:1, user: 'natali', date: '2025-02-10', hour: '11:00', consultories: [1] },
-        { id:2, user: 'kate', date: '2025-02-10', hour: '11:00', consultories: [2] },
-        { id:3, user: 'fio', date: '2025-02-11', hour: '16:00', consultories: [1] },
-        { id:4, user: 'elias', date: '2025-02-11', hour: '16:00', consultories: [2] },
-        { id:5, user: 'natali', date: '2025-02-12', hour: '17:00', consultories: [1] },
-        { id:6, user: 'kate', date: '2025-02-12', hour: '17:00', consultories: [2] },
-        { id:7, user: 'elias', date: '2025-02-12', hour: '17:00', consultories: [3] },
-        { id:8, user: 'elias', date: '2025-02-12', hour: '17:00', consultories: [4] }
+        { id:1, user: 'natali', date: '2025-02-10', hour: '11:00', offices: [1] },
+        { id:2, user: 'kate', date: '2025-02-10', hour: '11:00', offices: [2] },
+        { id:3, user: 'fio', date: '2025-02-11', hour: '16:00', offices: [1] },
+        { id:4, user: 'elias', date: '2025-02-11', hour: '16:00', offices: [2] },
+        { id:5, user: 'natali', date: '2025-02-12', hour: '17:00', offices: [1] },
+        { id:6, user: 'kate', date: '2025-02-12', hour: '17:00', offices: [2] },
+        { id:7, user: 'elias', date: '2025-02-12', hour: '17:00', offices: [3] },
+        { id:8, user: 'elias', date: '2025-02-12', hour: '17:00', offices: [4] }
       ];
 
       const filteredData = data.filter((entry) => entry.date === selectedDate);
@@ -34,8 +34,8 @@ const FormReservations = ({ selectedDate }) => {
     '17:00', '18:00', '19:00',
   ];
 
-  const handleRadioChange = (hour, consultory) => {
-    console.log(`Hora: ${hour}, Consultorio seleccionado: ${consultory}`);
+  const handleRadioChange = (hour, office) => {
+    console.log(`Hora: ${hour}, Consultorio seleccionado: ${office}`);
   };
 
   const handleScheduleSubmit = () => {
@@ -44,16 +44,16 @@ const FormReservations = ({ selectedDate }) => {
 
   const getRowData = (hour) => {
     const filteredEntries = schedule.filter((entry) => entry.hour === hour);
-    const reservedConsultories = filteredEntries.flatMap(entry => entry.consultories);
+    const reservedoffices = filteredEntries.flatMap(entry => entry.offices);
 
     return {
       hour,
-      consultories: reservedConsultories,
+      offices: reservedoffices,
       default: 'Ninguno',
     };
   };
 
-  const isAvailable = (consultories) => consultories.length < 4;
+  const isAvailable = (offices) => offices.length < 4;
 
   return (
     <div className="form-reservations-container container">
@@ -66,41 +66,41 @@ const FormReservations = ({ selectedDate }) => {
             <th rowSpan="2" className="align-middle">NA</th>
           </tr>
           <tr>
-            {[1, 2, 3, 4].map((consultory) => (
-              <th key={consultory}>{consultory}</th>
+            {[1, 2, 3, 4].map((office) => (
+              <th key={office}>{office}</th>
             ))}
           </tr>
         </thead>
         <tbody>
           {allHours.map((hour) => {
             const row = getRowData(hour);
-            const status = isAvailable(row.consultories) ? 'Disponible' : 'No disponible';
+            const status = isAvailable(row.offices) ? 'Disponible' : 'No disponible';
 
             return (
               <tr key={hour} className={status === 'No disponible' ? 'no-available' : ''}>
                 <td>{row.hour}</td>
                 <td>{status}</td>
-                {[1, 2, 3, 4].map((consultory) => (
-                  <td key={consultory}>
+                {[1, 2, 3, 4].map((office) => (
+                  <td key={office}>
                     <input
                       className="input-color"
                       type="radio"
-                      name={`consultory-${row.hour}`}
-                      value={consultory}
-                      defaultChecked={row.default === consultory}
-                      onChange={() => handleRadioChange(row.hour, consultory)}
-                      disabled={row.consultories.includes(consultory)}
+                      name={`office-${row.hour}`}
+                      value={office}
+                      defaultChecked={row.default === office}
+                      onChange={() => handleRadioChange(row.hour, office)}
+                      disabled={row.offices.includes(office)}
                     />
                   </td>
                 ))}
                 <td>
                   <input className="input-color"
                     type="radio"
-                    name={`consultory-${row.hour}`}
+                    name={`office-${row.hour}`}
                     value="Ninguno"
                     defaultChecked={true}
                     onChange={() => handleRadioChange(row.hour, 'Ninguno')}
-                    disabled={!isAvailable(row.consultories)}
+                    disabled={!isAvailable(row.offices)}
                   />
                 </td>
               </tr>
