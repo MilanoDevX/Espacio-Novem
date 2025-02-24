@@ -3,29 +3,35 @@ import { useNavigate } from 'react-router-dom';
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
-const Login = () => {
-    const { store, actions } = useContext(Context);
-    const navigate = useNavigate();
-    const [user, setUser] = useState({ email: "", password: "" });
+    export const Login = () => {
+        const { store, actions } = useContext(Context);
+    
+        const navigate = useNavigate()
+    
+        const [user, setUser] = useState({ email: "", password: "" });
 
-    const loginUser = async (event) => {
-        event.preventDefault(); 
 
-        console.log(user);
-        const resp = await actions.login(user);
-        console.log(resp);
-
-        if (resp && resp.status && !resp.rol) {
-            navigate("/");
-        }
-
-        if (resp) {
-            console.log(store.user);
-            if (store.user?.is_admin || user.email === "espacionovem@anda.com") {
-                navigate("/admin");
+        const loginUser = async (event) => {
+            event.preventDefault(); 
+        
+            console.log("Datos enviados:", user.email, user.password); 
+        
+            
+            const resp = await actions.login(user.email, user.password);
+        
+            console.log("Respuesta del servidor:", resp);
+        
+            if (resp.status && !resp.rol) {
+                navigate("/");
             }
-        }
-    };
+        
+            if (resp) {
+                console.log("Usuario en el store:", store.user);
+                if (store.user?.is_admin) {
+                    navigate("/admin");
+                }
+            }
+        };
 
     return (
         <div>
@@ -82,4 +88,3 @@ const Login = () => {
 }
 
 export default Login;
-

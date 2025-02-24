@@ -10,11 +10,14 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
-from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
+
+
+from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
+
 
 api = Blueprint('api', __name__)
 CORS(api)
@@ -86,13 +89,13 @@ def register():
 
     try:
         new_user = User(
-            name=name,
-            last_name=last_name,
-            email=email,
-            password=password,
-            telefono=telefono,
-            is_admin=is_admin,
-            is_active=True
+        name=name,
+        last_name=last_name,
+        email=email,
+        password=generate_password_hash(password),  # Encriptar la contraseña
+        telefono=telefono,
+        is_admin=is_admin,
+        is_active=True
         )
 
         db.session.add(new_user)
@@ -109,29 +112,52 @@ def register():
         db.session.rollback()
         return jsonify({"status": "error", "message": "Hubo un problema al crear el usuario"}), 500
 
+
 # Login 
-@api.route('/login', methods=['POST'])
+@api.route("/login", methods=["POST"])
 def login():
-    data = request.json
-    email = data.get("email")
-    password = data.get("password")
+    try:
+        if not request.is_json:
+            return jsonify({"status": False, "error": "El request debe ser JSON"}), 400
+        
+        data = request.get_json()  
+        print("Datos recibidos:", data)  
 
-    if not email or not password:
-        return jsonify({"status": "error", "message": "Email y contraseña son requeridos"}), 400
+        email = data.get("email")
+        password = data.get("password")
 
-    user = User.query.filter_by(email=email).first()
+        if not email or not password:
+            return jsonify({"status": False, "error": "Faltan datos"}), 400
 
-    if not user:
-        return jsonify({"status": "error", "message": "Usuario no encontrado"}), 404
+        # Buscar usuario en la base de datos
+        user = User.query.filter_by(email=email).first()
+        if not user:
+            return jsonify({"status": False, "error": "Usuario no encontrado"}), 401
 
-    if user and not check_password_hash(user.password, password):
-        return jsonify({"status": "error", "message": "Contraseña incorrecta"}), 403
+        # Verificar la contraseña
+        if not check_password_hash(user.password, password):
+            return jsonify({"status": False, "error": "Credenciales incorrectas"}), 401
 
-    access_token = create_access_token(identity=email)
-    return jsonify({"status": "success", "message": "Login exitoso", "token": access_token}), 200
+        # Generar token de acceso
+        access_token = create_access_token(identity=user.email)
+
+        return jsonify({
+            "status": True,
+            "message": "Login exitoso",
+            "user": {
+                "email": user.email,
+                "is_admin": user.is_admin
+            },
+            "access_token": access_token
+        }), 200
+
+    except Exception as e:
+        print("Error en el servidor:", e)
+        return jsonify({"status": False, "error": "Error en el servidor"}), 500
+
 
 # Password recuperar
-@api.route('/recuperar-password', methods=['PUT'])
+@api.route('/reset-password', methods=['PUT'])
 def recuperar_password():
     data = request.json
     email = data.get("email")
@@ -155,12 +181,23 @@ def recuperar_password():
     return jsonify({"status": "success", "message": "Contraseña actualizada con éxito"}), 200
 
 # Profile 
-@api.route('/user/profile', methods=['GET'])
+@api.route('/userProfile', methods=['GET'])
 @jwt_required()
 def get_user_profile():
-    email = get_jwt_identity()
-    user = User.query.filter_by(email=email).first()
-    if not user:
-        return jsonify({"status": "error", "message": "Usuario no encontrado"}), 404
-    return jsonify(user.serialize()), 200
+    try:
+
+        email = get_jwt_identity()
+        user = User.query.filter_by(email=email).first()
+     
+        if not user:
+            return jsonify({"status": "error", "message": "Usuario no encontrado"}), 404
+        
+        
+        return jsonify(user.serialize()), 200
+    
+    except Exception as e:
+       
+        print(f"Error al obtener el perfil del usuario: {str(e)}")
+        return jsonify({"status": "error", "message": "Hubo un error en el servidor"}), 500
+
 

@@ -199,8 +199,8 @@ export const Register = () => {
                             type="checkbox"
                             role="switch"
                             id="flexSwitchCheckDefault"
-                            checked={isAdmin} // Vinculamos el estado con el checkbox
-                            onChange={handleCheckboxChange} // Actualizamos el estado cuando cambie el checkbox
+                            checked={isAdmin} 
+                            onChange={handleCheckboxChange} 
                         />
                         <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Eres Administrador?</label>
                     </div>
