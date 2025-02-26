@@ -91,29 +91,29 @@ export const Register = () => {
 
             let resp = await actions.signup(newUser)
 
-            // if (resp) {
-            //     let userLogin = {
-            //         email: email,
-            //         password: password
+            if (resp) {
+                let userLogin = {
+                    email: email,
+                    password: password
 
-            //     }
+                }
 
-            //     let respLogin = await actions.login(userLogin);
+                let respLogin = await actions.login(userLogin);
 
-            //     if (respLogin) {
+                if (respLogin) {
 
-            //         Swal.fire({
-            //             icon: "success",
-            //             title: "Usuario registrado con éxito",
-            //             text: "Bienvenido",
-            //         });
-            //         navigate("/")
-            //     } else {
-            //         console.log("Error al iniciar sesión después del registro");
-            //     }
-            // } else {
-            //     console.log("Error al registrar el usuario");
-            // }
+                    Swal.fire({
+                        icon: "success",
+                        title: "Usuario registrado con éxito",
+                        text: "Bienvenido",
+                    });
+                    navigate("/")
+                } else {
+                    console.log("Error al iniciar sesión después del registro");
+                }
+            } else {
+                console.log("Error al registrar el usuario");
+            }
         }
     }
 
