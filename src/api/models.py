@@ -10,7 +10,7 @@ class User(db.Model):
     password = db.Column(db.String(80), unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     telefono = db.Column(db.String(20), unique=False, nullable=False)
-    reservas = db.relationship('Reserva', backref='user', lazy=True)
+    reservations = db.relationship('Reservation', backref='user', lazy=True)
     
     def __repr__(self):
         return f'<User {self.email}>'
@@ -32,7 +32,6 @@ class User(db.Model):
             "email": self.email,
             "is_active":self.is_active,
             "telefono":self.telefono,
-            # do not serialize the password, its a security breach
         }
     
 
@@ -42,14 +41,14 @@ class Reservation(db.Model):
     date = db.Column(db.Date, nullable=False)
     hour = db.Column(db.Time, nullable=False)
     offices = db.Column(db.String(200), nullable=False)
-
+    
     def __repr__(self):
         return f'<Reservation {self.user_id}>'
 
-    def to_dict(self):
+    def serialize(self):
         return {
             'id': self.id,
-            'user': self.user.serialize(),  # Incluye la información del usuario serializada
+            'user': self.user_id,
             'date': self.date.strftime('%Y-%m-%d'),
             'hour': self.hour.strftime('%H:%M'),
             'offices': [int(office_id) for office_id in self.offices.split(',')] if self.offices else []
