@@ -185,11 +185,40 @@ def get_reservations_by_email():
 # Endpoint for reservations from all users
 @api.route('/reservations_all', methods=['GET'])
 #@jwt_required()
-def get_all_reeservations():
+def get_all_reservations():
     try:
         reservations_list = Reservation.query.all()
         serialized_reservations = [ item.serialize() for item in reservations_list ]
         return jsonify(serialized_reservations), 200
         
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+
+# Endpoint for reservations from all users (for Admiinistrator)
+@api.route('/reservations_admin', methods=['GET'])
+#@jwt_required()
+def get_reservations_admin():
+    try:
+        reservations_list = Reservation.query.all()
+        serialized_reservations = []
+        for reservation in reservations_list:
+            user = User.query.get(reservation.user_id)  # get user from the reservation
+            if user:
+                serialized_reservation = reservation.serialize()
+                serialized_reservation['user_name'] = user.name
+                serialized_reservation['user_last_name'] = user.last_name
+                serialized_reservation['user_email'] = user.email
+                serialized_reservations.append(serialized_reservation)
+            else:
+                # If user is not found
+                serialized_reservation = reservation.serialize()
+                serialized_reservation['user_name'] = "Usuario no encontrado"
+                serialized_reservation['user_last_name'] = "Usuario no encontrado"
+                serialized_reservation['user_email'] = "Usuario no encontrado"
+                serialized_reservations.append(serialized_reservation)
+
+        return jsonify(serialized_reservations), 200
+    
     except Exception as e:
         return jsonify({"error": str(e)}), 400
