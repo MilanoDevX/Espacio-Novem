@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, Reservation
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 import json
@@ -157,3 +157,39 @@ def login():
     access_token = create_access_token(identity=email)
 
     return jsonify(access_token=access_token, user=user.serialize()),200
+
+
+# Endpoint for reservations from one user 
+@api.route('/reservations', methods=['GET'])
+#@jwt_required()
+def get_reservations_by_email():
+    try:
+        # email = request.json.get('user')
+        #email = get_jwt_identity()
+        email = "em@gmail.com"
+        if not email:
+            return jsonify({"error": "Email parameter is required"}), 400
+
+        user = User.query.filter_by(email=email).first()
+        if not user:
+            return jsonify({"error": "User not found"}), 404
+
+        reservas = Reservation.query.filter_by(user_id=user.id).all()
+        reservas_list = [item.serialize() for item in reservas]
+        
+        return jsonify(reservas_list), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+
+# Endpoint for reservations from all users
+@api.route('/reservations_all', methods=['GET'])
+#@jwt_required()
+def get_all_reeservations():
+    try:
+        reservations_list = Reservation.query.all()
+        serialized_reservations = [ item.serialize() for item in reservations_list ]
+        return jsonify(serialized_reservations), 200
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
