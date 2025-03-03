@@ -14,14 +14,27 @@ const getState = ({ getStore, getActions, setStore }) => {
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ email, password }) 
                     });
-            
+
+
+
+                    if (!resp.ok) {
+
+                        setStore({ auth: false });
+                        return false, { status: false };
+                    }
+
                     const data = await resp.json();
-                    console.log("Respuesta del servidor:", data);
-            
-                    if (resp.ok) {
-                        setStore({ user: data.user, token: data.access_token, auth: true });
+
+
+                    if (data.access_token) {
                         localStorage.setItem("access_token", data.access_token);
-                        return { status: true, rol: data.user.is_admin };
+                        setStore({ user: data.user, token: data.access_token, auth: true });
+
+                        return true, { status: true, rol: data.user.is_admin };
+                    } else {
+
+                        setStore({ auth: false });
+                        return false, { status: false };
                     }
             
                     setStore({ auth: false });

@@ -86,18 +86,28 @@ export const Register = () => {
 
             let resp = await actions.signup(newUser);
 
-            if (resp) {  
-                Swal.fire({
-                    icon: "success",
-                    title: "Registro exitoso",
-                    text: "Ahora puedes iniciar sesión.",
-                    timer: 2000,
-                    showConfirmButton: false
-                }).then(() => {
-                    navigate("/"); 
-                });
+            if (resp) {
+                let userLogin = {
+                    email: email,
+                    password: password
+
+                }
+
+                let respLogin = await actions.login(userLogin);
+
+                if (respLogin) {
+
+                    Swal.fire({
+                        icon: "success",
+                        title: "Usuario registrado con éxito",
+                        text: "Bienvenido",
+                    });
+                    navigate("/")
+                } else {
+                    console.log("Error al iniciar sesión después del registro");
+                }
             } else {
-                mensaje("Hubo un error en el registro");
+                console.log("Error al registrar el usuario");
             }
         }
     };

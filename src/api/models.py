@@ -8,8 +8,7 @@ class User(db.Model):
     name = db.Column(db.String(100), unique=False, nullable=False)
     last_name = db.Column(db.String(100), unique=False, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(50), unique=False, nullable=False) 
-    is_active = db.Column(db.Boolean, default=True, nullable=False)
+    password = db.Column(db.String(80), unique=False, nullable=False)
     telefono = db.Column(db.String(20), unique=False, nullable=False)
     is_admin = db.Column(db.Boolean(), nullable=False, default=False)
 
@@ -20,13 +19,9 @@ class User(db.Model):
         self.name = name
         self.last_name = last_name
         self.email = email
-        self.password = password 
-        self.telefono = telefono
-        self.is_admin = is_admin
-        self.is_active = is_active
-
-    def check_password(self, password):
-        return self.password == password  
+        self.password = password
+        self.telefono=telefono
+       
 
     def serialize(self):
         return {
@@ -67,3 +62,4 @@ class Reservation(db.Model):
             'time': self.time,
             'user_id': self.user_id
         }
+       
