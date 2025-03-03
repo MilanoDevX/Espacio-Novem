@@ -1,7 +1,8 @@
 const getState = ({ getStore, getActions, setStore }) => {
     return {
         store: {
-            user: null
+            user: null,
+            reservations: []
         },
         actions: {
             login: async (useNew) => {
@@ -108,7 +109,34 @@ const getState = ({ getStore, getActions, setStore }) => {
                     return false;
                 }
             },
+            getReservations: async () => {
+				try {
+					//const token = localStorage.getItem("access_token");
+					const response = await fetch(process.env.BACKEND_URL + "api/reservations", {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							//"Authorization": "Bearer " + token
+						},
+
+					});
+					console.log(response);
+					if (response.status == 200) {
+						const data = await response.json();
+						console.log("Reservas", data);
+						setStore({ reservations: data });
+						return true;
+					} else {
+						console.error("Error al obtener las reservas:", response.status);
+						return false;
+					}
+				} catch (error) {
+					console.error("Error al traer reservas:", error);
+					return false
+				}
+			},
         }
     };
 };
 export default getState;
+
