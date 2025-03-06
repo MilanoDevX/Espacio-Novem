@@ -40,7 +40,7 @@ class Reservation(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     date = db.Column(db.Date, nullable=False)
     hour = db.Column(db.Time, nullable=False)
-    offices = db.Column(db.String(200), nullable=False)
+    office = db.Column(db.Integer, nullable=False)
     
     def __repr__(self):
         return f'<Reservation {self.user_id}>'
@@ -51,5 +51,5 @@ class Reservation(db.Model):
             'user': self.user_id,
             'date': self.date.strftime('%Y-%m-%d'),
             'hour': self.hour.strftime('%H:%M'),
-            'offices': [int(office_id) for office_id in self.offices.split(',')] if self.offices else []
+            'office': self.office
         }
