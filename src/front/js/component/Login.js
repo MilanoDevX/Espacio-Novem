@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 
 
 const Login = () => {
-    const { actions } = useContext(Context);
+    const { actions, store } = useContext(Context);
     const [user, setUser] = useState({ email: "", password: "" });
+    const navigate = useNavigate();
 
     const registerUser = () => {
         navigate("/register");
@@ -15,10 +16,6 @@ const Login = () => {
     const loginUser = async (e) => {
         e.preventDefault()
         const resp = await actions.login(user);
-
-        // if (resp.status && !resp.rol) {
-        //   // navigate("/");
-        // }
 
         if (resp) {
 
