@@ -6,46 +6,41 @@ const getState = ({ getStore, getActions, setStore }) => {
         actions: {
             login: async (useNew) => {
                 try {
-                    console.log("Iniciando sesión...");
 
-                    const resp = await fetch(`${process.env.BACKEND_URL}/login`, {
+
+                    const resp = await fetch(`${process.env.BACKEND_URL}/api/login`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(useNew),
                     });
 
-                    console.log("Estado de respuesta:", resp.status);
+
 
                     if (!resp.ok) {
-                        console.log("Error en la respuesta del backend:", await resp.text());
+
                         setStore({ auth: false });
-                        return { status: false };
+                        return false, { status: false };
                     }
 
                     const data = await resp.json();
-                    console.log("Datos recibidos:", data);
+
 
                     if (data.access_token) {
                         localStorage.setItem("access_token", data.access_token);
                         setStore({ user: data.user, token: data.access_token, auth: true });
 
-                        return { status: true, rol: data.user.is_admin };
+                        return true, { status: true, rol: data.user.is_admin };
                     } else {
-                        console.log("El token no está presente en la respuesta.");
+
                         setStore({ auth: false });
-                        return { status: false };
+                        return false, { status: false };
                     }
                 } catch (error) {
                     console.error("Error en la solicitud:", error);
                     setStore({ auth: false });
-                    return { status: false };
+                    return false, { status: false };
                 }
             },
-            //  logout: () => {
-            //     localStorage.removeItem("access_token");
-            //     setStore({ user: null, token: null, auth: false });
-            //     console.log("Sesión cerrada");
-            // },
             signup: async (user) => {
                 // console.log(user)
                 // console.log(process.env.BACKEND_URL+"/signup")
