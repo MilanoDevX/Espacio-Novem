@@ -8,7 +8,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 try {
 
 
-                    const resp = await fetch(`${process.env.BACKEND_URL}/api/login`, {
+                    const resp = await fetch(`${process.env.BACKEND_URL}/login`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(useNew),
