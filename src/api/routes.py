@@ -166,7 +166,7 @@ def get_reservations_by_email():
     try:
         # email = request.json.get('user')
         #email = get_jwt_identity()
-        email = "em@gmail.com"
+        email = "elias@gmail.com"
         if not email:
             return jsonify({"error": "Email parameter is required"}), 400
 

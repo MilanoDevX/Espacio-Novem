@@ -8,28 +8,28 @@ const getState = ({ getStore, getActions, setStore }) => {
             login: async (useNew) => {
                 try {
                     console.log("Iniciando sesión...");
-            
+
                     const resp = await fetch(`${process.env.BACKEND_URL}/login`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(useNew),
                     });
-            
+
                     console.log("Estado de respuesta:", resp.status);
-            
+
                     if (!resp.ok) {
                         console.log("Error en la respuesta del backend:", await resp.text());
                         setStore({ auth: false });
                         return { status: false };
                     }
-            
+
                     const data = await resp.json();
                     console.log("Datos recibidos:", data);
-            
+
                     if (data.access_token) {
                         localStorage.setItem("access_token", data.access_token);
                         setStore({ user: data.user, token: data.access_token, auth: true });
-            
+
                         return { status: true, rol: data.user.is_admin };
                     } else {
                         console.log("El token no está presente en la respuesta.");
@@ -110,31 +110,41 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
             getReservations: async () => {
-				try {
-					//const token = localStorage.getItem("access_token");
-					const response = await fetch(process.env.BACKEND_URL + "api/reservations", {
-						method: "GET",
-						headers: {
-							"Content-Type": "application/json",
-							//"Authorization": "Bearer " + token
-						},
+                try {
+                    //const token = localStorage.getItem("access_token");
+                    const response = await fetch(process.env.BACKEND_URL + "reservations", {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            //"Authorization": "Bearer " + token
+                        },
 
-					});
-					console.log(response);
-					if (response.status == 200) {
-						const data = await response.json();
-						console.log("Reservas", data);
-						setStore({ reservations: data });
-						return true;
-					} else {
-						console.error("Error al obtener las reservas:", response.status);
-						return false;
-					}
-				} catch (error) {
-					console.error("Error al traer reservas:", error);
-					return false
-				}
-			},
+                    });
+                    console.log(response);
+                    if (response.status == 200) {
+                        // const data = await response.json();
+                        const data = [
+                            { id: 1, user: 'natali', date: '2025-03-10', hour: '11:00', offices: 1 },
+                            { id: 2, user: 'kate', date: '2025-03-10', hour: '11:00', offices: 2 },
+                            { id: 3, user: 'fio', date: '2025-03-11', hour: '16:00', offices: 1 },
+                            { id: 4, user: 'elias', date: '2025-03-11', hour: '16:00', offices: 2 },
+                            { id: 5, user: 'natali', date: '2025-03-12', hour: '17:00', offices: 1 },
+                            { id: 6, user: 'kate', date: '2025-03-12', hour: '17:00', offices: 2 },
+                            { id: 7, user: 'elias', date: '2025-03-12', hour: '17:00', offices: 3 },
+                            { id: 8, user: 'elias', date: '2025-03-12', hour: '17:00', offices: 4 }
+                        ];
+                        console.log("Reservas", data);
+                        setStore({ reservations: data });
+                        return true;
+                    } else {
+                        console.error("Error al obtener las reservas:", response.status);
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("Error al traer reservas:", error);
+                    return false
+                }
+            },
         }
     };
 };
