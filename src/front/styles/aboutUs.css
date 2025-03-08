@@ -1,9 +1,32 @@
-.about{
-    color: #6A7562 ;
+.about {
+  color: #6A7562;
+}
+.juntas {
+  width: 250px;
+}
+.about-us {
+  font-style: italic;
+}
+/* :chincheta: Para tablets y pantallas medianas */
+@media screen and (max-width: 768px) {
+  .d-flex {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
-  .juntas{
-    width: 250px;
+  .juntas {
+    width: 200px; /* Reducimos tamaño en pantallas medianas */
   }
-  .about-us{
-    font-style: italic;
+  .about {
+    font-size: 1rem;
   }
+}
+/* :chincheta: Para móviles */
+@media screen and (max-width: 480px) {
+  .juntas {
+    width: 150px; /* Hacemos las imágenes más pequeñas */
+  }
+  .about {
+    font-size: 0.9rem;
+  }
+}

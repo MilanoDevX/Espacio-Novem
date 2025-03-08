@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 import { Home } from "./pages/home";
@@ -10,25 +10,35 @@ import { Agenda } from "./pages/agenda";
 import injectContext from "./store/appContext";
 import { Header } from "./component/header";
 import { Navbar } from "./component/navbar";
-import { Footer } from "./component/footer";
 import { UserProfile } from "./component/userProfile";
 import { Register } from "./component/register";
 import { AboutUs } from "./component/aboutUs";
 import { SendEmail } from "./component/send-email";
 import { ResetPassword } from "./component/reset-password";
 import { Admin } from "./component/admin";
+import { Footer } from "./component/footer";
 import { FooterLogin } from "./component/footerLogin";
+import { Benefits } from "./component/benefits";
 
+// Componente que decide si renderizar Footer o FooterLogin y sacar eel admin
+const FooterComponent = () => {
+    const location = useLocation();
+    const isAdminRoute = location.pathname.startsWith("/admin");
+    const isRegister = location.pathname.startsWith("/register");
+    const isSendEmail = location.pathname.startsWith("/send-email");
+    const isResetPass = location.pathname.startsWith("/reset-password");
 
-//create your first component
+    if (isAdminRoute || isRegister || isSendEmail || isResetPass) {
+        return null;
+    }
+
+    return location.pathname === "/" ? <Footer /> : <FooterLogin />;
+};
+
 const Layout = () => {
-    //the basename is used when your project is published in a subdirectory and not in the root of the domain
-    // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
     const basename = process.env.BASENAME || "";
 
-    if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL />;
-
-
+    if (!process.env.BACKEND_URL || process.env.BACKEND_URL === "") return <BackendURL />;
 
     return (
         <div>
@@ -47,28 +57,18 @@ const Layout = () => {
                         <Route element={<ResetPassword />} path="/reset-password" />
                         <Route element={<Admin />} path="/admin" />
                         <Route element={<Register />} path="/register" />
+                        <Route element={<Benefits />} path="/benefits" />
                         <Route element={<Header />} path="/home" />
-                        <Route element={<FooterLogin />} path="/footerLogin" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
-                    <Footer />
+                    <FooterComponent /> {/* Aquí renderizamos el Footer o FooterLogin según la ruta */}
                 </ScrollToTop>
             </BrowserRouter>
         </div>
     );
 };
+
 export default injectContext(Layout);
-
-
-
-
-
-
-
-
-
-
-
 
 
 

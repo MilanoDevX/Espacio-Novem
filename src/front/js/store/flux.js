@@ -1,48 +1,38 @@
 const getState = ({ getStore, getActions, setStore }) => {
     return {
         store: {
-            user: null,
-            reservations: []
+            user: null
         },
         actions: {
             login: async (useNew) => {
                 try {
-                    console.log("Iniciando sesión...");
-
                     const resp = await fetch(`${process.env.BACKEND_URL}/login`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(useNew),
                     });
-
-                    console.log("Estado de respuesta:", resp.status);
-
                     if (!resp.ok) {
-                        console.log("Error en la respuesta del backend:", await resp.text());
                         setStore({ auth: false });
-                        return { status: false };
+                        return false, { status: false };
                     }
-
                     const data = await resp.json();
-                    console.log("Datos recibidos:", data);
-
                     if (data.access_token) {
                         localStorage.setItem("access_token", data.access_token);
                         setStore({ user: data.user, token: data.access_token, auth: true });
-
-                        return { status: true, rol: data.user.is_admin };
+                        return true, { status: true, rol: data.user.is_admin };
                     } else {
-                        console.log("El token no está presente en la respuesta.");
                         setStore({ auth: false });
-                        return { status: false };
+                        return false, { status: false };
                     }
                 } catch (error) {
                     console.error("Error en la solicitud:", error);
                     setStore({ auth: false });
-                    return { status: false };
+                    return false, { status: false };
                 }
             },
             signup: async (user) => {
+                // console.log(user)
+                // console.log(process.env.BACKEND_URL+"/signup")
                 try {
                     // fetching data from the backend
                     const resp = await fetch(process.env.BACKEND_URL + "/signup", {
@@ -50,6 +40,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(user)
                     })
+                    // console.log(resp)
                     if (resp.status == 201) {
                         return true;
                     } else {
@@ -109,6 +100,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     return false;
                 }
             },
+            
             getReservations: async () => {
                 try {
                     //const token = localStorage.getItem("access_token");
@@ -118,7 +110,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                             "Content-Type": "application/json",
                             //"Authorization": "Bearer " + token
                         },
-
+            
                     });
                     console.log(response);
                     if (response.status == 200) {
@@ -149,4 +141,6 @@ const getState = ({ getStore, getActions, setStore }) => {
     };
 };
 export default getState;
+
+
 

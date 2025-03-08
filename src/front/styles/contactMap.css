@@ -1,0 +1,59 @@
+.contact-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    height: 100vh;
+}
+.contact-info p {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.contact-detail {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    justify-content: center;
+    font-size: 18px;
+}
+.contact-detail i {
+    margin-right: 10px;
+    font-size: 20px;
+}
+.contact-detail a {
+    text-decoration: none;
+    color: #333;
+}
+.contact-detail a:hover {
+    text-decoration: underline;
+    color: #6A7562;
+}
+.contact-map-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 20px;
+    height: 400px;
+}
+.contact-map-iframe {
+    border: 0;
+    width: 80%;
+    height: 100%;
+    box-shadow: 0 4px 8px rgba(91, 73, 62, 0.5);
+    background-color: transparent;
+}
+.btn {
+    padding-top: 5px;
+    margin-top: 7px;
+    border-color: rgba(91, 73, 62, 0.5);
+    background-color: #6A7562;
+    color: #F2E5D5;
+    cursor: pointer;
+}
+.btn:hover {
+    background-color: #39472F;
+}

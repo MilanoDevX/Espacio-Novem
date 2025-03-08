@@ -1,47 +1,46 @@
+.contact-container2 {
+  margin: 20px;
+}
 
-.contact-container {
-    margin: 20px;
-  }
-  
-  .title-consultas {
-    text-align: center;
-    margin-bottom: 20px;
-    
-  }
-  
-  .table-consultas {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  .table-consultas th, .table-consultas td {
-    padding: 12px;
-    text-align: center;
-    border: 1px solid #6A7562;
-  }
-  
-  .table-consultas th {
-    background-color: #6A7562;
-  }
-  
-  .table-consultas td {
-    background-color: #fff;
-  }
-  
-  .table-consultas tr:hover {
-    background-color: #6A7562;
-  }
-  
-  .btn-danger {
-    background-color: #6a7562;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  
-  .btn-danger:hover {
-    background-color: #3e4a3b;
-  }
-  
+.title-consultas {
+  text-align: center;
+  margin-bottom: 20px;
+
+}
+
+.table-consultas {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table-consultas th,
+.table-consultas td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #6A7562;
+}
+
+.table-consultas th {
+  background-color: #6A7562;
+}
+
+.table-consultas td {
+  background-color: #fff;
+}
+
+.table-consultas tr:hover {
+  background-color: #6A7562;
+}
+
+.btn-danger {
+  background-color: #6a7562;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.btn-danger:hover {
+  background-color: #3e4a3b;
+}

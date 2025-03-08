@@ -5,6 +5,7 @@
     one more css for each page that will contain the selected used 
     on that page only (the ones not reused in other pages).
 */
+
 body {
   background-color: #F2E5D5;
   background-size: cover;
@@ -16,11 +17,8 @@ body {
   font-optical-sizing: auto;
   font-weight: weight;
   font-style: normal;
-
   color: #5b493e;
 }
-
-
 
 .body-inicio {
   padding: 10px;
@@ -51,8 +49,6 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
 }
 
-
-
 .navbarcolor {
   background: #6a7562;
 }
@@ -60,27 +56,17 @@ body {
 .titlenovem {
   font-family: "Playfair Display", serif;
   font-style: italic;
-  color: aqua;
 }
 
-h1 {
-  font-size: 70px;
-}
-
+h1,
 h2 {
   font-size: 70px;
 }
 
 .text-end {
   color: #6A7562;
-  /* Verde oscuro */
   font-weight: bold;
   z-index: 1;
-}
-
-
-.header {
-  padding: 30px;
 }
 
 .navbar-toggler {
@@ -88,15 +74,55 @@ h2 {
   border-color: white;
 }
 
-/* .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-} */
-
 a {
   cursor: pointer;
 }
 
+.benefits {
+  background-color: #afb796;
+  text-align: center;
+}
 
+.benefit {
+  font-size: 40px;
+  font-weight: bold;
+  color:white;
+}
+
+.benefit-item {
+  flex: 1;
+  min-width: 180px;
+  margin: 5px;
+}
+
+.icon-img {
+  width: 45px;
+  height: auto;
+}
+
+.benefit-description {
+  font-size: 13px;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .benefit {
+    font-size: 30px;
+  }
+
+  .benefit-description {
+    font-size: 12px;
+  }
+
+  .icon-img {
+    width: 35px;
+  }
+
+  .d-flex {
+    flex-direction: column;
+    align-items: center;
+  }
+}
 
 .porteria {
   width: 50px;
@@ -106,26 +132,7 @@ a {
   width: 60px;
 }
 
-/* cards */
 
-
-.card {
-  width: 320px;
-  background: white;
-  padding: .4em;
-  border-radius: 6px;
-}
-
-.card-image {
-  background-color: rgb(236, 236, 236);
-  width: 100%;
-  height: 310px;
-  border-radius: 6px 6px 0 0;
-}
-
-.card:hover {
-  transform: scale(1.03);
-}
 
 .category {
   text-transform: uppercase;
@@ -168,40 +175,24 @@ a {
   background-color: #dbb79f;
 }
 
-.customs-link {
-  text-decoration: none !important;
-  color: #F2E5D5;
-
-
-
-}
-
-
+.customs-link,
 .custom-links {
   text-decoration: none !important;
   color: #F2E5D5;
-
 }
 
-.customs-link:hover {
-  text-decoration: none !important;
-
-  color: #afb796
-}
-
+.customs-link:hover,
 .custom-links:hover {
-
-  color: #afb796
+  text-decoration: none !important;
+  color: #afb796;
 }
 
 .uno {
   background-color: #F2E5D5;
-
 }
 
 .dos {
   background-color: #afb796;
-
 }
 
 .btndos {
@@ -210,8 +201,6 @@ a {
   background-color: #afb796;
   color: #F2E5D5;
   border-radius: 5px;
-
-
 }
 
 .btndos:hover {
