@@ -160,23 +160,47 @@ def recuperar_password():
 
     exist_user.password = generate_password_hash(nueva)
     db.session.commit()
+    return jsonify({"msg":"Contraseña actualizada con exito"}),200
+    return jsonify({"msg":"Paso algo inesperado"}),500
 
-    return jsonify({"status": "success", "message": "Contraseña actualizada con éxito"}), 200
 
 
-# Profile 
-@api.route('/userProfile', methods=['GET'])
-@jwt_required()
-def get_user_profile():
-    try:
-        email = get_jwt_identity()
-        user = User.query.filter_by(email=email).first()
-     
-        if not user:
-            return jsonify({"status": "error", "message": "Usuario no encontrado"}), 404
-        
-        return jsonify(user.serialize()), 200
-    
-    except Exception as e:
-        print(f"Error al obtener el perfil del usuario: {str(e)}")
-        return jsonify({"status": "error", "message": "Hubo un error en el servidor"}), 500
+@api.route('/signup', methods=['POST'])
+def register():
+    data=request.json
+    name=data.get("name")
+    last_name=data.get("last_name")
+    email=data.get("email")
+    password=data.get("password")
+    telefono=data.get("telefono")
+
+    exist_user=User.query.filter_by(email=email).first()
+    if exist_user:
+        return jsonify({"msg":"El usuario ya existe"}),400
+    new_user=User(
+        name=name,
+        last_name=last_name,
+        email=email,
+        password=password,
+        telefono=telefono
+    )
+    db.session.add(new_user)
+    db.session.commit()
+    send_signup_email([email])
+    return jsonify({"message":"User crated successfully"}),201
+
+@api.route('/login', methods=['POST'])
+def login():
+    data= request.json
+    email = data.get("email", None)
+    password = data.get("password", None)
+
+    user=User.query.filter_by(email=email).first()
+    print(user)
+    if user is None:
+        return jsonify({"msg": f"No existe el usuario"}), 404
+
+    if email != user.email or password != user.password:
+        return jsonify({"msg": "Bad username or password"}), 401
+    access_token = create_access_token(identity=email)
+    return jsonify(access_token=access_token, user=user.serialize()),200

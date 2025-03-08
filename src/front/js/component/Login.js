@@ -3,24 +3,25 @@ import { useNavigate } from 'react-router-dom';
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
-    export const Login = () => {
-        const { store, actions } = useContext(Context);
-    
-        const navigate = useNavigate()
-    
-        const [user, setUser] = useState({ email: "", password: "" });
 
-        const loginUser = async (event) => {
-            event.preventDefault(); 
-        
-            console.log("Datos enviados:", user.email, user.password); 
-        
-            
-            const resp = await actions.login(user.email, user.password);
-        
-            console.log("Respuesta del servidor:", resp);
-        
-            if (resp.status && !resp.rol) {
+const Login = () => {
+    const { actions, store } = useContext(Context);
+    const [user, setUser] = useState({ email: "", password: "" });
+    const navigate = useNavigate();
+
+    const registerUser = () => {
+        navigate("/register");
+    };
+
+    const loginUser = async (e) => {
+        e.preventDefault()
+        const resp = await actions.login(user);
+
+        if (resp) {
+
+            if (store.user.is_admin || store.user.email === "espacionovem@anda.com") {
+                navigate("/admin");
+            } else {
                 navigate("/");
             }
      
@@ -85,5 +86,6 @@ import { Link } from "react-router-dom";
         </div>
     );
 }
+};
 
 export default Login;
