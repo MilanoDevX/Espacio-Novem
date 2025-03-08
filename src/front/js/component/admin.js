@@ -19,7 +19,7 @@ export const Admin = () => {
 
     return (
         <>
-            <div className="contact-container">
+            <div className="contact-container2">
                 <h1 className="title-consultas m-2">Registro de Consultas</h1>
                 <div className="table">
                     <table className="table-consultas">

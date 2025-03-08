@@ -2,23 +2,17 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
-
-
 const Login = () => {
     const { actions, store } = useContext(Context);
     const [user, setUser] = useState({ email: "", password: "" });
     const navigate = useNavigate();
-
     const registerUser = () => {
         navigate("/register");
     };
-
     const loginUser = async (e) => {
         e.preventDefault()
         const resp = await actions.login(user);
-
         if (resp) {
-
             if (store.user.is_admin || store.user.email === "espacionovem@anda.com") {
                 navigate("/admin");
             } else {

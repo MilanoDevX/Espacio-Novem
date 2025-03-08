@@ -6,32 +6,21 @@ const getState = ({ getStore, getActions, setStore }) => {
         actions: {
             login: async (useNew) => {
                 try {
-
-
                     const resp = await fetch(`${process.env.BACKEND_URL}/login`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(useNew),
                     });
-
-
-
                     if (!resp.ok) {
-
                         setStore({ auth: false });
                         return false, { status: false };
                     }
-
                     const data = await resp.json();
-
-
                     if (data.access_token) {
                         localStorage.setItem("access_token", data.access_token);
                         setStore({ user: data.user, token: data.access_token, auth: true });
-
                         return true, { status: true, rol: data.user.is_admin };
                     } else {
-
                         setStore({ auth: false });
                         return false, { status: false };
                     }

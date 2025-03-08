@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../styles/home.css";
+import "../../styles/card.css";
 import consultorio1 from "../../img/consultorio1.webp";
 import consultorio2 from "../../img/consultorio2.webp";
 import consultorio3 from "../../img/consultorio3.webp";
@@ -13,21 +13,21 @@ export const Cards = () => {
             id: 1,
             img: consultorio1,
             name: "Consultorio 1",
-            description: "1- Este consultorio está diseñado para atender a niños, adolescentes y adultos. Ofreciendo un espacio cálido, acogedor y versátil. La decoración genera una sensación de tranquilidad y confianza.\n\nEquipado con juegos didácticos, cartas emocionales, herramientas para la intervención, materiales de arte y alfombra cómoda para trabajar desde lo lúdico.\n\nEl consultorio está disponible para profesionales que necesiten un espacio flexible por hora o por franjas de tiempo.\nSe fomenta un ambiente de compañerismo y apoyo entre colegas, con la posibilidad de intercambiar experiencias y materiales.\nEsperamos que tanto pacientes como profesionales se sientan cómodos y contenidos.",
+            description: "Este consultorio está diseñado para atender a niños, adolescentes y adultos. Ofreciendo un espacio cálido, acogedor y versátil. La decoración genera una sensación de tranquilidad y confianza.\n\nEquipado con juegos didácticos, cartas emocionales, herramientas para la intervención, materiales de arte y alfombra cómoda para trabajar desde lo lúdico.\n\nEl consultorio está disponible para profesionales que necesiten un espacio flexible por hora o por franjas de tiempo.\nSe fomenta un ambiente de compañerismo y apoyo entre colegas, con la posibilidad de intercambiar experiencias y materiales.\nEsperamos que tanto pacientes como profesionales se sientan cómodos y contenidos.",
             price: "200",
         },
         {
             id: 2,
             img: consultorio2,
             name: "Consultorio 2",
-            description: "2- Espacio cálido, moderno y funcional. Diseñado para brindar comodidad y privacidad en sesiones terapéuticas. La decoración combina colores neutros, con luz natural, creando un ambiente acogedor y profesional.\n\nAlquiler flexible por horas o franjas horarias. Espacio ideal para sesiones individuales, de pareja o familiares.\nAmbiente profesional con buena onda y compañerismo entre colegas.\nUn lugar pensado para brindar bienestar tanto a terapeutas como a pacientes.",
+            description: "Espacio cálido, moderno y funcional. Diseñado para brindar comodidad y privacidad en sesiones terapéuticas. La decoración combina colores neutros, con luz natural, creando un ambiente acogedor y profesional.\n\nAlquiler flexible por horas o franjas horarias. Espacio ideal para sesiones individuales, de pareja o familiares.\nAmbiente profesional con buena onda y compañerismo entre colegas.\nUn lugar pensado para brindar bienestar tanto a terapeutas como a pacientes.",
             price: "300",
         },
         {
             id: 3,
             img: consultorio3,
             name: "Consultorio 3",
-            description: "3- Espacio acogedor, minimalista y profesional. Ideal para sesiones terapéuticas con adolescentes y adultos.\nAmbientación diseñada para generar confianza y comodidad. Iluminación cálida y detalles que favorecen la relajación.\nDos sillones cómodos, ubicados estratégicamente para una conversación fluida y cercana.\nAlquiler para psicólogos, disponibilidad horaria amplia.\nUn lugar pensado para el bienestar del terapeuta y el paciente. Con todo lo necesario para un trabajo cómodo y efectivo.",
+            description: "Espacio acogedor, minimalista y profesional. Ideal para sesiones terapéuticas con adolescentes y adultos.\nAmbientación diseñada para generar confianza y comodidad. Iluminación cálida y detalles que favorecen la relajación.\nDos sillones cómodos, ubicados estratégicamente para una conversación fluida y cercana.\nAlquiler para psicólogos, disponibilidad horaria amplia.\nUn lugar pensado para el bienestar del terapeuta y el paciente. Con todo lo necesario para un trabajo cómodo y efectivo.",
             price: "400",
         },
 
@@ -48,32 +48,25 @@ export const Cards = () => {
 
     return (
         <div className="container my-5">
-            <h3 className="text-center title-espacio fs-2">Nuestros consultorios</h3>
-            <div className="row justify-content-center">
-                {offices.map((office) => (
-                    <div className="col-12 col-sm-6 col-md-4 d-flex justify-content-center mb-4" key={office.id}>
-                        <div className="card" style={{ width: "100%", maxWidth: "300px" }}>
-                            <img
-                                className="card-img-top"
-                                src={office.img}
-                                alt={office.name}
-                                style={{ objectFit: "cover", height: "200px" }}
-                            />
-                            <div className="card-body text-center">
-                                <h5 className="card-title">{office.name}</h5>
-                                <p className="card-text">Precio: ${office.price}</p>
-                                <button
-                                    className="btn-consult"
-                                    onClick={() => toggleModal(office)}
-                                    aria-label={`Consultar ${office.name}`}
-                                >
-                                    Consultar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
+  <h3 className="text-center title-espacio fs-2">Nuestros consultorios</h3>
+  <div className="card-container">
+    {offices.map((office) => (
+      <div className="card" key={office.id}>
+        <img className="card-image" src={office.img} alt={office.name} />
+        <div className="card-body text-center">
+          <h5 className="card-title">{office.name}</h5>
+          <p className="card-text">Precio: ${office.price}</p>
+          <button
+            className="btn-consult"
+            onClick={() => toggleModal(office)}
+            aria-label={`Consultar ${office.name}`}
+          >
+            Consultar
+          </button>
+        </div>
+      </div>
+    ))}
+  </div>
 
             {/* Modal */}
             {showModal && selectedOffice && (

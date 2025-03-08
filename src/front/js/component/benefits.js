@@ -1,63 +1,43 @@
 import React from "react";
 import "../../styles/home.css";
-import porteria from "../../img/porteria.webp"
-import kitchenette from "../../img/kitchenette.webp"
-
-
-
+import porteria from "../../img/porteria.webp";
+import kitchenette from "../../img/kitchenette.webp";
 
 export const Benefits = () => {
     return (
-        <>
-            <div className="benefits text-light ">
-                <div className="d-flex align-items-center py-5 mx-5">
-
-                    <div className="d-flex justify-content-center align-items-center ">
-                        <h3 className="benefit ms-2">5</h3>
-
+        <div className="benefits text-light py-4">
+            <div className="container">
+                <div className="d-flex flex-wrap justify-content-between align-items-center">
+                    <div className="benefit-item d-flex align-items-center">
+                        <h3 className="benefit me-2">4</h3>
                         <div>
                             <h4 className="benefit-name my-0">Consultorios</h4>
-                            <p className="benefit-description my-0">Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
+                            <p className="benefit-description my-0">Flexibilidad y comodidad para profesionales.</p>
                         </div>
                     </div>
-
-
-                    <div className="d-flex justify-content-center align-items-center ">
-                        <img className="porteria mx-1" src={porteria} />
-
+                    <div className="benefit-item d-flex align-items-center">
+                        <img className="icon-img mx-2" src={porteria} alt="Portería" />
                         <div>
                             <h4 className="benefit-name my-0">Portería</h4>
-            
+                            <p className="benefit-description my-0">Seguridad y control de acceso para tu tranquilidad.</p>
                         </div>
                     </div>
-
-                    <div className="d-flex justify-content-center align-items-center  ">
-
-                        <h4 className="benefit-name my-0 me-1"><i className="fa-solid fa-wifi fa-2xl" ></i></h4>
+                    <div className="benefit-item d-flex align-items-center">
+                        <i className="fa-solid fa-wifi fa-lg me-2" style={{ color: "#ffffff" }}></i>
                         <div>
                             <h4 className="benefit-name my-0">Acceso a Wifi</h4>
-                            <p className="benefit-description my-0">Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
+                            <p className="benefit-description my-0">Conexión a Internet para optimizar tu trabajo.</p>
                         </div>
                     </div>
-
-
-                    <div className="d-flex justify-content-center align-items-center ">
-
-                        <img className="kitchenette mx-1" src={kitchenette} />
+                    <div className="benefit-item d-flex align-items-center">
+                        <img className="icon-img mx-2" src={kitchenette} alt="Cocina" />
                         <div>
-                            <h4 className="benefit-name my-0">Acceso a Wifi</h4>
-                            <p className="benefit-description my-0">Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
+                            <h4 className="benefit-name my-0">Acceso a Cocina</h4>
+                            <p className="benefit-description my-0">Cocina equipada para tu comodidad y la de tu equipo.</p>
                         </div>
                     </div>
-
-
-
                 </div>
-
-
-
-
             </div>
-        </>
-    )
-}
+        </div>
+    );
+};

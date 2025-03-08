@@ -8,14 +8,14 @@ import { UserProfile } from "../component/userProfile";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
-	
 
+	const isHomePage = true; 
 	return (
 		<>
-		<Header/>
-		<Cards/>
-		<UserProfile/>
-		
+			<Header/>
+			<Cards/>
+			<UserProfile/>
+	
 		</>
 	);
 };
