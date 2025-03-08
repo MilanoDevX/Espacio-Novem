@@ -10,7 +10,6 @@ import { Link } from "react-router-dom";
     
         const [user, setUser] = useState({ email: "", password: "" });
 
-
         const loginUser = async (event) => {
             event.preventDefault(); 
         
@@ -24,7 +23,7 @@ import { Link } from "react-router-dom";
             if (resp.status && !resp.rol) {
                 navigate("/");
             }
-        
+     
             if (resp) {
                 console.log("Usuario en el store:", store.user);
                 if (store.user?.is_admin) {

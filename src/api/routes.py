@@ -11,20 +11,14 @@ from email.mime.multipart import MIMEMultipart
 
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 from werkzeug.security import generate_password_hash, check_password_hash
-
-
 from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
 
-
 api = Blueprint('api', __name__)
-
-
 CORS(api)
 
-aleatorio = ""
 sender_email = os.getenv("SMTP_USERNAME")
 sender_password = os.getenv("SMTP_APP_PASSWORD")
 smtp_host = os.getenv("SMTP_HOST")
@@ -32,7 +26,7 @@ smtp_port = os.getenv("SMTP_PORT")
 
 receiver_email = ["fiorellaviscardi.2412@gmail.com"]
 
-# Enviar enmail
+# Enviar email
 def send_signup_email(receivers_email):
     message = MIMEMultipart("alternative")
     message["Subject"] = "Bienvenido a Espacio Novem!"
@@ -70,49 +64,34 @@ def generate_random_password(length=10):
     return password
 
 # Signup
-@api.route('/signup', methods=['POST'])
-def register():
+@api.route("/signup", methods=["POST"])
+def signup():
     data = request.json
-    print("Datos recibidos en /signup:", data)
+    print("Datos recibidos:", data)  # Para verificar qué datos están llegando
 
-    name = data.get("name")
-    last_name = data.get("last_name")
-    email = data.get("email")
-    password = data.get("password")
-    telefono = data.get("telefono")
-    is_admin = data.get("is_admin", False)
+    required_fields = ["name", "last_name", "email", "password", "telefono", "is_admin"]
+    for field in required_fields:
+        if field not in data:
+            return jsonify({"error": f"Falta el campo {field}"}), 400
 
-    if not all([name, last_name, email, password, telefono]) or is_admin is None:
-        return jsonify({"status": "error", "message": "Todos los campos son obligatorios"}), 400
-
-    exist_user = User.query.filter_by(email=email).first()
-    if exist_user:
-        return jsonify({"status": "error", "message": "El usuario ya existe"}), 400
+    new_user = User(
+        name=data["name"],
+        last_name=data["last_name"],
+        email=data["email"],
+        password=generate_password_hash(data["password"]),
+        telefono=data["telefono"],
+        is_admin=data.get("is_admin", False)
+    )
 
     try:
-        new_user = User(
-        name=name,
-        last_name=last_name,
-        email=email,
-        password=generate_password_hash(password),  # Encriptar la contraseña
-        telefono=telefono,
-        is_admin=is_admin,
-        is_active=True
-        )
-
         db.session.add(new_user)
         db.session.commit()
-        print("Usuario creado exitosamente:", new_user.serialize())
-
-        if send_signup_email([email]):
-            return jsonify({"status": "success", "message": "Usuario creado exitosamente"}), 201
-        else:
-            db.session.rollback()
-            return jsonify({"status": "error", "message": "Usuario creado, pero no se pudo enviar el correo de bienvenida"}), 500
-
+        return jsonify({"message": "Usuario creado correctamente"}), 201
     except Exception as e:
         db.session.rollback()
-        return jsonify({"status": "error", "message": "Hubo un problema al crear el usuario"}), 500
+        print(f"Error al crear el usuario: {str(e)}")
+        return jsonify({"error": "Error al registrar el usuario"}), 500
+
 
 
 # Login 
@@ -144,14 +123,15 @@ def login():
         access_token = create_access_token(identity=user.email)
 
         return jsonify({
-            "status": True,
-            "message": "Login exitoso",
-            "user": {
-                "email": user.email,
-                "is_admin": user.is_admin
-            },
-            "access_token": access_token
-        }), 200
+    "status": True,
+    "message": "Login exitoso",
+    "user": {
+        "email": user.email,
+        "is_admin": user.is_admin
+    },
+    "access_token": access_token
+}), 200
+
 
     except Exception as e:
         print("Error en el servidor:", e)
@@ -174,32 +154,29 @@ def recuperar_password():
     if not exist_user:
         return jsonify({"status": "error", "message": "Usuario no registrado"}), 404
 
-    if exist_user.password != aleatoria:
-        return jsonify({"status": "error", "message": "El password enviado no coincide"}), 403
+  
+    if aleatoria != exist_user.password:
+        return jsonify({"status": "error", "message": "El código aleatorio no coincide"}), 403
 
     exist_user.password = generate_password_hash(nueva)
     db.session.commit()
 
     return jsonify({"status": "success", "message": "Contraseña actualizada con éxito"}), 200
 
+
 # Profile 
 @api.route('/userProfile', methods=['GET'])
 @jwt_required()
 def get_user_profile():
     try:
-
         email = get_jwt_identity()
         user = User.query.filter_by(email=email).first()
      
         if not user:
             return jsonify({"status": "error", "message": "Usuario no encontrado"}), 404
         
-        
         return jsonify(user.serialize()), 200
     
     except Exception as e:
-       
         print(f"Error al obtener el perfil del usuario: {str(e)}")
         return jsonify({"status": "error", "message": "Hubo un error en el servidor"}), 500
-
-

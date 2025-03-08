@@ -86,33 +86,23 @@ export const Register = () => {
 
             let resp = await actions.signup(newUser);
 
-            if (resp) {
-                let userLogin = {
-                    email: email,
-                    password: password
-
-                }
-
-                let respLogin = await actions.login(userLogin);
-
-                if (respLogin) {
-
-                    Swal.fire({
-                        icon: "success",
-                        title: "Usuario registrado con éxito",
-                        text: "Bienvenido",
-                    });
-                    navigate("/")
-                } else {
-                    console.log("Error al iniciar sesión después del registro");
-                }
+            if (resp) {  
+                Swal.fire({
+                    icon: "success",
+                    title: "Registro exitoso",
+                    text: "Ahora puedes iniciar sesión.",
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    navigate("/"); 
+                });
             } else {
-                console.log("Error al registrar el usuario");
+                mensaje("Hubo un error en el registro");
             }
         }
     };
 
-   
+
     const handleCheckboxChange = (e) => {
         setIsAdmin(e.target.checked); 
     };
@@ -209,7 +199,6 @@ export const Register = () => {
                             type="checkbox"
                             role="switch"
                             id="flexSwitchCheckDefault"
-                            checked={isAdmin} 
                             onChange={handleCheckboxChange} 
                         />
                         <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Eres Administrador?</label>
