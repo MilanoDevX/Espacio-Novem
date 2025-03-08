@@ -173,7 +173,8 @@ def register():
         last_name=last_name,
         email=email,
         password=password,
-        telefono=telefono
+        telefono=telefono,
+        # is_active=True
     )
     db.session.add(new_user)
     db.session.commit()
