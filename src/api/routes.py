@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Reservation
+from api.models import db, User
 from api.utils import generate_sitemap, APIException
 import json
 import os
@@ -89,6 +89,7 @@ def recuperar_password():
     return jsonify({"msg":"Paso algo inesperado"}),500
 
 
+# Registro
 
 @api.route('/signup', methods=['POST'])
 def register():
@@ -114,6 +115,8 @@ def register():
     send_signup_email([email])
     return jsonify({"message":"User crated successfully"}),201
 
+#Login 
+
 @api.route('/login', methods=['POST'])
 def login():
     data= request.json
@@ -129,3 +132,18 @@ def login():
         return jsonify({"msg": "Bad username or password"}), 401
     access_token = create_access_token(identity=email)
     return jsonify(access_token=access_token, user=user.serialize()),200
+
+#Perfil 
+@api.route('/userProfile', methods=['GET'])
+@jwt_required()
+def get_user_profile():
+    email = get_jwt_identity()
+    user = User.query.filter_by(email=email).first()
+    return jsonify(user.serialize()), 200
+
+@api.route("/protected", methods=["GET"])
+@jwt_required()
+def protected():
+    # Access the identity of the current user with get_jwt_identity
+    current_user = get_jwt_identity()
+    return jsonify(logged_in_as=current_user), 200

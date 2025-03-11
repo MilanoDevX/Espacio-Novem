@@ -34,27 +34,27 @@ class User(db.Model):
  #Admin, ve reserva, crea y elimina.
  
 
-class Reservation(db.Model):
-    __tablename__ = 'reservations'
+# class Reservation(db.Model):
+#     __tablename__ = 'reservations'
 
-    id = db.Column(db.Integer, primary_key=True)
-    consultorio = db.Column(db.String(100))
-    date = db.Column(db.Date)
-    time = db.Column(db.String(100))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    user = db.relationship('User', backref=db.backref('reservations', lazy=True))
+#     id = db.Column(db.Integer, primary_key=True)
+#     consultorio = db.Column(db.String(100))
+#     date = db.Column(db.Date)
+#     time = db.Column(db.String(100))
+#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+#     user = db.relationship('User', backref=db.backref('reservations', lazy=True))
     
-    def __init__(self, consultorio, date, time, user_id):
-        self.consultorio = consultorio
-        self.date = date
-        self.time = time
-        self.user_id = user_id
+#     def __init__(self, consultorio, date, time, user_id):
+#         self.consultorio = consultorio
+#         self.date = date
+#         self.time = time
+#         self.user_id = user_id
 
-    def serialize(self):
-        return {
-            'id': self.id,
-            'consultorio': self.consultorio,
-            'date': self.date,
-            'time': self.time,
-            'user_id': self.user_id
-        }
+#     def serialize(self):
+#         return {
+#             'id': self.id,
+#             'consultorio': self.consultorio,
+#             'date': self.date,
+#             'time': self.time,
+#             'user_id': self.user_id
+#         }

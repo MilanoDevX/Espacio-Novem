@@ -100,6 +100,33 @@ const getState = ({ getStore, getActions, setStore }) => {
                     return false;
                 }
             },
+            getProfile: async () => {
+				try {
+					const token = localStorage.getItem("access_token");
+					if(!token){
+						return false
+					}
+					const response = await fetch(process.env.BACKEND_URL + "/userProfile", {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + token
+						},
+
+					});
+					console.log(response);
+					if (response.status == 200) {
+						const data = await response.json()
+						console.log(data)
+						setStore({ user: data });
+						return true;
+					}
+				} catch (error) {
+					console.log(error);
+					return false;
+				}
+
+			},
         }
     };
 };
