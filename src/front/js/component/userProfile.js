@@ -48,16 +48,13 @@ export const UserProfile = () => {
               />
               <div className="card-body text-center">
                 <h6 className="offcanvas-title text-center">
-                  Nombre usuario: {store.user?.name ?? "Cargando..."}{" "}
+                  Nombre usuario: {store.user?.name ?? ""}{" "}
                   {store.user?.last_name ?? ""}
                 </h6>
               </div>
               <div className="card-body user-info">
                 <h6 className="offcanvas-title text-center">
-                  Correo: {store.user?.email ?? "No disponible"}
-                </h6>
-                <h6 className="offcanvas-title text-center">
-                  N° teléfono: {store.user?.num_telefono ?? "No disponible"}
+                  Correo: {store.user?.email ?? ""}
                 </h6>
               </div>
               <button className="btn btn-danger mt-3" onClick={handleLogout}>

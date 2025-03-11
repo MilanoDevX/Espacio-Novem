@@ -1,7 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
     return {
         store: {
-            user: null
+            user: { email: "" },
         },
         actions: {
             login: async (useNew) => {
@@ -127,6 +127,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 
 			},
+            setUser: (user) => {
+                setStore({ user });
+              },
+              getCurrentUser: () => {
+                // Simulación de obtener usuario, puede ser desde un API o localStorage
+                return getStore().user;
+              },
         }
     };
 };

@@ -19,6 +19,7 @@ import { Admin } from "./component/admin";
 import { Footer } from "./component/footer";
 import { FooterLogin } from "./component/footerLogin";
 import { Benefits } from "./component/benefits";
+import { ContactMap } from "./component/contactMap";
 
 // Componente que decide si renderizar Footer o FooterLogin y sacar eel admin
 const FooterComponent = () => {
@@ -58,6 +59,8 @@ const Layout = () => {
                         <Route element={<Admin />} path="/admin" />
                         <Route element={<Register />} path="/register" />
                         <Route element={<Benefits />} path="/benefits" />
+                        <Route path="/contactMap" element={<ContactMap />} />
+
                         <Route element={<Header />} path="/home" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
