@@ -63,30 +63,86 @@ def generate_random_password(length=10):
     password = ''.join(random.choice(chars) for _ in range(length))
     return password
 
+
+#Reset-Password
+
+@api.route('/send-email', methods=['PUT'])
+def send_email():
+   data=request.json
+   receivers_email=data["email"]
+   user_random_password = generate_random_password()
+   
+   
+    
+   exist_user=User.query.filter_by(email=receivers_email).first()
+   
+   if receivers_email is None :
+       return jsonify({"msg":"Falta ingresar email"}),404
+    
+   if exist_user is None :
+       return jsonify({"msg":"Usuario no registrado"}),404
+    
+    # if user_random_password==aleatorio:
+   exist_user.password=user_random_password
+   db.session.commit()
+ 
+
+   message = MIMEMultipart("alternative")
+
+   message["Subject"] = "Olvido de contraseña - Espacio Novem!"
+   message["From"] = "aespacionovem@gmail.com"
+   message["To"] = ",".join(receivers_email)
+   
+
+   html_content = f"""
+       <html>
+           <body>
+               <h1>Bienvenido a Espacio Novem!</h1>
+               <p>¿Olvidaste la contraseña?</p>
+               <p>Tu password aleatorio es : {user_random_password}.</p>
+               <p>Recuerda volver a la aplicacion web para continuar el cambio de contraseña</p>
+           </body>
+       </html>
+   """
+   text = "Correo enviado desde la API Espacio Novem. Saludos👋."
+
+   message.attach(MIMEText(text, "plain"))
+   message.attach(MIMEText(html_content, "html"))
+
+   server = smtplib.SMTP(smtp_host, smtp_port)
+   server.starttls()
+   server.login(sender_email, sender_password)
+   server.sendmail(sender_email, receivers_email, message.as_string())
+   server.quit()
+
+   return jsonify({"msg": "Correo enviado correctamente"}), 200
+
+
 # Password recuperar
 @api.route('/reset-password', methods=['PUT'])
 def recuperar_password():
-    data = request.json
-    email = data.get("email")
-    nueva = data.get("nueva")
-    aleatoria = data.get("aleatoria")
+    data=request.json
+    email=data.get("email")
+    aleatoria=data.get("aleatoria")
+    nueva=data.get("nueva")
+    
+   
+    exist_user=User.query.filter_by(email=email).first()
+   
+   
+    if exist_user is None :
+       return jsonify({"msg":"Usuario no registrado"}),401
+    
+    print(exist_user.password,aleatoria)
 
-    if not email:
-        return jsonify({"status": "error", "message": "Falta ingresar email"}), 404
-
-    exist_user = User.query.filter_by(email=email).first()
-
-    if not exist_user:
-        return jsonify({"status": "error", "message": "Usuario no registrado"}), 404
-
-  
-    if aleatoria != exist_user.password:
-        return jsonify({"status": "error", "message": "El código aleatorio no coincide"}), 403
-
-    exist_user.password = generate_password_hash(nueva)
+    if exist_user.password != aleatoria:
+        return jsonify({"msg":"El password enviado no coincide"}),403
+    
+    # if user_random_password==aleatorio:
+    exist_user.password=nueva
     db.session.commit()
     return jsonify({"msg":"Contraseña actualizada con exito"}),200
-    return jsonify({"msg":"Paso algo inesperado"}),500
+    # return jsonify({"msg":"Paso algo inesperado"}),500
 
 
 # Registro

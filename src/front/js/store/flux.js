@@ -31,10 +31,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
             signup: async (user) => {
-                // console.log(user)
-                // console.log(process.env.BACKEND_URL+"/signup")
                 try {
-                    // fetching data from the backend
                     const resp = await fetch(process.env.BACKEND_URL + "/signup", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -56,50 +53,55 @@ const getState = ({ getStore, getActions, setStore }) => {
                 console.log("Sesión cerrada");
             },
             restablecerPassword: async (email) => {
-                try {
-                    const response = await fetch(process.env.BACKEND_URL + "/send-email", {
-                        method: "PUT",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            email: email
-                        }),
-                    });
-                    console.log(response);
-                    if (response.status == 200) {
-                        return true;
-                    }
-                    if (response.status == 404) {
-                        return false;
-                    }
-                } catch (error) {
-                    console.log(error);
-                    return false;
-                }
-            },
-            recuperarPassword: async (email, nueva, aleatoria) => {
-                console.log(email, nueva, aleatoria)
-                try {
-                    const response = await fetch(process.env.BACKEND_URL + "/recuperar-password", {
-                        method: "PUT",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            email,
-                            nueva,
-                            aleatoria
-                        }),
-                    });
-                    console.log(response);
-                    if (response.status == 200) {
-                        return true;
-                    }
-                    if (response.status == 404) {
-                        return false;
-                    }
-                } catch (error) {
-                    console.log(error);
-                    return false;
-                }
-            },
+				try {
+
+					const response = await fetch(process.env.BACKEND_URL + "/send-email", {
+						method: "PUT",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({
+							email: email
+						}),
+					});
+					console.log(response);
+					if (response.status == 200) {
+						return true;
+					}
+					if (response.status == 404) {
+						return false;
+					}
+				} catch (error) {
+					console.log(error);
+					return false;
+				}
+
+			},
+			recuperarPassword: async (email,nueva,aleatoria) => {
+				console.log(email,nueva,aleatoria)
+				try {
+
+					const response = await fetch(process.env.BACKEND_URL + "/reset-password", {
+						method: "PUT",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({
+							email,
+							nueva,
+							aleatoria
+						
+						}),
+					});
+					console.log(response);
+					if (response.status == 200) {
+						return true;
+					}
+					if (response.status == 404) {
+						return false;
+					}
+				} catch (error) {
+					console.log(error);
+					return false;
+				}
+
+			},
             getProfile: async () => {
 				try {
 					const token = localStorage.getItem("access_token");

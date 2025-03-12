@@ -23,61 +23,49 @@ export const ResetPassword = () => {
         })
     }
     const envio = async (e) => {
-        e.preventDefault()
-        if (email == "") {
-            mensaje("Ingrese su email")
-            return
+        e.preventDefault();
+        if (email === "") {
+            mensaje("Ingrese los datos solicitados");
+            return;
         }
-        if (aleatoria == "") {
-            mensaje("Ingrese su contraseña enviada por email")
-            return
+        let resp = await actions.restablecerPassword(email);
+        if (!resp) {
+            mensaje("Usuario no registrado");
+            navigate("/register");
+        } else {
+            mensaje("Correo enviado con éxito", "success", "Éxito");
+            navigate("/reset-password"); 
         }
-        if (nueva == "") {
-            mensaje("Ingrese su nueva contraseña")
-            return
-        }
-        let resp = await actions.recuperarPassword(email, nueva, aleatoria)
-        if (resp) {
-            mensaje("Contraseña actualizada con exito", "success", "Ya tienes tu contraseña")
-            let user = {
-                email: email,
-                password: nueva
-            }
-            let respLogin = actions.login(user)
-            if (respLogin) {
-                navigate("/")
-            }
+    };
 
-        }
-
-    }
 
     return (
         <>
-        
+
             <div className="mt-5 mx-auto d-flex flex-wrap justify-content-center login" >
 
                 <div className="text-center">
-                    <img className="loginimage" src={mujerbombilla}  alt="Descripción de la imagen" />
+                    <img className="loginimage" src={mujerbombilla} alt="Descripción de la imagen" />
                 </div>
                 <form className="form content" style={{ width: "370px" }}>
                     <h3>Cambio de Contraseña</h3>
                     <div className="mb-3">
                         <label className="form-label">Ingrese su Email</label>
-                        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="form-control" id="exampleInputEmail12" aria-describedby="emailHelp" />
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Contraseña Enviada Por Email</label>
-                        <input type="password" value={aleatoria} onChange={(e) => setAleatoria(e.target.value)} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                        <input type="password" value={aleatoria} onChange={(e) => setAleatoria(e.target.value)} className="form-control" id="exampleInputEmail2" aria-describedby="emailHelp" />
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Ingrese su Nueva Contraseña</label>
-                        <input type="password" value={nueva} onChange={(e) => setNueva(e.target.value)} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                        <input type="password" value={nueva} onChange={(e) => setNueva(e.target.value)} className="form-control" id="exampleInputEmail3" aria-describedby="emailHelp" />
                     </div>
                     <div className="text-center">
-                        <button type="button" onClick={(e) => envio(e)} className="btn btn-primary">
-                            Resetear
+                        <button type="button" onClick={envio} className="btn btn-primary">
+                            Enviar Correo
                         </button>
+
                     </div>
 
                     <div className="text-center mt-2">

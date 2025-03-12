@@ -15,8 +15,25 @@ export const UserProfile = () => {
 
   const handleLogout = () => {
     actions.logout();
+  
+    // Cerrar el offcanvas correctamente
+    const offcanvasElement = document.getElementById("offcanvasExample");
+    if (offcanvasElement) {
+      const offcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
+      if (offcanvas) {
+        offcanvas.hide();
+      }
+    }
+  
+    // Mover el foco fuera del offcanvas antes de redirigir
+    document.activeElement?.blur(); // Quitar el foco del botón dentro del offcanvas
+    document.body.focus(); // Opcionalmente, mover el foco al <body>
+  
+    // Redirigir al home
     navigate("/");
   };
+  
+  
 
   return (
     <>
