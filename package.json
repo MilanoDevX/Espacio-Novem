@@ -74,6 +74,7 @@
 	},
 	"dependencies": {
 		"@react-google-maps/api": "^2.20.5",
+		"bootstrap": "^5.3.3",
 		"cors": "^2.8.5",
 		"date-fns": "^4.1.0",
 		"prop-types": "^15.6.1",

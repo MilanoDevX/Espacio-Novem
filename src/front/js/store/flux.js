@@ -75,33 +75,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 
 			},
-			recuperarPassword: async (email,nueva,aleatoria) => {
-				console.log(email,nueva,aleatoria)
+			recuperarPassword: async (email, nueva, aleatoria) => {
+				console.log("Enviando datos:", email, nueva, aleatoria);
 				try {
-
-					const response = await fetch(process.env.BACKEND_URL + "/reset-password", {
+					const url = process.env.BACKEND_URL + "/reset-password";
+					console.log("URL de la API:", url);
+			
+					const response = await fetch(url, {
 						method: "PUT",
 						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({
-							email,
-							nueva,
-							aleatoria
-						
-						}),
+						body: JSON.stringify({ email, nueva, aleatoria }),
 					});
-					console.log(response);
-					if (response.status == 200) {
+			
+					console.log("Respuesta recibida:", response.status, response.statusText);
+			
+					if (response.ok) {
 						return true;
 					}
-					if (response.status == 404) {
-						return false;
-					}
+					return false;
 				} catch (error) {
-					console.log(error);
+					console.error("Error en la solicitud:", error);
 					return false;
 				}
-
 			},
+			
             getProfile: async () => {
 				try {
 					const token = localStorage.getItem("access_token");
