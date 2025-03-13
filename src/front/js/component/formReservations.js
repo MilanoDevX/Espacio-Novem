@@ -13,18 +13,18 @@ const FormReservations = ({ selectedDate }) => {
     if (!selectedDate) return;
 
     const fetchData = async () => {
-      const data = await actions.getReservations()
+      // const data = await actions.getReservations()
 
-      // const data = [
-      //   { id:1, user: 'natali', date: '2025-03-10', hour: '11:00', offices: 1 },
-      //   { id:2, user: 'kate', date: '2025-03-10', hour: '11:00', offices: 2 },
-      //   { id:3, user: 'fio', date: '2025-03-11', hour: '16:00', offices: 1 },
-      //   { id:4, user: 'elias', date: '2025-03-11', hour: '16:00', offices: 2 },
-      //   { id:5, user: 'natali', date: '2025-03-12', hour: '17:00', offices: 1 },
-      //   { id:6, user: 'kate', date: '2025-03-12', hour: '17:00', offices: 2 },
-      //   { id:7, user: 'elias', date: '2025-03-12', hour: '17:00', offices: 3 },
-      //   { id:8, user: 'elias', date: '2025-03-12', hour: '17:00', offices: 4 }
-      // ];
+      const data = [
+        { id:1, user: 'natali@gmail.com', date: '2025-03-14', hour: '11:00', offices: 1 },
+        { id:2, user: 'kate@gmail.com', date: '2025-03-14', hour: '11:00', offices: 2 },
+        { id:3, user: 'fio@gmail.com', date: '2025-03-15', hour: '16:00', offices: 1 },
+        { id:4, user: 'elias@gmail.com', date: '2025-03-15', hour: '16:00', offices: 2 },
+        { id:5, user: 'natali@gmail.com', date: '2025-03-17', hour: '17:00', offices: 1 },
+        { id:6, user: 'kate@gmail.com', date: '2025-03-17', hour: '17:00', offices: 2 },
+        { id:7, user: 'elias@gmail.com', date: '2025-03-17', hour: '17:00', offices: 3 },
+        { id:8, user: 'fio@gmail.com', date: '2025-03-17', hour: '17:00', offices: 4 }
+      ];
 
       const filteredData = data.filter((entry) => entry.date === selectedDate);
       setSchedule(filteredData);

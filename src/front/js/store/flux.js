@@ -104,7 +104,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             getReservations: async () => {
                 try {
                     //const token = localStorage.getItem("access_token");
-                    const response = await fetch(process.env.BACKEND_URL + "/reservations", {
+                    const response = await fetch(process.env.BACKEND_URL + "/reservations_all", {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json",
@@ -114,17 +114,17 @@ const getState = ({ getStore, getActions, setStore }) => {
                     });
                     console.log(response);
                     if (response.status == 200) {
-                        // const data = await response.json();
-                        const data = [
-                            { id: 1, user: 'natali', date: '2025-03-10', hour: '11:00', offices: 1 },
-                            { id: 2, user: 'kate', date: '2025-03-10', hour: '11:00', offices: 2 },
-                            { id: 3, user: 'fio', date: '2025-03-11', hour: '16:00', offices: 1 },
-                            { id: 4, user: 'elias', date: '2025-03-11', hour: '16:00', offices: 2 },
-                            { id: 5, user: 'natali', date: '2025-03-12', hour: '17:00', offices: 1 },
-                            { id: 6, user: 'kate', date: '2025-03-12', hour: '17:00', offices: 2 },
-                            { id: 7, user: 'elias', date: '2025-03-12', hour: '17:00', offices: 3 },
-                            { id: 8, user: 'elias', date: '2025-03-12', hour: '17:00', offices: 4 }
-                        ];
+                        const data = await response.json();
+                        // const data = [
+                        //     { id: 1, user: 'natali', date: '2025-03-10', hour: '11:00', offices: 1 },
+                        //     { id: 2, user: 'kate', date: '2025-03-10', hour: '11:00', offices: 2 },
+                        //     { id: 3, user: 'fio', date: '2025-03-11', hour: '16:00', offices: 1 },
+                        //     { id: 4, user: 'elias', date: '2025-03-11', hour: '16:00', offices: 2 },
+                        //     { id: 5, user: 'natali', date: '2025-03-12', hour: '17:00', offices: 1 },
+                        //     { id: 6, user: 'kate', date: '2025-03-12', hour: '17:00', offices: 2 },
+                        //     { id: 7, user: 'elias', date: '2025-03-12', hour: '17:00', offices: 3 },
+                        //     { id: 8, user: 'elias', date: '2025-03-12', hour: '17:00', offices: 4 }
+                        // ];
                         console.log("Reservas", data);
                         setStore({ reservations: data });
                         return true;
