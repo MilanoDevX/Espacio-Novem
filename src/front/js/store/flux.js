@@ -110,24 +110,14 @@ const getState = ({ getStore, getActions, setStore }) => {
                             "Content-Type": "application/json",
                             //"Authorization": "Bearer " + token
                         },
-            
                     });
-                    console.log(response);
+                    // console.log(response);
                     if (response.status == 200) {
                         const data = await response.json();
-                        // const data = [
-                        //     { id: 1, user: 'natali', date: '2025-03-10', hour: '11:00', offices: 1 },
-                        //     { id: 2, user: 'kate', date: '2025-03-10', hour: '11:00', offices: 2 },
-                        //     { id: 3, user: 'fio', date: '2025-03-11', hour: '16:00', offices: 1 },
-                        //     { id: 4, user: 'elias', date: '2025-03-11', hour: '16:00', offices: 2 },
-                        //     { id: 5, user: 'natali', date: '2025-03-12', hour: '17:00', offices: 1 },
-                        //     { id: 6, user: 'kate', date: '2025-03-12', hour: '17:00', offices: 2 },
-                        //     { id: 7, user: 'elias', date: '2025-03-12', hour: '17:00', offices: 3 },
-                        //     { id: 8, user: 'elias', date: '2025-03-12', hour: '17:00', offices: 4 }
-                        // ];
-                        console.log("Reservas", data);
+
+                        // console.log("Reservas", data);
                         setStore({ reservations: data });
-                        return true;
+                        return data;
                     } else {
                         console.error("Error al obtener las reservas:", response.status);
                         return false;
