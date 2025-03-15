@@ -9,13 +9,13 @@ export const Navbar = () => {
   const { store, actions } = useContext(Context);
   
   useEffect(() => {
-    actions.getCurrentUser(); // Asegurar que el usuario se actualiza al renderizar
-  }, [store.user]); // Dependencia en store.user para que se actualice dinámicamente
+    actions.getCurrentUser(); 
+  }, [store.user]); 
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary navbarcolor">
       <div className="container-fluid">
-        {/* Mostrar solo si el usuario está logueado */}
+    
         {store.user && store.user.email && (
           <button
             type="button"
@@ -45,9 +45,6 @@ export const Navbar = () => {
             )}
             <li className="nav-item">
               <Link className="nav-link text-light" to="/aboutUs">Quienes Somos</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link text-light" to="/contactMap">Contacto</Link>
             </li>
           </ul>
           <Login />

@@ -24,7 +24,7 @@ export const ResetPassword = () => {
     const envio = async (e) => {
         e.preventDefault();
 
-        // Validaciones
+   
         if (email === "") {
             mensaje("Ingrese su correo electrónico.");
             return;
@@ -37,8 +37,11 @@ export const ResetPassword = () => {
             mensaje("Ingrese su nueva contraseña.");
             return;
         }
+        if (nueva.length > 20 || nueva.length < 8) {
+            mensaje("La nueva password debe contener de 8 a 20 caracteres")
+            return false
+        }
 
-        // Llamada a la acción de recuperación de contraseña
         let resp = await actions.recuperarPassword(email, nueva, aleatoria);
         if (resp) {
             mensaje("Contraseña actualizada con éxito", "success", "Contraseña cambiada");

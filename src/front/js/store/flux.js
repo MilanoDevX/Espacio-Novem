@@ -130,7 +130,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                 setStore({ user });
               },
               getCurrentUser: () => {
-                // Simulación de obtener usuario, puede ser desde un API o localStorage
                 return getStore().user;
               },
         }

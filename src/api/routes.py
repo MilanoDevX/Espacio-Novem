@@ -14,7 +14,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, supports_credentials=True)
 
 api = Blueprint('api', __name__)
 CORS(api)
@@ -24,9 +24,11 @@ sender_password = os.getenv("SMTP_APP_PASSWORD")
 smtp_host = os.getenv("SMTP_HOST")
 smtp_port = os.getenv("SMTP_PORT")
 
-receiver_email = ["fiorellaviscardi.2412@gmail.com"]
+receiver_email = [""]
+
 
 # Enviar email
+
 def send_signup_email(receivers_email):
     message = MIMEMultipart("alternative")
     message["Subject"] = "Bienvenido a Espacio Novem!"
@@ -57,11 +59,15 @@ def send_signup_email(receivers_email):
         print(f"Error al enviar correo: {str(e)}")
         return False
 
+
+
 # Random password
+
 def generate_random_password(length=10):
     chars = string.ascii_letters + string.digits + string.punctuation
     password = ''.join(random.choice(chars) for _ in range(length))
     return password
+
 
 
 #Reset-Password
@@ -72,8 +78,6 @@ def send_email():
    receivers_email=data["email"]
    user_random_password = generate_random_password()
    
-   
-    
    exist_user=User.query.filter_by(email=receivers_email).first()
    
    if receivers_email is None :
@@ -82,7 +86,6 @@ def send_email():
    if exist_user is None :
        return jsonify({"msg":"Usuario no registrado"}),404
     
-    # if user_random_password==aleatorio:
    exist_user.password=user_random_password
    db.session.commit()
  
@@ -118,7 +121,9 @@ def send_email():
    return jsonify({"msg": "Correo enviado correctamente"}), 200
 
 
+
 # Password recuperar
+
 @api.route('/reset-password', methods=['PUT'])
 def recuperar_password():
     data=request.json
@@ -126,23 +131,22 @@ def recuperar_password():
     aleatoria=data.get("aleatoria")
     nueva=data.get("nueva")
     
-   
     exist_user=User.query.filter_by(email=email).first()
-   
    
     if exist_user is None :
        return jsonify({"msg":"Usuario no registrado"}),401
     
     print(exist_user.password,aleatoria)
-
-    if exist_user.password != aleatoria:
-        return jsonify({"msg":"El password enviado no coincide"}),403
     
-    # if user_random_password==aleatorio:
+    if exist_user.password.strip() != aleatoria.strip():
+        return jsonify({"msg":"El password enviado no coincide"}),403
+
+    print(f"Email: {email}, Aleatoria: {aleatoria}, Nueva: {nueva}")
+
     exist_user.password=nueva
     db.session.commit()
     return jsonify({"msg":"Contraseña actualizada con exito"}),200
-    # return jsonify({"msg":"Paso algo inesperado"}),500
+  
 
 
 # Registro
@@ -171,6 +175,8 @@ def register():
     send_signup_email([email])
     return jsonify({"message":"User crated successfully"}),201
 
+
+
 #Login 
 
 @api.route('/login', methods=['POST'])
@@ -189,7 +195,10 @@ def login():
     access_token = create_access_token(identity=email)
     return jsonify(access_token=access_token, user=user.serialize()),200
 
+
+
 #Perfil 
+
 @api.route('/userProfile', methods=['GET'])
 @jwt_required()
 def get_user_profile():
@@ -200,6 +209,6 @@ def get_user_profile():
 @api.route("/protected", methods=["GET"])
 @jwt_required()
 def protected():
-    # Access the identity of the current user with get_jwt_identity
+
     current_user = get_jwt_identity()
     return jsonify(logged_in_as=current_user), 200
