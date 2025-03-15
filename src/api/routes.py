@@ -11,6 +11,8 @@ from email.mime.multipart import MIMEMultipart
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS
+from datetime import datetime
+
 app = Flask(__name__)
 CORS(app)
 api = Blueprint('api', __name__)
@@ -112,7 +114,6 @@ def login():
 #@jwt_required()
 def get_reservations_by_email():
     try:
-        # email = request.json.get('user')
         #email = get_jwt_identity()
         email = "eliasmilano.dev@gmail.com"
         if not email:
@@ -121,8 +122,21 @@ def get_reservations_by_email():
         user = User.query.filter_by(email=email).first()
         if not user:
             return jsonify({"error": "User not found"}), 404
+        
+        # Obteining current year and months
+        now = datetime.now()
+        current_month = now.month
+        current_year = now.year
+        next_month = current_month + 1 if current_month < 12 else 1
+        next_month_year = current_year if current_month < 12 else current_year + 1
 
-        reservas = Reservation.query.filter_by(user_id=user.id).all()
+        # Filtering reservations by user and month/year
+        reservas = db.session.query(Reservation).filter(
+            Reservation.user_id == user.id,
+            ((db.extract('month', Reservation.date) == current_month) & (db.extract('year', Reservation.date) == current_year)) |
+            ((db.extract('month', Reservation.date) == next_month) & (db.extract('year', Reservation.date) == next_month_year))
+        ).all()
+
         reservas_list = [item.serialize() for item in reservas]
         
         return jsonify(reservas_list), 200

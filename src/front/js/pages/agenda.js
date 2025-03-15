@@ -35,7 +35,7 @@ export const Agenda = () => {
         <div className="agenda-container">
             <div className="agenda-header">
                 <h2>
-                    Registro de reservas pendientes
+                    Registro de reservas
                 </h2>
             </div>
             <div className="agenda-table-container">
