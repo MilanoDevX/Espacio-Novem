@@ -7,13 +7,11 @@ const FormReservations = ({ selectedDate }) => {
   const [schedule, setSchedule] = useState([]);
   const { actions, store } = useContext(Context);
 
-
-  // Simulación de datos desde el backend
   useEffect(() => {
     if (!selectedDate) return;
 
     const fetchData = async () => {
-      const data = await actions.getReservations()
+      const data = await actions.getReservations();
 
       if(data) {
         const filteredData = data.filter((entry) => entry.date === selectedDate);

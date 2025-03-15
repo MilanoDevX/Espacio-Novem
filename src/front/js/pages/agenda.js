@@ -1,9 +1,13 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Context } from "../store/appContext"
 import '../../styles/agenda.css';
 import { format, parseISO, isBefore, addHours, isWithinInterval } from 'date-fns';
 
 export const Agenda = () => {
+
+    const { actions, store } = useContext(Context);
+
     const now = new Date();
     const todayFormatted = format(now, 'yyyy-MM-dd');
     const [selectedDate, setSelectedDate] = useState(todayFormatted);
@@ -11,28 +15,11 @@ export const Agenda = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = [
-                { id: 1, user: 'eliasmilano.dev@gmail.com', date: '2025-01-01', hour: '10:00', consultories: [1] },
-                { id: 2, user: 'eliasmilano.dev@gmail.com', date: '2025-01-01', hour: '11:00', consultories: [2] },
-                { id: 3, user: 'eliasmilano.dev@gmail.com', date: '2025-01-01', hour: '12:00', consultories: [3] },
-                { id: 4, user: 'eliasmilano.dev@gmail.com', date: '2025-01-01', hour: '13:00', consultories: [4] },
-                { id: 5, user: 'eliasmilano.dev@gmail.com', date: '2025-01-02', hour: '10:00', consultories: [4] },
-                { id: 6, user: 'eliasmilano.dev@gmail.com', date: '2025-01-02', hour: '11:00', consultories: [4] },
-                { id: 7, user: 'eliasmilano.dev@gmail.com', date: '2025-01-02', hour: '12:00', consultories: [4] },
-                { id: 8, user: 'eliasmilano.dev@gmail.com', date: '2025-02-11', hour: '13:00', consultories: [4] },
-                { id: 9, user: 'eliasmilano.dev@gmail.com', date: '2025-02-11', hour: '10:00', consultories: [4] },
-                { id: 10, user: 'eliasmilano.dev@gmail.com', date: '2025-03-17', hour: '11:00', consultories: [4] },
-                { id: 11, user: 'eliasmilano.dev@gmail.com', date: '2025-03-17', hour: '12:00', consultories: [4] },
-                { id: 12, user: 'eliasmilano.dev@gmail.com', date: '2025-03-17', hour: '13:00', consultories: [1] },
-                { id: 13, user: 'eliasmilano.dev@gmail.com', date: '2025-03-17', hour: '16:00', consultories: [3] },
-                { id: 14, user: 'eliasmilano.dev@gmail.com', date: '2025-03-17', hour: '17:00', consultories: [4] },
-                { id: 15, user: 'eliasmilano.dev@gmail.com', date: '2025-03-17', hour: '18:00', consultories: [4] }
-            ];
-
-            const filteredData = data.filter(entry => entry.user === 'eliasmilano.dev@gmail.com');
-
+            const data = await actions.getReservationsByEmail();
+            console.log(data);
+            
             // Ordenar las reservas por fecha en orden descendente
-            const sortedData = filteredData.sort((a, b) => parseISO(b.date + 'T' + b.hour + ':00') - parseISO(a.date + 'T' + a.hour + ':00'));
+            const sortedData = data.sort((a, b) => parseISO(b.date + 'T' + b.hour + ':00') - parseISO(a.date + 'T' + a.hour + ':00'));
 
             setReservations(sortedData);
         };
@@ -62,7 +49,7 @@ export const Agenda = () => {
                         </tr>
                     </thead>
                     <tbody>
-                    {reservations.filter(r => !isBefore(parseISO(r.date + 'T' + r.hour + ':00'), now) || reservations.filter(res => isBefore(parseISO(res.date + 'T' + res.hour + ':00'), now)).slice(0, 10).includes(r)).map(({ id, date, hour, consultories }) => {
+                    {reservations.filter(r => !isBefore(parseISO(r.date + 'T' + r.hour + ':00'), now) || reservations.filter(res => isBefore(parseISO(res.date + 'T' + res.hour + ':00'), now)).slice(0, 10).includes(r)).map(({ id, date, hour, office }) => {
                             const dateTimeStr = `${date}T${hour}:00`;
                             const dateObj = parseISO(dateTimeStr);
                             const isPastDate = isBefore(dateObj, now);
@@ -72,7 +59,7 @@ export const Agenda = () => {
                                 <tr key={id} className={isPastDate ? "past-date-row" : isWithin24Hours ? "within-24h-row" : "same-height-row"}>
                                     <td>{format(dateObj, 'dd/MM/yyyy')}</td>
                                     <td>{hour}</td>
-                                    <td>{consultories.join(', ')}</td>
+                                    <td>{office}</td>
                                     <td>
                                         {isPastDate ? (
                                             <i className="italic">Reserva utilizada</i>
