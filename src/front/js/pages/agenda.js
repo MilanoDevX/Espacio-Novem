@@ -42,6 +42,7 @@ export const Agenda = () => {
                 <table className="agenda-table">
                     <thead>
                         <tr>
+                            <th className="auto-width">Reserva Nº</th>
                             <th className="auto-width">Fecha</th>
                             <th className="auto-width">Hora</th>
                             <th className="auto-width">Consultorio</th>
@@ -57,6 +58,7 @@ export const Agenda = () => {
 
                             return (
                                 <tr key={id} className={isPastDate ? "past-date-row" : isWithin24Hours ? "within-24h-row" : "same-height-row"}>
+                                    <td>{id}</td>
                                     <td>{format(dateObj, 'dd/MM/yyyy')}</td>
                                     <td>{hour}</td>
                                     <td>{office}</td>
