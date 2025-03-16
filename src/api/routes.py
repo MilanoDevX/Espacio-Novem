@@ -186,6 +186,43 @@ def get_reservations_admin():
         return jsonify({"error": str(e)}), 400
 
 
+# Endpoint to delete a specific reservation of a user (ID in the body)
+@api.route('/reservations', methods=['DELETE'])
+# @jwt_required()
+def delete_reservation():
+    # email = get_jwt_identity()
+    email = "eliasmilano.dev@gmail.com"
+
+    if not email:
+        return jsonify({"error": "Email is required"}), 400
+
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+
+    try:
+        # Get the reservatiod ID from the request body
+        data = request.get_json()
+        reserva_id = data.get('reserva_id')
+
+        if not reserva_id:
+            return jsonify({"error": "Reserva ID is required"}), 400
+
+        # Search the reservation by ID and by user ID
+        reserva = Reservation.query.filter_by(id=reserva_id, user_id=user.id).first()
+
+        if not reserva:
+            return jsonify({"message": "Reserva no encontrada"}), 404
+
+        db.session.delete(reserva)
+        db.session.commit()
+
+        return jsonify({"message": f"Reserva con ID {reserva_id} borrada exitosamente"}), 200
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": "Ha ocurrido un error durante la eliminación de la reserva", "detalles": str(e)}), 500
+
 
 
 

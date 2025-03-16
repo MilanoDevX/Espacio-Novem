@@ -27,10 +27,13 @@ export const Agenda = () => {
         fetchData();
     }, []);
 
-    const handleDelete = (id) => {
-        setReservations(reservations.filter(reservation => reservation.id !== id));
+    const handleDelete = async (id) => {
+        const response = await actions.deleteReservation(id);
+            if (response == true) {
+                setReservations(reservations.filter(reservation => reservation.id !== id));
+            }
     };
-
+    
     return (
         <div className="agenda-container">
             <div className="agenda-header">
@@ -42,10 +45,10 @@ export const Agenda = () => {
                 <table className="agenda-table">
                     <thead>
                         <tr>
-                            <th className="auto-width">Reserva Nº</th>
+                            <th className="auto-width">Reserva</th>
                             <th className="auto-width">Fecha</th>
                             <th className="auto-width">Hora</th>
-                            <th className="auto-width">Consultorio</th>
+                            <th className="auto-width">Consult.</th>
                             <th className="auto-width">Acción</th>
                         </tr>
                     </thead>
@@ -64,12 +67,12 @@ export const Agenda = () => {
                                     <td>{office}</td>
                                     <td>
                                         {isPastDate ? (
-                                            <i className="italic">Reserva utilizada</i>
+                                            <i className="italic">Utilizada</i>
                                         ) : isWithin24Hours ? (
-                                            <i className="italic">Próxima sesión</i>
+                                            <i className="italic">Próxima</i>
                                         ) : (
                                             <button className="delete-btn" onClick={() => handleDelete(id)}>
-                                                Eliminar reserva
+                                                Eliminar
                                             </button>
                                         )}
                                     </td>

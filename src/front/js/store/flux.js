@@ -154,6 +154,31 @@ const getState = ({ getStore, getActions, setStore }) => {
                     return false
                 }
             },
+
+            deleteReservation: async (id) => {
+                try {
+                    //const token = localStorage.getItem("access_token");
+                    const response = await fetch(process.env.BACKEND_URL + "/reservations", {
+                        method: "DELETE",
+                        headers: {
+                            "Content-Type": "application/json",
+                            //"Authorization": "Bearer " + token
+                        },
+                        body: JSON.stringify({ reserva_id: id })
+                    });
+                    // console.log(response);
+                    if (response.status == 200) {
+                        console.log("Reserva borrada exitosamente");
+                        return true;
+                    } else {
+                        console.error("Error al borrar la reserva:", response.statusText);
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("Error al borrar la reserva:", error);
+                    return false;
+                }
+            },
         }
     };
 };
