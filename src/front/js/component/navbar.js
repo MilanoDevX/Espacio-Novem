@@ -1,71 +1,50 @@
-import React, { useContext, useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import { Link } from "react-router-dom";
+import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
-
-import Login from "./login";
+import { useNavigate } from "react-router-dom";
+import Login from "./Login";
+import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   const navigate = useNavigate();
-  const { actions } = useContext(Context);
-  const [user, setUser] = useState({ email: "" });
-
-  const registerUser = () => {
-    navigate("/register");
-  };
-
-
-
-  if (user.email === "espacionovem@anda.com") {
-    navigate("/admin");
-  }
-
-
+  const { store, actions } = useContext(Context);
+  
+  useEffect(() => {
+    actions.getCurrentUser(); 
+  }, [store.user]); 
 
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary navbarcolor" aria-label="Eleventh navbar example mx-5">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary navbarcolor">
       <div className="container-fluid">
-        <button
-          type="button"
-          className="btn dos"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasExample"
-          aria-controls="offcanvasExample"
-        >
-          Espacio Novem
-        </button>
-        {/* Botón del toggler */}
-        <button className="navbar-toggler text-light border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        
-        {/* Navbar Links */}
-        <div className="collapse navbar-collapse justify-content-end" id="navbarContent">
+    
+        {store.user && store.user.email && (
+          <button
+            type="button"
+            className="btn dos"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasExample"
+            aria-controls="offcanvasExample"
+          >
+            Espacio Novem
+          </button>
+        )}
+
+        <div className="collapse navbar-collapse justify-content-end">
           <ul className="navbar-nav me-3 mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className="nav-link active text-light anchor customs-link" aria-current="page" to="/">
-                Inicio
-              </Link>
+              <Link className="nav-link active text-light" to="/">Inicio</Link>
             </li>
+            {store.user && store.user.email && (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link text-light" to="/reservations">Reservas</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link text-light" to="/agenda">Agenda</Link>
+                </li>
+              </>
+            )}
             <li className="nav-item">
-              <Link className="nav-link text-light anchor" to="/aboutUs">
-                Quienes Somos
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link text-light anchor" to="/reservations">
-                Reservas
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link text-light anchor" to="/agenda">
-                Agenda
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link text-light anchor" to="/contactMap">
-                Contacto
-              </Link>
+              <Link className="nav-link text-light" to="/aboutUs">Quienes Somos</Link>
             </li>
           </ul>
           <Login />
