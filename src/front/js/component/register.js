@@ -44,10 +44,7 @@ export const Register = () => {
             mensaje("Falta ingresar el telefono")
             return false
         }
-// if (email=="espacionovem@gmail.com"){
-//     mensaje("El email es adminitrador")
-//     return false
-// }
+
         if (email == "") {
             mensaje("Falta ingresar el email")
             return false
