@@ -4,14 +4,12 @@ import { Link } from "react-router-dom";
 import Swal from 'sweetalert2'
 import { useNavigate } from "react-router-dom";
 import "/src/front/styles/register.css";
-
 export const Register = () => {
     const navigate = useNavigate();
     const volver = () => {
         navigate("/");
         window.scrollTo(0, 0);
     };
-
     const { store, actions } = useContext(Context);
     const [name, setName] = useState("")
     const [last_name, setLast_name] = useState("")
@@ -20,17 +18,15 @@ export const Register = () => {
     const [password, setPassword] = useState("")
     const [confirmar, setConfirmar] = useState("")
     const [shown, setShown] = useState(false);
-    const [isAdmin, setIsAdmin] = useState(false); 
+    const [isAdmin, setIsAdmin] = useState(false);
     const switchShown = () => setShown(!shown); // eye
-
     const mensaje = (titulo) => {
         Swal.fire({
-            icon: "error", 
+            icon: "error",
             title: "Error de ingreso",
             text: titulo,
         });
     };
-
     const chequeo = () => {
         if (name == "") {
             mensaje("Falta ingresar el nombre")
@@ -44,17 +40,14 @@ export const Register = () => {
             mensaje("Falta ingresar el telefono")
             return false
         }
-
         if (email == "") {
             mensaje("Falta ingresar el email")
             return false
         }
-
         if (password == "") {
             mensaje("Falta ingresar el contraseña")
             return false
         }
-
         if (password.length > 20 || password.length < 8) {
             mensaje("El password debe contener de 8 a 20 caracteres")
             return false
@@ -69,10 +62,8 @@ export const Register = () => {
         }
         return true
     }
-
     const signup = async (e) => {
         e.preventDefault()
-
         let check = chequeo()
         if (check) {
             let newUser = {
@@ -81,12 +72,10 @@ export const Register = () => {
                 email: email,
                 password: password,
                 telefono: phone,
-                is_admin: isAdmin, 
+                is_admin: isAdmin,
             }
-
             let resp = await actions.signup(newUser);
-
-            if (resp) {  
+            if (resp) {
                 Swal.fire({
                     icon: "success",
                     title: "Registro exitoso",
@@ -94,19 +83,16 @@ export const Register = () => {
                     timer: 2000,
                     showConfirmButton: false
                 }).then(() => {
-                    navigate("/"); 
+                    navigate("/");
                 });
             } else {
                 mensaje("Hubo un error en el registro");
             }
         }
     };
-
-
     const handleCheckboxChange = (e) => {
-        setIsAdmin(e.target.checked); 
+        setIsAdmin(e.target.checked);
     };
-
     return (
         <>
             <div className="mx-auto pt-3 register">
@@ -119,14 +105,12 @@ export const Register = () => {
                         <input type="text" value={name} onChange={(event) => setName(event.target.value)} id="exampleFormControlInput1" placeholder="Escribe tu nombre aqui..." name="input" className="input" />
                     </div>
                 </div>
-
                 <div className="mb-2">
                     <div className="coolinput">
                         <label htmlFor="input" className="text">Apellido</label>
                         <input type="text" value={last_name} onChange={(event) => setLast_name(event.target.value)} id="exampleFormControlInput2" placeholder="Escribe tu apellido aqui..." name="input" className="input" />
                     </div>
                 </div>
-
                 <div className="mb-2">
                     <div className="coolinput">
                         <label htmlFor="input" className="text">Teléfono</label>
@@ -139,7 +123,6 @@ export const Register = () => {
                         <input type="text" value={email} onChange={(event) => setEmail(event.target.value)} id="exampleFormControlInput4" placeholder="Escribe tu correo  aqui..." name="input" className="input" />
                     </div>
                 </div>
-
                 <div className="mb-2">
                     <div className="coolinput password-input">
                         <label htmlFor="inputPassword5" className="text">Contraseña</label>
@@ -166,7 +149,6 @@ export const Register = () => {
                         </span>
                     </div>
                 </div>
-
                 <div className="mb-3">
                     <div className="coolinput password-input">
                         <label htmlFor="inputPassword6" className="text">Confirmar Contraseña</label>
@@ -192,14 +174,13 @@ export const Register = () => {
                             Debe contener de 8 a 20 caracteres.
                         </span>
                     </div>
-
                     <div className="form-check form-switch ">
                         <input
                             className="form-check-input"
                             type="checkbox"
                             role="switch"
                             id="flexSwitchCheckDefault"
-                            onChange={handleCheckboxChange} 
+                            onChange={handleCheckboxChange}
                         />
                         <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Eres Administrador?</label>
                     </div>
@@ -212,3 +193,14 @@ export const Register = () => {
         </>
     );
 };
+
+
+
+
+
+
+
+
+
+
+
