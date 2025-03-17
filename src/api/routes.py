@@ -98,7 +98,7 @@ def send_email():
            <body>
                <h1>Bienvenido a Espacio Novem!</h1>
                <p>¿Olvidaste la contraseña?</p>
-               <p>Tu password aleatorio es : {user_random_password}.</p>
+               <p>Tu password aleatorio es : {user_random_password}</p>
                <p>Recuerda volver a la aplicacion web para continuar el cambio de contraseña</p>
            </body>
        </html>
