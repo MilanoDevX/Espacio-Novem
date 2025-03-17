@@ -10,6 +10,7 @@ class User(db.Model):
     password = db.Column(db.String(20), nullable=False)
     telefono = db.Column(db.String(20), nullable=False) 
     is_admin = db.Column(db.Boolean, default=False)
+    is_active = db.Column(db.Boolean,unique=False, nullable=False)
 
     def __init__(self, name, last_name, email, password, telefono, is_admin=False):
         self.name = name
@@ -18,8 +19,8 @@ class User(db.Model):
         self.password = password
         self.telefono = telefono
         self.is_admin = is_admin
+        self.is_active = True
 
-    
     def serialize(self):
         return {
             "id": self.id,
@@ -27,6 +28,7 @@ class User(db.Model):
             "last_name":self.last_name,
             "email": self.email,
             "telefono":self.telefono,
+            "is_active":self.is_active
             # do not serialize the password, its a security breach
         }
 

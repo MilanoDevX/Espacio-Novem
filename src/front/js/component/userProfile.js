@@ -25,9 +25,9 @@ export const UserProfile = () => {
       }
     }
   
-    // Mover el foco fuera del offcanvas antes de redirigir
-    document.activeElement?.blur(); // Quitar el foco del botón dentro del offcanvas
-    document.body.focus(); // Opcionalmente, mover el foco al <body>
+    
+    document.activeElement?.blur(); 
+    document.body.focus(); 
   
     // Redirigir al home
     navigate("/");
