@@ -20,6 +20,7 @@ import { Footer } from "./component/footer";
 import { FooterLogin } from "./component/footerLogin";
 import { Benefits } from "./component/benefits";
 
+
 // Componente que decide si renderizar Footer o FooterLogin y sacar eel admin
 const FooterComponent = () => {
     const location = useLocation();
