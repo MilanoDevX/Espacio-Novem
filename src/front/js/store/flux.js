@@ -53,86 +53,169 @@ const getState = ({ getStore, getActions, setStore }) => {
                 console.log("Sesión cerrada");
             },
             restablecerPassword: async (email) => {
-				try {
+                try {
 
-					const response = await fetch(process.env.BACKEND_URL + "/send-email", {
-						method: "PUT",
-						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({
-							email: email
-						}),
-					});
-					console.log(response);
-					if (response.status == 200) {
-						return true;
-					}
-					if (response.status == 404) {
-						return false;
-					}
-				} catch (error) {
-					console.log(error);
-					return false;
-				}
+                    const response = await fetch(process.env.BACKEND_URL + "/send-email", {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            email: email
+                        }),
+                    });
+                    console.log(response);
+                    if (response.status == 200) {
+                        return true;
+                    }
+                    if (response.status == 404) {
+                        return false;
+                    }
+                } catch (error) {
+                    console.log(error);
+                    return false;
+                }
 
-			},
-			recuperarPassword: async (email, nueva, aleatoria) => {
-				console.log("Enviando datos:", email, nueva, aleatoria);
-				try {
-					const url = process.env.BACKEND_URL + "/reset-password";
-					console.log("URL de la API:", url);
-			
-					const response = await fetch(url, {
-						method: "PUT",
-						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({ email, nueva, aleatoria }),
-					});
-			
-					console.log("Respuesta recibida:", response.status, response.statusText);
-			
-					if (response.ok) {
-						return true;
-					}
-					return false;
-				} catch (error) {
-					console.error("Error en la solicitud:", error);
-					return false;
-				}
-			},
-			
+            },
+
+            recuperarPassword: async (email, nueva, aleatoria) => {
+                console.log("Enviando datos:", email, nueva, aleatoria);
+                try {
+                    const url = process.env.BACKEND_URL + "/reset-password";
+                    console.log("URL de la API:", url);
+
+                    const response = await fetch(url, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email, nueva, aleatoria }),
+                    });
+
+                    console.log("Respuesta recibida:", response.status, response.statusText);
+
+                    if (response.ok) {
+                        return true;
+                    }
+                    return false;
+                } catch (error) {
+                    console.error("Error en la solicitud:", error);
+                    return false;
+                }
+            },
+
             getProfile: async () => {
-				try {
-					const token = localStorage.getItem("access_token");
-					if(!token){
-						return false
-					}
-					const response = await fetch(process.env.BACKEND_URL + "/userProfile", {
-						method: "GET",
-						headers: {
-							"Content-Type": "application/json",
-							"Authorization": "Bearer " + token
-						},
+                try {
+                    const token = localStorage.getItem("access_token");
+                    if (!token) {
+                        return false
+                    }
+                    const response = await fetch(process.env.BACKEND_URL + "/userProfile", {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": "Bearer " + token
+                        },
 
-					});
-					console.log(response);
-					if (response.status == 200) {
-						const data = await response.json()
-						console.log(data)
-						setStore({ user: data });
-						return true;
-					}
-				} catch (error) {
-					console.log(error);
-					return false;
-				}
+                    });
+                    console.log(response);
+                    if (response.status == 200) {
+                        const data = await response.json()
+                        console.log(data)
+                        setStore({ user: data });
+                        return true;
+                    }
+                } catch (error) {
+                    console.log(error);
+                    return false;
+                }
 
-			},
+            },
             setUser: (user) => {
                 setStore({ user });
-              },
-              getCurrentUser: () => {
+            },
+            getCurrentUser: () => {
                 return getStore().user;
-              },
+            },
+
+            getReservations: async () => {
+                try {
+                    //const token = localStorage.getItem("access_token");
+                    const response = await fetch(process.env.BACKEND_URL + "/reservations_all", {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            //"Authorization": "Bearer " + token
+                        },
+                    });
+                    // console.log(response);
+                    if (response.status == 200) {
+                        const data = await response.json();
+
+                        // console.log("Reservas", data);
+                        setStore({ reservations: data });
+                        return data;
+                    } else {
+                        console.error("Error al obtener las reservas:", response.status);
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("Error al traer reservas:", error);
+                    return false
+                }
+            },
+
+            getReservationsByEmail: async () => {
+                try {
+                    //const token = localStorage.getItem("access_token");
+                    const response = await fetch(process.env.BACKEND_URL + "/reservations", {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            //"Authorization": "Bearer " + token
+                        },
+                    });
+                    // console.log(response);
+                    if (response.status == 200) {
+                        const data = await response.json();
+
+                        // console.log("Reservas", data);
+                        setStore({ reservations: data });
+                        return data;
+                    } else {
+                        console.error("Error al obtener las reservas:", response.status);
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("Error al traer reservas:", error);
+                    return false
+                }
+            },
+
+            deleteReservation: async (id) => {
+                try {
+                    //const token = localStorage.getItem("access_token");
+                    const response = await fetch(process.env.BACKEND_URL + "/reservations", {
+                        method: "DELETE",
+                        headers: {
+                            "Content-Type": "application/json",
+                            //"Authorization": "Bearer " + token
+                        },
+                        body: JSON.stringify({ reserva_id: id })
+                    });
+                    // console.log(response);
+                    if (response.status == 200) {
+                        console.log("Reserva borrada exitosamente");
+                        return true;
+                    } else {
+                        console.error("Error al borrar la reserva:", response.statusText);
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("Error al borrar la reserva:", error);
+                    return false;
+                }
+            },
         }
     };
 };
 export default getState;
+
+
+
