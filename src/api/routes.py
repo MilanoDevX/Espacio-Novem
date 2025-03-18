@@ -191,11 +191,11 @@ def login():
 
 # Endpoint for reservations from one user 
 @api.route('/reservations', methods=['GET'])
-#@jwt_required()
+@jwt_required()
 def get_reservations_by_email():
     try:
-        #email = get_jwt_identity()
-        email = "eliasmilano.dev@gmail.com"
+        email = get_jwt_identity()
+        # email = "eliasmilano.dev@gmail.com"
         if not email:
             return jsonify({"error": "Email parameter is required"}), 400
 
@@ -226,7 +226,7 @@ def get_reservations_by_email():
 
 # Endpoint for reservations from all users
 @api.route('/reservations_all', methods=['GET'])
-#@jwt_required()
+@jwt_required()
 def get_all_reservations():
     try:
         reservations_list = Reservation.query.all()
@@ -239,7 +239,7 @@ def get_all_reservations():
 
 # Endpoint for reservations from all users (for Administrator)
 @api.route('/reservations_admin', methods=['GET'])
-#@jwt_required()
+@jwt_required()
 def get_reservations_admin():
     try:
         reservations_list = Reservation.query.all()
@@ -268,10 +268,10 @@ def get_reservations_admin():
 
 # Endpoint to delete a specific reservation of a user (ID in the body)
 @api.route('/reservations', methods=['DELETE'])
-# @jwt_required()
+@jwt_required()
 def delete_reservation():
-    # email = get_jwt_identity()
-    email = "eliasmilano.dev@gmail.com"
+    email = get_jwt_identity()
+    # email = "eliasmilano.dev@gmail.com"
 
     if not email:
         return jsonify({"error": "Email is required"}), 400
