@@ -7,9 +7,10 @@ class User(db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(20), nullable=False)
     telefono = db.Column(db.String(20), nullable=False)
-    is_admin = db.Column(db.Boolean, default=False)
+    is_admin = db.Column(db.Boolean, default=False) 
     is_active = db.Column(db.Boolean, unique=False, nullable=False)
     reservations = db.relationship('Reservation', backref='user', lazy=True)
+    
     def __repr__(self):
         return f'<User {self.email}>'
     def __init__(self, name, last_name, email, password, telefono, is_admin=False):
