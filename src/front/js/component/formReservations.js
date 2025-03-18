@@ -3,9 +3,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import '../../styles/formReservations.css';
 import { Context } from "../store/appContext"
 
+
 const FormReservations = ({ selectedDate }) => {
   const [schedule, setSchedule] = useState([]);
   const { actions, store } = useContext(Context);
+
 
   useEffect(() => {
     if (!selectedDate) return;
@@ -13,7 +15,7 @@ const FormReservations = ({ selectedDate }) => {
     const fetchData = async () => {
       const data = await actions.getReservations();
 
-      if(data) {
+      if (data) {
         const filteredData = data.filter((entry) => entry.date === selectedDate);
         setSchedule(filteredData);
       }
@@ -28,13 +30,78 @@ const FormReservations = ({ selectedDate }) => {
     '17:00', '18:00', '19:00',
   ];
 
+
   const handleRadioChange = (hour, office) => {
     console.log(`Hora: ${hour}, Consultorio seleccionado: ${office}`);
   };
 
-  const handleScheduleSubmit = () => {
+
+  const handleScheduleSubmit = async () => {
     console.log("Datos enviados al backend");
+
+    // 1. Recopilar las reservas seleccionadas
+    const selectedReservations = [];
+    allHours.forEach((hour) => {
+      const selectedOffice = document.querySelector(
+        `input[name="office-${hour}"]:checked`
+      )?.value;
+
+      if (selectedOffice && selectedOffice !== "Ninguno") {
+        selectedReservations.push({
+          date: selectedDate,
+          hour: hour,
+          office: parseInt(selectedOffice), // Asegúrate de que office sea un número
+        });
+      }
+    });
+
+    // 2. Enviar las reservas al backend
+    try {
+      if (selectedReservations.length > 0) {
+        const response = await fetch("http://localhost:3001/api/reservations", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            // Incluye los headers de autorización si los necesitas
+            // "Authorization": `Bearer ${store.token}`
+          },
+          body: JSON.stringify(selectedReservations), // Envía un array de reservas
+        });
+
+        if (!response.ok) {
+          throw new Error(
+            `Error al guardar las reservas: ${response.statusText}`
+          );
+        }
+
+        const data = await response.json();
+        console.log("Respuesta del backend:", data);
+
+        // 3. Actualizar la interfaz de usuario (opcional)
+        alert("Reservas guardadas con éxito");
+        actions.getReservations(); // Recargar las reservas desde la API
+
+        // setSchedule([]); // Borra las reservas actuales
+        // actions.getReservations(); // Recargar las reservas desde la API
+
+        // // 🔹 Restablecer la selección de los radio buttons
+        // document.querySelectorAll('input[type="radio"]').forEach(input => {
+        //   if (input.value === "Ninguno") {
+        //     input.checked = true;
+        //   } else {
+        //     input.checked = false;
+        //   }
+        // });
+
+      } else {
+        alert("No se seleccionaron reservas.");
+      }
+    } catch (error) {
+      console.error("Error al enviar las reservas:", error);
+      alert("Error al guardar las reservas");
+    }
   };
+
 
   const getRowData = (hour) => {
     const filteredEntries = schedule.filter((entry) => entry.hour === hour);

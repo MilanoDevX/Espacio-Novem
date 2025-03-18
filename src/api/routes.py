@@ -281,7 +281,7 @@ def delete_reservation():
         return jsonify({"error": "User not found"}), 404
 
     try:
-        # Get the reservatiod ID from the request body
+        # Get the reservation ID from the request body
         data = request.get_json()
         reserva_id = data.get('reserva_id')
 
@@ -319,3 +319,31 @@ def protected():
 
     current_user = get_jwt_identity()
     return jsonify(logged_in_as=current_user), 200
+
+
+# Endpoint to save a reservation
+@api.route('/reservations', methods=['POST'])
+#@jwt_required()
+def guardar_reserva():
+    reservas = request.get_json()  # Obtener el array de reservas
+    #email = get_jwt_identity()
+    email = "eliasmilano.dev@gmail.com"
+    user = User.query.filter_by(email=email).first()
+    
+    if not isinstance(reservas, list):
+        return jsonify({"message": "Se espera un array de reservas"}), 400
+
+    try:
+        for reserva in reservas:
+            nueva_reserva = Reservation(
+                user_id=user.id,
+                date=reserva['date'],
+                hour=reserva['hour'],
+                office=reserva['office']
+            )
+            db.session.add(nueva_reserva)
+        db.session.commit()
+        return jsonify({"message": "Reservas guardadas con éxito"}), 200
+    except Exception as e:
+        db.session.rollback()  # Revierte la transacción en caso de error
+        return jsonify({"message": f"Error al guardar las reservas: {str(e)}"}), 500
