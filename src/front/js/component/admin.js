@@ -8,24 +8,17 @@ export const Admin = () => {
 
     useEffect(() => {
         const fetchAppointments = async () => {
-            try {
-                const response = await fetch("http://localhost:3001/api/admin");
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
+                const data = await actions.getReservationsAdmin();
+                console.log(data);
                 setAppointments(data);
-            } catch (error) {
-                console.error("Error fetching appointments:", error);
-            }
         };
+
         fetchAppointments();
-    }, []);
+    }, [actions]); 
 
     const handleDelete = async (id) => {
         const response = await actions.deleteReservation(id);
         if (response === true) {
-            // Actualizar la lista de citas después de la eliminación
             setAppointments(appointments.filter((appointment) => appointment.id !== id));
         }
     };
