@@ -238,7 +238,7 @@ def get_all_reservations():
 
 
 # Endpoint for reservations from all users (for Administrator)
-@api.route('/reservations_admin', methods=['GET'])
+@api.route('/admin', methods=['GET'])
 #@jwt_required()
 def get_reservations_admin():
     try:
@@ -261,6 +261,7 @@ def get_reservations_admin():
                 serialized_reservations.append(serialized_reservation)
 
         return jsonify(serialized_reservations), 200
+        
     
     except Exception as e:
         return jsonify({"error": str(e)}), 400

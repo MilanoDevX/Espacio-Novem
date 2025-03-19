@@ -1,20 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Context } from "../store/appContext";
 import "../../styles/admin.css";
 
 export const Admin = () => {
+    const { actions, store } = useContext(Context);
     const [appointments, setAppointments] = useState([]);
 
     useEffect(() => {
-        const data = [
-            { id: 1, consultorio: "3", date: "5/2/2025", time: "15 horas", user: "Fiorellita" },
-            { id: 2, consultorio: "4", date: "5/2/2025", time: "15 horas", user: "Natalita" },
-            { id: 3, consultorio: "2", date: "5/2/2025", time: "15 horas", user: "Eliasito" },
-        ];
-        setAppointments(data);
+        const fetchAppointments = async () => {
+            try {
+                const response = await fetch("http://localhost:3001/api/admin");
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                setAppointments(data);
+            } catch (error) {
+                console.error("Error fetching appointments:", error);
+            }
+        };
+        fetchAppointments();
     }, []);
 
-    const deleteAppointment = (id) => {
-        setAppointments(appointments.filter((appointment) => appointment.id !== id));
+    const handleDelete = async (id) => {
+        const response = await actions.deleteReservation(id);
+        if (response === true) {
+            // Actualizar la lista de citas después de la eliminación
+            setAppointments(appointments.filter((appointment) => appointment.id !== id));
+        }
     };
 
     return (
@@ -25,26 +38,29 @@ export const Admin = () => {
                     <table className="table-consultas">
                         <thead>
                             <tr>
+                                <th>Reserva</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
                                 <th>Consultorio</th>
-                                <th>Fecha de Alquiler</th>
-                                <th>Hora de Alquiler</th>
-                                <th>Nombre del Usuario</th>
-                                <th>Acciones</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Email</th>
+                                <th>Acción</th>
                             </tr>
                         </thead>
                         <tbody>
                             {appointments.length > 0 ? (
                                 appointments.map((appointment) => (
                                     <tr key={appointment.id}>
-                                        <td>{appointment.consultorio}</td>
+                                        <td>{appointment.id}</td>
                                         <td>{appointment.date}</td>
-                                        <td>{appointment.time}</td>
-                                        <td>{appointment.user}</td>
+                                        <td>{appointment.hour}</td>
+                                        <td>{appointment.office}</td>
+                                        <td>{appointment.user_name}</td>
+                                        <td>{appointment.user_last_name}</td>
+                                        <td>{appointment.user_email}</td>
                                         <td>
-                                            <button
-                                                className="btn btn-danger"
-                                                onClick={() => deleteAppointment(appointment.id)}
-                                            >
+                                            <button className="delete-btn" onClick={() => handleDelete(appointment.id)}>
                                                 Eliminar
                                             </button>
                                         </td>
@@ -52,7 +68,7 @@ export const Admin = () => {
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan="5" className="text-center text-danger">
+                                    <td colSpan="8" className="text-center text-danger">
                                         No hay consultas registradas.
                                     </td>
                                 </tr>
