@@ -4,7 +4,7 @@ import '../../styles/formReservations.css';
 import { Context } from "../store/appContext"
 
 
-const FormReservations = ({ selectedDate }) => {
+const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
   const [schedule, setSchedule] = useState([]);
   const { actions, store } = useContext(Context);
 
@@ -79,19 +79,17 @@ const FormReservations = ({ selectedDate }) => {
 
         // 3. Actualizar la interfaz de usuario (opcional)
         alert("Reservas guardadas con éxito");
-        actions.getReservations(); // Recargar las reservas desde la API
+        // Llamar la función del padre para actualizar las reservas
+        if (onReservationsUpdated) {
+          await onReservationsUpdated(); // Asegura que el padre recargue las reservas
+        }
 
-        // setSchedule([]); // Borra las reservas actuales
-        // actions.getReservations(); // Recargar las reservas desde la API
-
-        // // 🔹 Restablecer la selección de los radio buttons
-        // document.querySelectorAll('input[type="radio"]').forEach(input => {
-        //   if (input.value === "Ninguno") {
-        //     input.checked = true;
-        //   } else {
-        //     input.checked = false;
-        //   }
-        // });
+        // Recargar las reservas dentro del mismo componente
+        const updatedData = await actions.getReservations();
+        if (updatedData) {
+          const filteredData = updatedData.filter((entry) => entry.date === selectedDate);
+          setSchedule(filteredData);
+        }
 
       } else {
         alert("No se seleccionaron reservas.");
@@ -143,15 +141,19 @@ const FormReservations = ({ selectedDate }) => {
                 <td>{status}</td>
                 {[1, 2, 3, 4].map((office) => (
                   <td key={office}>
-                    <input
-                      className="input-color"
-                      type="radio"
-                      name={`office-${row.hour}`}
-                      value={office}
-                      defaultChecked={row.default === office}
-                      onChange={() => handleRadioChange(row.hour, office)}
-                      disabled={row.offices.includes(office)}
-                    />
+                    {row.offices.includes(office) ? (
+                      <i class="fa-solid fa-x"></i> // Muestra 'X' si el consultorio está reservado
+                    ) : (
+                      <input
+                        className="input-color"
+                        type="radio"
+                        name={`office-${row.hour}`}
+                        value={office}
+                        defaultChecked={row.default === office}
+                        onChange={() => handleRadioChange(row.hour, office)}
+                        disabled={row.offices.includes(office)}
+                      />
+                    )}
                   </td>
                 ))}
                 <td>
