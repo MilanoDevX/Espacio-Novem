@@ -212,6 +212,35 @@ const getState = ({ getStore, getActions, setStore }) => {
                     return false;
                 }
             },
+
+            submitReservations: async (selectedReservations) => {
+                try {
+                    //const token = localStorage.getItem("access_token");
+                    const response = await fetch(process.env.BACKEND_URL + "/reservations", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            //"Authorization": "Bearer " + token
+                        },
+                        body: JSON.stringify(selectedReservations)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(
+                          `Error al guardar las reservas: ${response.statusText}`
+                        );
+                      }
+
+                    if (response.status == 200) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } catch (error) {
+                    console.log("Error al guardar las reservas:", error);
+                    return false;
+                }
+            }
         }
     };
 };

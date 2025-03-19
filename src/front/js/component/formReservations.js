@@ -56,35 +56,21 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
     });
 
     // 2. Enviar las reservas al backend
-    try {
       if (selectedReservations.length > 0) {
-        const response = await fetch("http://localhost:3001/api/reservations", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            // Incluye los headers de autorización si los necesitas
-            // "Authorization": `Bearer ${store.token}`
-          },
-          body: JSON.stringify(selectedReservations), // Envía un array de reservas
-        });
-
-        if (!response.ok) {
-          throw new Error(
-            `Error al guardar las reservas: ${response.statusText}`
-          );
+        const resp = await actions.submitReservations(selectedReservations);
+        if (resp) {
+          alert("Reservas guardadas con éxito");
+        } else {
+          alert("Hubo un error al guardar las reservas");
         }
-
-        const data = await response.json();
-        console.log("Respuesta del backend:", data);
-
-        // 3. Actualizar la interfaz de usuario (opcional)
-        alert("Reservas guardadas con éxito");
+        
+        // 3. Actualizar la interfaz de usuario
         // Llamar la función del padre para actualizar las reservas
         if (onReservationsUpdated) {
           await onReservationsUpdated(); // Asegura que el padre recargue las reservas
         }
 
-        // Recargar las reservas dentro del mismo componente
+        // 3. Recargar las reservas dentro del mismo componente
         const updatedData = await actions.getReservations();
         if (updatedData) {
           const filteredData = updatedData.filter((entry) => entry.date === selectedDate);
@@ -94,10 +80,6 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
       } else {
         alert("No se seleccionaron reservas.");
       }
-    } catch (error) {
-      console.error("Error al enviar las reservas:", error);
-      alert("Error al guardar las reservas");
-    }
   };
 
 
