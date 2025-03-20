@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Context } from "../store/appContext"
 import '../../styles/agenda.css';
 import { format, parseISO, isBefore, addHours, isWithinInterval } from 'date-fns';
+import Swal from 'sweetalert2'
 
 export const Agenda = () => {
 
@@ -17,7 +18,7 @@ export const Agenda = () => {
         const fetchData = async () => {
             const data = await actions.getReservationsByEmail();
             console.log(data);
-            
+
             // Ordenar las reservas por fecha en orden descendente
             const sortedData = data.sort((a, b) => parseISO(b.date + 'T' + b.hour + ':00') - parseISO(a.date + 'T' + a.hour + ':00'));
 
@@ -29,11 +30,21 @@ export const Agenda = () => {
 
     const handleDelete = async (id) => {
         const response = await actions.deleteReservation(id);
-            if (response == true) {
-                setReservations(reservations.filter(reservation => reservation.id !== id));
-            }
+        if (response) {
+            setReservations(reservations.filter(reservation => reservation.id !== id));
+            //alert("Reserva eliminada con éxito");
+            Swal.fire({
+                icon: "success",
+                title: "Reserva eliminada con éxito",
+                text: "",
+                timer: 1000,
+                showConfirmButton: false
+            })
+        } else {
+            alert("Hubo un error al eliminar la reserva");
+        }
     };
-    
+
     return (
         <div className="agenda-container">
             <div className="agenda-header">
@@ -53,7 +64,7 @@ export const Agenda = () => {
                         </tr>
                     </thead>
                     <tbody>
-                    {reservations.filter(r => !isBefore(parseISO(r.date + 'T' + r.hour + ':00'), now) || reservations.filter(res => isBefore(parseISO(res.date + 'T' + res.hour + ':00'), now)).slice(0, 10).includes(r)).map(({ id, date, hour, office }) => {
+                        {reservations.filter(r => !isBefore(parseISO(r.date + 'T' + r.hour + ':00'), now) || reservations.filter(res => isBefore(parseISO(res.date + 'T' + res.hour + ':00'), now)).slice(0, 10).includes(r)).map(({ id, date, hour, office }) => {
                             const dateTimeStr = `${date}T${hour}:00`;
                             const dateObj = parseISO(dateTimeStr);
                             const isPastDate = isBefore(dateObj, now);
