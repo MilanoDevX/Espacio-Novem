@@ -1,20 +1,51 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Context } from "../store/appContext";
 import "../../styles/admin.css";
+import Swal from 'sweetalert2';
 
 export const Admin = () => {
+    const { actions, store } = useContext(Context);
     const [appointments, setAppointments] = useState([]);
 
     useEffect(() => {
-        const data = [
-            { id: 1, consultorio: "3", date: "5/2/2025", time: "15 horas", user: "Fiorellita" },
-            { id: 2, consultorio: "4", date: "5/2/2025", time: "15 horas", user: "Natalita" },
-            { id: 3, consultorio: "2", date: "5/2/2025", time: "15 horas", user: "Eliasito" },
-        ];
-        setAppointments(data);
-    }, []);
+        const fetchAppointments = async () => {
+            const data = await actions.getReservationsAdmin();
+            console.log(data);
+            setAppointments(data);
+        };
 
-    const deleteAppointment = (id) => {
-        setAppointments(appointments.filter((appointment) => appointment.id !== id));
+        fetchAppointments();
+    }, [actions]);
+
+    const handleDelete = async (id) => {
+        const response = await actions.deleteReservation(id);
+        if (response) {
+            setAppointments(appointments.filter((appointment) => appointment.id !== id));
+            Swal.fire({
+                icon: "success",
+                title: "Reserva eliminada con éxito",
+                text: "",
+                timer: 1000,
+                showConfirmButton: false,
+            });
+        } else {
+            alert("Hubo un error al eliminar la reserva");
+        }
+    };
+
+    const formatDate = (dateString) => {
+        if (!dateString) return '';
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    };
+
+    const convertUTCDateToLocalDate = (date) => {
+        if (!date) return null;
+        const newDate = new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
+        return newDate;
     };
 
     return (
@@ -25,26 +56,29 @@ export const Admin = () => {
                     <table className="table-consultas">
                         <thead>
                             <tr>
+                                <th>Reserva</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
                                 <th>Consultorio</th>
-                                <th>Fecha de Alquiler</th>
-                                <th>Hora de Alquiler</th>
-                                <th>Nombre del Usuario</th>
-                                <th>Acciones</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Email</th>
+                                <th>Acción</th>
                             </tr>
                         </thead>
                         <tbody>
                             {appointments.length > 0 ? (
                                 appointments.map((appointment) => (
                                     <tr key={appointment.id}>
-                                        <td>{appointment.consultorio}</td>
-                                        <td>{appointment.date}</td>
-                                        <td>{appointment.time}</td>
-                                        <td>{appointment.user}</td>
+                                        <td>{appointment.id}</td>
+                                        <td>{formatDate(convertUTCDateToLocalDate(new Date(appointment.date)))}</td>
+                                        <td>{appointment.hour}</td>
+                                        <td>{appointment.office}</td>
+                                        <td>{appointment.user_name}</td>
+                                        <td>{appointment.user_last_name}</td>
+                                        <td>{appointment.user_email}</td>
                                         <td>
-                                            <button
-                                                className="btn btn-danger"
-                                                onClick={() => deleteAppointment(appointment.id)}
-                                            >
+                                            <button className="delete-btn" onClick={() => handleDelete(appointment.id)}>
                                                 Eliminar
                                             </button>
                                         </td>
@@ -52,7 +86,7 @@ export const Admin = () => {
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan="5" className="text-center text-danger">
+                                    <td colSpan="8" className="text-center text-danger">
                                         No hay consultas registradas.
                                     </td>
                                 </tr>

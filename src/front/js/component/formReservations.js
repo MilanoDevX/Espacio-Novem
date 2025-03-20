@@ -2,10 +2,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import '../../styles/formReservations.css';
 import { Context } from "../store/appContext"
+import Swal from 'sweetalert2'
 
-const FormReservations = ({ selectedDate }) => {
+
+const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
   const [schedule, setSchedule] = useState([]);
   const { actions, store } = useContext(Context);
+
 
   useEffect(() => {
     if (!selectedDate) return;
@@ -13,7 +16,7 @@ const FormReservations = ({ selectedDate }) => {
     const fetchData = async () => {
       const data = await actions.getReservations();
 
-      if(data) {
+      if (data) {
         const filteredData = data.filter((entry) => entry.date === selectedDate);
         setSchedule(filteredData);
       }
@@ -28,13 +31,73 @@ const FormReservations = ({ selectedDate }) => {
     '17:00', '18:00', '19:00',
   ];
 
+
   const handleRadioChange = (hour, office) => {
     console.log(`Hora: ${hour}, Consultorio seleccionado: ${office}`);
   };
 
-  const handleScheduleSubmit = () => {
+
+  const handleScheduleSubmit = async () => {
     console.log("Datos enviados al backend");
+
+    // 1. Recopilar las reservas seleccionadas
+    const selectedReservations = [];
+    allHours.forEach((hour) => {
+      const selectedOffice = document.querySelector(
+        `input[name="office-${hour}"]:checked`
+      )?.value;
+
+      if (selectedOffice && selectedOffice !== "Ninguno") {
+        selectedReservations.push({
+          date: selectedDate,
+          hour: hour,
+          office: parseInt(selectedOffice), 
+        });
+      }
+    });
+
+    // 2. Enviar las reservas al backend
+      if (selectedReservations.length > 0) {
+        const resp = await actions.submitReservations(selectedReservations);
+        if (resp) {
+          //alert("Reservas guardadas con éxito");
+          Swal.fire({
+            icon: "success",
+            title: "Reservas guardadas con éxito",
+            text: "",
+            timer: 1000,
+            showConfirmButton: false
+          })
+        } else {
+          alert("Hubo un error al guardar las reservas");
+        }
+        
+        // 3. Actualizar la interfaz de usuario
+        // Llamar la función del padre para actualizar las reservas
+        if (onReservationsUpdated) {
+          await onReservationsUpdated(); // Asegura que el padre recargue las reservas
+        }
+
+        // 3. Recargar las reservas dentro del mismo componente
+        const updatedData = await actions.getReservations();
+        if (updatedData) {
+          const filteredData = updatedData.filter((entry) => entry.date === selectedDate);
+          setSchedule(filteredData);
+        }
+
+      } else {
+        //alert("No se seleccionaron reservas.");
+        Swal.fire({
+          icon: "error",
+          title: "Seleccione reservas a guardar",
+          text: "",
+          timer: 2000,
+          showConfirmButton: false
+        })
+
+      }
   };
+
 
   const getRowData = (hour) => {
     const filteredEntries = schedule.filter((entry) => entry.hour === hour);
@@ -76,15 +139,19 @@ const FormReservations = ({ selectedDate }) => {
                 <td>{status}</td>
                 {[1, 2, 3, 4].map((office) => (
                   <td key={office}>
-                    <input
-                      className="input-color"
-                      type="radio"
-                      name={`office-${row.hour}`}
-                      value={office}
-                      defaultChecked={row.default === office}
-                      onChange={() => handleRadioChange(row.hour, office)}
-                      disabled={row.offices.includes(office)}
-                    />
+                    {row.offices.includes(office) ? (
+                      <i class="fa-solid fa-x"></i> // Muestra 'X' si el consultorio está reservado
+                    ) : (
+                      <input
+                        className="input-color"
+                        type="radio"
+                        name={`office-${row.hour}`}
+                        value={office}
+                        defaultChecked={row.default === office}
+                        onChange={() => handleRadioChange(row.hour, office)}
+                        disabled={row.offices.includes(office)}
+                      />
+                    )}
                   </td>
                 ))}
                 <td>

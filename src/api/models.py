@@ -30,6 +30,7 @@ class User(db.Model):
             "email": self.email,
             "telefono":self.telefono,
             "is_active":self.is_active,
+            "is_admin":self.is_admin,            
         }
 class Reservation(db.Model):
     id = db.Column(db.Integer, primary_key=True)

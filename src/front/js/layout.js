@@ -20,6 +20,8 @@ import { Footer } from "./component/footer";
 import { FooterLogin } from "./component/footerLogin";
 import { Benefits } from "./component/benefits";
 
+import ProtectedRoute from "./component/protectedRoute.js";
+
 
 // Componente que decide si renderizar Footer o FooterLogin y sacar eel admin
 const FooterComponent = () => {
@@ -51,12 +53,12 @@ const Layout = () => {
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<AboutUs />} path="/aboutUs" />
                         <Route element={<Single />} path="/single/:theid" />
-                        <Route element={<Reservations />} path="/reservations" />
-                        <Route element={<Agenda />} path="/agenda" />
+                        <Route element={<ProtectedRoute><Reservations /></ProtectedRoute>} path="/reservations" />
+                        <Route element={<ProtectedRoute><Agenda /></ProtectedRoute>} path="/agenda" />
                         <Route element={<SendEmail />} path="/send-email" />
-                        <Route element={<UserProfile />} path="/userProfile" />
+                        <Route element={<ProtectedRoute><UserProfile /></ProtectedRoute>} path="/userProfile" />
                         <Route element={<ResetPassword />} path="/reset-password" />
-                        <Route element={<Admin />} path="/admin" />
+                        <Route element={<ProtectedRoute><Admin /></ProtectedRoute>} path="/admin" />
                         <Route element={<Register />} path="/register" />
                         <Route element={<Benefits />} path="/benefits" />
                         <Route element={<Header />} path="/home" />

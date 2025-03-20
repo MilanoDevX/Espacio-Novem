@@ -136,12 +136,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             getReservations: async () => {
                 try {
-                    //const token = localStorage.getItem("access_token");
+                    const token = localStorage.getItem("access_token");
                     const response = await fetch(process.env.BACKEND_URL + "/reservations_all", {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json",
-                            //"Authorization": "Bearer " + token
+                            "Authorization": "Bearer " + token
                         },
                     });
                     // console.log(response);
@@ -163,12 +163,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             getReservationsByEmail: async () => {
                 try {
-                    //const token = localStorage.getItem("access_token");
+                    const token = localStorage.getItem("access_token");
                     const response = await fetch(process.env.BACKEND_URL + "/reservations", {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json",
-                            //"Authorization": "Bearer " + token
+                            "Authorization": "Bearer " + token
                         },
                     });
                     // console.log(response);
@@ -190,12 +190,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             deleteReservation: async (id) => {
                 try {
-                    //const token = localStorage.getItem("access_token");
+                    const token = localStorage.getItem("access_token");
                     const response = await fetch(process.env.BACKEND_URL + "/reservations", {
                         method: "DELETE",
                         headers: {
                             "Content-Type": "application/json",
-                            //"Authorization": "Bearer " + token
+                            "Authorization": "Bearer " + token
                         },
                         body: JSON.stringify({ reserva_id: id })
                     });
@@ -212,6 +212,62 @@ const getState = ({ getStore, getActions, setStore }) => {
                     return false;
                 }
             },
+
+            getReservationsAdmin: async () => {
+                try {
+                    const token = localStorage.getItem("access_token");
+                    const response = await fetch(process.env.BACKEND_URL + "/admin", {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": "Bearer " + token
+                        },
+                    });
+                    // console.log(response);
+                    if (response.status == 200) {
+                        const data = await response.json();
+
+                        // console.log("Reservas", data);
+                        setStore({ reservations: data });
+                        return data;
+                    } else {
+                        console.error("Error al obtener las reservas:", response.status);
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("Error al traer reservas:", error);
+                    return false
+                }
+            },
+
+            submitReservations: async (selectedReservations) => {
+                try {
+                    const token = localStorage.getItem("access_token");
+                    const response = await fetch(process.env.BACKEND_URL + "/reservations", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": "Bearer " + token
+                        },
+                        body: JSON.stringify(selectedReservations)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(
+                          `Error al guardar las reservas: ${response.statusText}`
+                        );
+                      }
+
+                    if (response.status == 200) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } catch (error) {
+                    console.log("Error al guardar las reservas:", error);
+                    return false;
+                }
+            }
         }
     };
 };
