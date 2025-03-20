@@ -11,7 +11,7 @@ from email.mime.multipart import MIMEMultipart
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS
-from datetime import datetime
+from datetime import datetime, date, timedelta
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
@@ -155,6 +155,7 @@ def register():
     email=data.get("email")
     password=data.get("password")
     telefono=data.get("telefono")
+    is_admin=data.get("is_admin",False)
     exist_user=User.query.filter_by(email=email).first()
     if exist_user:
         return jsonify({"msg":"El usuario ya existe"}),400
@@ -163,7 +164,8 @@ def register():
         last_name=last_name,
         email=email,
         password=password,
-        telefono=telefono
+        telefono=telefono,
+        is_admin=is_admin
     )
     db.session.add(new_user)
     db.session.commit()
@@ -239,13 +241,37 @@ def get_all_reservations():
 
 # Endpoint for reservations from all users (for Administrator)
 @api.route('/admin', methods=['GET'])
-@jwt_required()
+#@jwt_required()
 def get_reservations_admin():
     try:
-        reservations_list = Reservation.query.all()
+        # Obtener el email del usuario desde el token JWT
+        #current_user_email = get_jwt_identity()
+        current_user_email = "eliasmilano.dev@gmail.com"
+
+        # Verificar si el usuario es administrador (puedes tener un campo 'is_admin' en tu modelo User)
+        user = User.query.filter_by(email=current_user_email).first()
+        if not user: #or not user.is_admin:  # Asumiendo que tienes un campo 'is_admin' en tu modelo User
+            return jsonify({"message": "Acceso no autorizado"}), 403
+
+        # Calcular los rangos de fechas para los meses pasado, actual y siguiente
+        today = date.today()
+        first_day_current_month = date(today.year, today.month, 1)
+        first_day_last_month = (first_day_current_month - timedelta(days=1)).replace(day=1)
+        first_day_next_month = (first_day_current_month + timedelta(days=32)).replace(day=1)
+
+        # Calcular el último día de cada mes
+        last_day_last_month = first_day_current_month - timedelta(days=1)
+        last_day_current_month = (first_day_next_month - timedelta(days=1))
+        last_day_next_month = (first_day_next_month + timedelta(days=32)).replace(day=1) - timedelta(days=1)
+
+        # Filtrar las reservas por rango de fechas
+        reservations_list = Reservation.query.filter(
+            (Reservation.date >= first_day_last_month) & (Reservation.date <= last_day_next_month)
+        ).all()
+
         serialized_reservations = []
         for reservation in reservations_list:
-            user = User.query.get(reservation.user_id)  # get user from the reservation
+            user = User.query.get(reservation.user_id)
             if user:
                 serialized_reservation = reservation.serialize()
                 serialized_reservation['user_name'] = user.name
@@ -253,7 +279,6 @@ def get_reservations_admin():
                 serialized_reservation['user_email'] = user.email
                 serialized_reservations.append(serialized_reservation)
             else:
-                # If user is not found
                 serialized_reservation = reservation.serialize()
                 serialized_reservation['user_name'] = "Usuario no encontrado"
                 serialized_reservation['user_last_name'] = "Usuario no encontrado"
@@ -261,8 +286,7 @@ def get_reservations_admin():
                 serialized_reservations.append(serialized_reservation)
 
         return jsonify(serialized_reservations), 200
-        
-    
+
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 

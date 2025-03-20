@@ -7,15 +7,17 @@ import { Link } from "react-router-dom";
 export const Navbar = () => {
   const navigate = useNavigate();
   const { store, actions } = useContext(Context);
-  
+
   useEffect(() => {
-    actions.getCurrentUser(); 
-  }, [store.user]); 
+    actions.getCurrentUser();
+  }, [store.user]);
+
+  console.log(store.user)
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary navbarcolor">
       <div className="container-fluid">
-    
+
         {store.user && store.user.email && (
           <button
             type="button"
@@ -43,6 +45,14 @@ export const Navbar = () => {
                 </li>
               </>
             )}
+            {store.user && store.user.is_admin? (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link text-light" to="/admin">Administrar</Link>
+                </li>
+              </>
+            ) : null
+            }
             <li className="nav-item">
               <Link className="nav-link text-light" to="/aboutUs">Quienes Somos</Link>
             </li>

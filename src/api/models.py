@@ -33,6 +33,7 @@ class User(db.Model):
             "email": self.email,
             "telefono":self.telefono,
             "is_active":self.is_active,
+            "is_admin":self.is_admin,            
         }
     
 
