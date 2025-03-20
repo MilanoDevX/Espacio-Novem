@@ -8,6 +8,12 @@ class User(db.Model):
     password = db.Column(db.String(20), nullable=False)
     telefono = db.Column(db.String(20), nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
+    is_active = db.Column(db.Boolean, unique=False, nullable=False)
+    reservations = db.relationship('Reservation', backref='user', lazy=True)
+
+    def __repr__(self):
+        return f'<User {self.email}>'
+    
     def __init__(self, name, last_name, email, password, telefono, is_admin=False):
         self.name = name
         self.last_name = last_name
@@ -15,6 +21,8 @@ class User(db.Model):
         self.password = password
         self.telefono = telefono
         self.is_admin = is_admin
+        self.is_active = True
+    
     def serialize(self):
         return {
             "id": self.id,
@@ -22,7 +30,31 @@ class User(db.Model):
             "last_name":self.last_name,
             "email": self.email,
             "telefono":self.telefono,
-            # do not serialize the password, its a security breach
+            "is_active":self.is_active,
         }
+    
 
+class Reservation(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    date = db.Column(db.Date, nullable=False)
+    hour = db.Column(db.Time, nullable=False)
+    office = db.Column(db.Integer, nullable=False)
+    
+    def __repr__(self):
+        return f'<Reservation {self.user_id}>'
+    
+    def __init__(self, user_id, date, hour, office):
+        self.user_id = user_id
+        self.date = date
+        self.hour = hour
+        self.office = office
 
+    def serialize(self):
+        return {
+            'id': self.id,
+            'user': self.user_id,
+            'date': self.date.strftime('%Y-%m-%d'),
+            'hour': self.hour.strftime('%H:%M'),
+            'office': self.office
+        }

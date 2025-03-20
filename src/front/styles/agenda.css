@@ -41,7 +41,7 @@
 
 .agenda-table th {
     background-color: #6A7562; /* Verde oscuro */
-    color: #F2E5D5;
+    color: white;
 }
 
 .auto-width {
@@ -49,8 +49,8 @@
 }
 
 .delete-btn {
-    background-color: #6A7562;
-    color: #F2E5D5;
+    background-color: #6A7562;  /* Verde oscuro */
+    color: white;
     border: none;
     padding: 5px 12px;
     cursor: pointer;
@@ -58,7 +58,8 @@
 }
 
 .delete-btn:hover {
-    background-color: #AFB796;
+    background-color: #8e9b84;  /* Verde claro especial */
+    color: white;
 }
 
 .past-date-row {
