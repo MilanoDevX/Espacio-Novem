@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import '../../styles/formReservations.css';
 import { Context } from "../store/appContext"
+import Swal from 'sweetalert2'
 
 
 const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
@@ -50,7 +51,7 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
         selectedReservations.push({
           date: selectedDate,
           hour: hour,
-          office: parseInt(selectedOffice), // Asegúrate de que office sea un número
+          office: parseInt(selectedOffice), 
         });
       }
     });
@@ -59,7 +60,14 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
       if (selectedReservations.length > 0) {
         const resp = await actions.submitReservations(selectedReservations);
         if (resp) {
-          alert("Reservas guardadas con éxito");
+          //alert("Reservas guardadas con éxito");
+          Swal.fire({
+            icon: "success",
+            title: "Reservas guardadas con éxito",
+            text: "",
+            timer: 1000,
+            showConfirmButton: false
+          })
         } else {
           alert("Hubo un error al guardar las reservas");
         }
@@ -78,7 +86,15 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
         }
 
       } else {
-        alert("No se seleccionaron reservas.");
+        //alert("No se seleccionaron reservas.");
+        Swal.fire({
+          icon: "error",
+          title: "Seleccione reservas a guardar",
+          text: "",
+          timer: 2000,
+          showConfirmButton: false
+        })
+
       }
   };
 

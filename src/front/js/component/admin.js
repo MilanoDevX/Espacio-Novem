@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/admin.css";
+import Swal from 'sweetalert2';
 
 export const Admin = () => {
     const { actions, store } = useContext(Context);
@@ -8,19 +9,43 @@ export const Admin = () => {
 
     useEffect(() => {
         const fetchAppointments = async () => {
-                const data = await actions.getReservationsAdmin();
-                console.log(data);
-                setAppointments(data);
+            const data = await actions.getReservationsAdmin();
+            console.log(data);
+            setAppointments(data);
         };
 
         fetchAppointments();
-    }, [actions]); 
+    }, [actions]);
 
     const handleDelete = async (id) => {
         const response = await actions.deleteReservation(id);
-        if (response === true) {
+        if (response) {
             setAppointments(appointments.filter((appointment) => appointment.id !== id));
+            Swal.fire({
+                icon: "success",
+                title: "Reserva eliminada con éxito",
+                text: "",
+                timer: 1000,
+                showConfirmButton: false,
+            });
+        } else {
+            alert("Hubo un error al eliminar la reserva");
         }
+    };
+
+    const formatDate = (dateString) => {
+        if (!dateString) return '';
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    };
+
+    const convertUTCDateToLocalDate = (date) => {
+        if (!date) return null;
+        const newDate = new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
+        return newDate;
     };
 
     return (
@@ -46,7 +71,7 @@ export const Admin = () => {
                                 appointments.map((appointment) => (
                                     <tr key={appointment.id}>
                                         <td>{appointment.id}</td>
-                                        <td>{appointment.date}</td>
+                                        <td>{formatDate(convertUTCDateToLocalDate(new Date(appointment.date)))}</td>
                                         <td>{appointment.hour}</td>
                                         <td>{appointment.office}</td>
                                         <td>{appointment.user_name}</td>
