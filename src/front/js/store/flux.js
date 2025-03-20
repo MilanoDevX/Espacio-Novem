@@ -136,12 +136,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             getReservations: async () => {
                 try {
-                    //const token = localStorage.getItem("access_token");
+                    const token = localStorage.getItem("access_token");
                     const response = await fetch(process.env.BACKEND_URL + "/reservations_all", {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json",
-                            //"Authorization": "Bearer " + token
+                            "Authorization": "Bearer " + token
                         },
                     });
                     // console.log(response);
@@ -163,12 +163,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             getReservationsByEmail: async () => {
                 try {
-                    //const token = localStorage.getItem("access_token");
+                    const token = localStorage.getItem("access_token");
                     const response = await fetch(process.env.BACKEND_URL + "/reservations", {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json",
-                            //"Authorization": "Bearer " + token
+                            "Authorization": "Bearer " + token
                         },
                     });
                     // console.log(response);
@@ -190,12 +190,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             deleteReservation: async (id) => {
                 try {
-                    //const token = localStorage.getItem("access_token");
+                    const token = localStorage.getItem("access_token");
                     const response = await fetch(process.env.BACKEND_URL + "/reservations", {
                         method: "DELETE",
                         headers: {
                             "Content-Type": "application/json",
-                            //"Authorization": "Bearer " + token
+                            "Authorization": "Bearer " + token
                         },
                         body: JSON.stringify({ reserva_id: id })
                     });
@@ -215,12 +215,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             getReservationsAdmin: async () => {
                 try {
-                    //const token = localStorage.getItem("access_token");
+                    const token = localStorage.getItem("access_token");
                     const response = await fetch(process.env.BACKEND_URL + "/admin", {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json",
-                            //"Authorization": "Bearer " + token
+                            "Authorization": "Bearer " + token
                         },
                     });
                     // console.log(response);
@@ -242,12 +242,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             submitReservations: async (selectedReservations) => {
                 try {
-                    //const token = localStorage.getItem("access_token");
+                    const token = localStorage.getItem("access_token");
                     const response = await fetch(process.env.BACKEND_URL + "/reservations", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
-                            //"Authorization": "Bearer " + token
+                            "Authorization": "Bearer " + token
                         },
                         body: JSON.stringify(selectedReservations)
                     });

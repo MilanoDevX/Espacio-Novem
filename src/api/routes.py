@@ -191,11 +191,11 @@ def login():
 
 # Endpoint for reservations from one user 
 @api.route('/reservations', methods=['GET'])
-#@jwt_required()
+@jwt_required()
 def get_reservations_by_email():
     try:
-        #email = get_jwt_identity()
-        email = "eliasmilano.dev@gmail.com"
+        email = get_jwt_identity()
+        #email = "eliasmilano.dev@gmail.com"
         if not email:
             return jsonify({"error": "Email parameter is required"}), 400
 
@@ -203,7 +203,7 @@ def get_reservations_by_email():
         if not user:
             return jsonify({"error": "User not found"}), 404
         
-        # Obteining current year and months
+        # Getting current year and months
         now = datetime.now()
         current_month = now.month
         current_year = now.year
@@ -226,7 +226,7 @@ def get_reservations_by_email():
 
 # Endpoint for reservations from all users
 @api.route('/reservations_all', methods=['GET'])
-#@jwt_required()
+@jwt_required()
 def get_all_reservations():
     try:
         reservations_list = Reservation.query.all()
@@ -239,7 +239,7 @@ def get_all_reservations():
 
 # Endpoint for reservations from all users (for Administrator)
 @api.route('/admin', methods=['GET'])
-#@jwt_required()
+@jwt_required()
 def get_reservations_admin():
     try:
         reservations_list = Reservation.query.all()
@@ -269,17 +269,8 @@ def get_reservations_admin():
 
 # Endpoint to delete a specific reservation of a user (ID in the body)
 @api.route('/reservations', methods=['DELETE'])
-# @jwt_required()
+@jwt_required()
 def delete_reservation():
-    # email = get_jwt_identity()
-    email = "eliasmilano.dev@gmail.com"
-
-    if not email:
-        return jsonify({"error": "Email is required"}), 400
-
-    user = User.query.filter_by(email=email).first()
-    if not user:
-        return jsonify({"error": "User not found"}), 404
 
     try:
         # Get the reservation ID from the request body
@@ -290,7 +281,7 @@ def delete_reservation():
             return jsonify({"error": "Reserva ID is required"}), 400
 
         # Search the reservation by ID and by user ID
-        reserva = Reservation.query.filter_by(id=reserva_id, user_id=user.id).first()
+        reserva = Reservation.query.filter_by(id=reserva_id).first()
 
         if not reserva:
             return jsonify({"message": "Reserva no encontrada"}), 404
@@ -324,11 +315,11 @@ def protected():
 
 # Endpoint to save a reservation
 @api.route('/reservations', methods=['POST'])
-#@jwt_required()
+@jwt_required()
 def guardar_reserva():
     reservas = request.get_json()  # Obtener el array de reservas
-    #email = get_jwt_identity()
-    email = "eliasmilano.dev@gmail.com"
+    email = get_jwt_identity()
+    #email = "eliasmilano.dev@gmail.com"
     user = User.query.filter_by(email=email).first()
     
     if not isinstance(reservas, list):
