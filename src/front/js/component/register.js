@@ -64,6 +64,7 @@ export const Register = () => {
     }
     const signup = async (e) => {
         e.preventDefault()
+        console.log(isAdmin)
         let check = chequeo()
         if (check) {
             let newUser = {
@@ -83,13 +84,25 @@ export const Register = () => {
                     timer: 2000,
                     showConfirmButton: false
                 }).then(() => {
-                    navigate("/");
+                    signIn();
                 });
             } else {
                 mensaje("Hubo un error en el registro");
             }
         }
     };
+
+    const signIn = async (e) => {
+        let usuario = {
+            email: email,
+            password: password,
+        }
+        let resp = await actions.login(usuario);
+        if (resp) {
+            navigate("/");
+        }
+    }
+
     const handleCheckboxChange = (e) => {
         setIsAdmin(e.target.checked);
     };
