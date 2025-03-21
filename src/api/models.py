@@ -21,6 +21,7 @@ class User(db.Model):
         self.telefono = telefono
         self.is_admin = is_admin
         self.is_active = True
+        
     def serialize(self):
         return {
             "id": self.id,
