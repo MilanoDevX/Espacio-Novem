@@ -24,7 +24,7 @@ export const Admin = () => {
         };
 
         fetchAppointments();
-    }, [actions]);
+    }, []);
 
     const handleDelete = async (id) => {
         const response = await actions.deleteReservation(id);
