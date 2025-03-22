@@ -11,7 +11,16 @@ export const Admin = () => {
         const fetchAppointments = async () => {
             const data = await actions.getReservationsAdmin();
             console.log(data);
-            setAppointments(data);
+
+            if (data && data.length > 0) {
+                const sortedAppointments = data.sort((a, b) => {
+                    return new Date(b.date) - new Date(a.date); // Orden descendente por fecha
+                });
+                setAppointments(sortedAppointments);
+            } else {
+                setAppointments(data); 
+            }
+
         };
 
         fetchAppointments();
