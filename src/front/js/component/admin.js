@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/admin.css";
 import Swal from 'sweetalert2';
+import { parseISO, isBefore, addHours, isWithinInterval, format } from 'date-fns';
 
 export const Admin = () => {
     const { actions, store } = useContext(Context);
@@ -18,9 +19,8 @@ export const Admin = () => {
                 });
                 setAppointments(sortedAppointments);
             } else {
-                setAppointments(data); 
+                setAppointments(data);
             }
-
         };
 
         fetchAppointments();
@@ -58,52 +58,63 @@ export const Admin = () => {
     };
 
     return (
-        <>
-            <div className="contact-container2">
-                <h1 className="title-consultas m-2">Registro de Consultas</h1>
-                <div className="table">
-                    <table className="table-consultas">
-                        <thead>
-                            <tr>
-                                <th>Reserva</th>
-                                <th>Fecha</th>
-                                <th>Hora</th>
-                                <th>Consultorio</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Email</th>
-                                <th>Acción</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {appointments.length > 0 ? (
-                                appointments.map((appointment) => (
-                                    <tr key={appointment.id}>
+        <div className="admin-container">
+            <div className="admin-header">
+                <h2>
+                    Registro de Consultas
+                </h2>
+            </div>
+            <div className="admin-table-container">
+                <table className="admin-table">
+                    <thead>
+                        <tr>
+                            <th className="auto-width">Reserva</th>
+                            <th className="auto-width">Fecha</th>
+                            <th className="auto-width">Hora</th>
+                            <th className="auto-width">Consultorio</th>
+                            <th className="auto-width">Nombre</th>
+                            <th className="auto-width">Apellido</th>
+                            <th className="auto-width">Email</th>
+                            <th className="auto-width">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {appointments.length > 0 ? (
+                            appointments.map((appointment) => {
+                                const appointmentDateTime = parseISO(appointment.date + 'T' + appointment.hour + ':00');
+                                const now = new Date();
+                                const isPast = isBefore(appointmentDateTime, now);
+                                const isWithin24Hours = isWithinInterval(appointmentDateTime, { start: now, end: addHours(now, 24) });
+
+                                return (
+                                    <tr key={appointment.id} className={isPast ? 'admin-past-date-row' : isWithin24Hours ? 'admin-within-24h-row' : ''}>
                                         <td>{appointment.id}</td>
-                                        <td>{formatDate(convertUTCDateToLocalDate(new Date(appointment.date)))}</td>
+                                        <td>{format(convertUTCDateToLocalDate(new Date(appointment.date)), 'dd/MM/yyyy')}</td>
                                         <td>{appointment.hour}</td>
                                         <td>{appointment.office}</td>
                                         <td>{appointment.user_name}</td>
                                         <td>{appointment.user_last_name}</td>
                                         <td>{appointment.user_email}</td>
                                         <td>
-                                            <button className="delete-btn" onClick={() => handleDelete(appointment.id)}>
-                                                Eliminar
-                                            </button>
+                                            {!isPast && (
+                                                <button className="delete-btn" onClick={() => handleDelete(appointment.id)}>
+                                                    Eliminar
+                                                </button>
+                                            )}
                                         </td>
                                     </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td colSpan="8" className="text-center text-danger">
-                                        No hay consultas registradas.
-                                    </td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
-                </div>
+                                );
+                            })
+                        ) : (
+                            <tr>
+                                <td colSpan="8" className="text-center text-danger">
+                                    No hay consultas registradas.
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
             </div>
-        </>
+        </div>
     );
 };
