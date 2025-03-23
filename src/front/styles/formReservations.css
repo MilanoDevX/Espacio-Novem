@@ -117,19 +117,15 @@ h3 {
     width: auto;
   }
 
-  .table {
-    font-size: 12px;
-    padding: 0px;
-  }
-
   .reservation-button {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   /* Ajustar texto en celdas */
 .table th,
 .table td {
-  padding: 5px 5px 0px 5px;
+  padding: 5px;
+  font-size: 1em;
   text-align: center;
   vertical-align: middle;
 }
