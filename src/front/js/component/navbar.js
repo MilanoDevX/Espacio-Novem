@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
-import Login from "./Login";
+import Login from "./login";
 import { Link } from "react-router-dom";
 
 export const Navbar = () => {

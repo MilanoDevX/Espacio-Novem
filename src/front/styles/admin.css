@@ -64,13 +64,11 @@
 .admin-past-date-row {
   background-color: #d3d3d3;
   color: #6A7562;
-  /* pointer-events: none; */
 }
 
 .admin-within-24h-row {
   background-color: #DAB79F;
   color: #6A7562;
-  /* pointer-events: none; */
 }
 
 .italic {
