@@ -71,7 +71,7 @@ export const Agenda = () => {
                             const isWithin24Hours = isWithinInterval(dateObj, { start: now, end: addHours(now, 24) });
 
                             return (
-                                <tr key={id} className={isPastDate ? "past-date-row" : isWithin24Hours ? "within-24h-row" : "same-height-row"}>
+                                <tr key={id} className={isPastDate ? "agenda-past-date-row" : isWithin24Hours ? "agenda-within-24h-row" : "same-height-row"}>
                                     <td>{id}</td>
                                     <td>{format(dateObj, 'dd/MM/yyyy')}</td>
                                     <td>{hour}</td>

@@ -241,16 +241,15 @@ def get_all_reservations():
 
 # Endpoint for reservations from all users (for Administrator)
 @api.route('/admin', methods=['GET'])
-#@jwt_required()
+@jwt_required()
 def get_reservations_admin():
     try:
         # Obtener el email del usuario desde el token JWT
-        #current_user_email = get_jwt_identity()
-        current_user_email = "eliasmilano.dev@gmail.com"
+        current_user_email = get_jwt_identity()
 
-        # Verificar si el usuario es administrador (puedes tener un campo 'is_admin' en tu modelo User)
+        # Verificar si el usuario es administrador
         user = User.query.filter_by(email=current_user_email).first()
-        if not user: #or not user.is_admin:  # Asumiendo que tienes un campo 'is_admin' en tu modelo User
+        if not user or not user.is_admin:
             return jsonify({"message": "Acceso no autorizado"}), 403
 
         # Calcular los rangos de fechas para los meses pasado, actual y siguiente
