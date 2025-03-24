@@ -19,6 +19,7 @@ import { Admin } from "./component/admin";
 import { Footer } from "./component/footer";
 import { FooterLogin } from "./component/footerLogin";
 import { Benefits } from "./component/benefits";
+import { RegisterAdmin } from "./component/registerAdmin.js";
 
 import ProtectedRoute from "./component/protectedRoute.js";
 
@@ -61,6 +62,7 @@ const Layout = () => {
                         <Route element={<ProtectedRoute><Admin /></ProtectedRoute>} path="/admin" />
                         <Route element={<Register />} path="/register" />
                         <Route element={<Benefits />} path="/benefits" />
+                        <Route element={<RegisterAdmin />} path="/registerAdmin" />
                         <Route element={<Header />} path="/home" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>

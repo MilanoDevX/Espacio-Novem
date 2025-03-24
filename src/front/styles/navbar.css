@@ -26,3 +26,18 @@
 .nav-link svg {
   vertical-align: middle;
 }
+
+
+.adminbutton {
+  background: none;
+  border: none; 
+  padding: 0; 
+  cursor: pointer; 
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  color: #F2E5D5;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+
