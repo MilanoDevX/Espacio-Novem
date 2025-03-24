@@ -1,15 +1,27 @@
+/* Estilos generales para el footer */
 .footerLogin {
   padding: 20px;
   background-color: #6a7562;
   color: #F2E5D5;
   text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+.footerLogin-title {
+  font-size: 18px;
+  font-weight: bold;
+}
 
 .footerLogin-content {
   display: flex;
   justify-content: center;
   gap: 20px;
+  margin-top: 10px;
 }
 
 .footerLogin-item {
@@ -47,6 +59,16 @@
   font-size: 16px;
 }
 
+/* Estilos Responsivos */
+@media (max-width: 1024px) {
+  .footerLogin {
+    padding: 15px;
+  }
+  
+  .footerLogin-title {
+    font-size: 16px;
+  }
+}
 
 @media (max-width: 768px) {
   .footerLogin-content {
@@ -55,11 +77,11 @@
   }
 
   .footerLogin-item i {
-    padding: 8px; 
+    padding: 8px;
   }
 
   .footerLogin-title {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .footerLogin-item p {
@@ -69,11 +91,11 @@
 
 @media (max-width: 480px) {
   .footerLogin {
-    padding: 15px;
+    padding: 10px;
   }
 
   .footerLogin-title {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .footerLogin-item p {
@@ -85,6 +107,6 @@
   }
 
   .footerLogin-item i {
-    padding: 6px; 
+    padding: 6px;
   }
 }
