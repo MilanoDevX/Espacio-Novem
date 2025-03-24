@@ -157,6 +157,7 @@ def register():
     telefono=data.get("telefono")
     is_admin=data.get("is_admin",False)
     exist_user=User.query.filter_by(email=email).first()
+    
     if exist_user:
         return jsonify({"msg":"El usuario ya existe"}),400
     new_user=User(

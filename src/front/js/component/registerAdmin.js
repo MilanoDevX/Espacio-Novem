@@ -63,7 +63,7 @@ export const RegisterAdmin = () => {
         }
         return true
     }
-    const signup = async (e) => {
+    const signupAdmin = async (e) => {
         e.preventDefault()
         console.log(isAdmin)
         let check = chequeo()
@@ -76,7 +76,7 @@ export const RegisterAdmin = () => {
                 telefono: phone,
                 is_admin: isAdmin,
             }
-            let resp = await actions.signup(newUser);
+            let resp = await actions.signupAdmin(newUser);
             if (resp) {
                 Swal.fire({
                     icon: "success",
@@ -93,12 +93,12 @@ export const RegisterAdmin = () => {
         }
     };
 
-    const signIn = async (e) => {
+    const signInAdmin = async (e) => {
         let usuario = {
             email: email,
             password: password,
         }
-        let resp = await actions.login(usuario);
+        let resp = await actions.loginAdmin(usuario);
         if (resp) {
             navigate("/");
         }
@@ -108,7 +108,8 @@ export const RegisterAdmin = () => {
         <>
             <div className="mx-auto pt-3 register">
                 <div className="text-center pt-5">
-                    <h1 className="text-center">Registrarse</h1>
+                    <h1 className="text-center">Perfil Administrador</h1>
+                    <h2>Registrarse</h2>
                 </div>
                 <div className="mb-2">
                     <div className="coolinput">
@@ -182,7 +183,7 @@ export const RegisterAdmin = () => {
                 </div>
             </div>
             <div className="text-center mb-4">
-                <button type="button" className="boton" onClick={(event) => signup(event)}>Registrarse</button>
+                <button type="button" className="boton" onClick={(event) => signupAdmin(event)}>Registrarse</button>
                 <button type="button" className="boton" onClick={volver}>Volver</button>
             </div>
         </>
