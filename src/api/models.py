@@ -8,7 +8,7 @@ class User(db.Model):
     password = db.Column(db.String(20), nullable=False)
     telefono = db.Column(db.String(20), nullable=False)
     is_admin = db.Column(db.Boolean, default=False) 
-    is_active = db.Column(db.Boolean, unique=False, nullable=False)
+    is_active = db.Column(db.Boolean, default=True)
     reservations = db.relationship('Reservation', backref='user', lazy=True)
     
     def __repr__(self):

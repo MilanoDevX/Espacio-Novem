@@ -1,11 +1,43 @@
 .customs-links {
-    text-decoration: none; /* Quita la línea azul */
-    color:#6A7562;
-  }
-  
-  
-  .customs-links:hover {
-    text-decoration: none; 
-    color:#afb796
-   
-  }
+    text-decoration: none;
+    color: #6A7562;
+}
+
+.customs-links:hover {
+    text-decoration: none;
+    color: #afb796;
+}
+
+/* Ajustes para hacer la vista responsive */
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.loginimage {
+    max-width: 50%;
+    height: auto;
+}
+
+.content {
+    width: 90%;
+    max-width: 370px;
+}
+
+/* Media queries para diferentes tamaños de pantalla */
+@media (max-width: 768px) {
+    .login {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .content {
+        width: 100%;
+    }
+    .btn {
+        width: 100%;
+    }
+}
