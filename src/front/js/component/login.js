@@ -14,7 +14,7 @@ const Login = () => {
         e.preventDefault()
         const resp = await actions.login(user);
         if (resp) {
-            if (store.user.is_admin || store.user.email === "espacionovem@anda.com") {
+            if (store.user.is_admin || store.user.email === "") {
                 navigate("/admin");
             } else {
                 navigate("/");

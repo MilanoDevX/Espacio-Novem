@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Swal from 'sweetalert2'
 import { useNavigate } from "react-router-dom";
 import "/src/front/styles/register.css";
+
 export const Register = () => {
     const navigate = useNavigate();
     const volver = () => {
