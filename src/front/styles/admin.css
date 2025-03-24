@@ -1,46 +1,100 @@
-.contact-container2 {
-  margin: 20px;
+.admin-container {
+  background-color: #F2E5D5;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 100%;
+  overflow-x: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.title-consultas {
+.admin-header {
   text-align: center;
-  margin-bottom: 20px;
-
+  color: #6A7562;
+  font-size: 1.5em;
 }
 
-.table-consultas {
+.admin-table-container {
+  margin-top: 20px;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.admin-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  background-color: #AFB796;
+  color: #6A7562;
+  border-radius: 8px;
+  table-layout: auto;
 }
 
-.table-consultas th,
-.table-consultas td {
-  padding: 12px;
-  text-align: center;
+.admin-table th, .admin-table td {
+  padding: 5px 30px;
   border: 1px solid #6A7562;
+  text-align: center;
+  white-space: nowrap;
+  height: 50px;
 }
 
-.table-consultas th {
+.admin-table th {
   background-color: #6A7562;
+  color: white;
 }
 
-.table-consultas td {
-  background-color: #fff;
+.auto-width {
+  width: auto;
 }
 
-.table-consultas tr:hover {
+.delete-btn {
   background-color: #6A7562;
-}
-
-.btn-danger {
-  background-color: #6a7562;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 5px 12px;
   cursor: pointer;
+  border-radius: 5px;
 }
 
-.btn-danger:hover {
-  background-color: #3e4a3b;
+.delete-btn:hover {
+  background-color: #8e9b84;
+  color: white;
+}
+
+.admin-past-date-row {
+  background-color: #d3d3d3;
+  color: #6A7562;
+  /* pointer-events: none; */
+}
+
+.admin-within-24h-row {
+  background-color: #DAB79F;
+  color: #6A7562;
+  /* pointer-events: none; */
+}
+
+.italic {
+  font-size: 110%;
+}
+
+/* Estilos Responsivos */
+@media screen and (max-width: 768px) {
+  .admin-header {
+      font-size: 0.8em;
+  }
+
+  .admin-table-container {
+      overflow-x: auto;
+  }
+
+  .admin-table th, .admin-table td {
+      padding: 6px;
+      font-size: 0.75em;
+      height: 35px;
+  }
+
+  .delete-btn {
+      padding: 6px 10px;
+      font-size: 0.9em;
+  }
 }
