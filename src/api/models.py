@@ -13,6 +13,7 @@ class User(db.Model):
     
     def __repr__(self):
         return f'<User {self.email}>'
+    
     def __init__(self, name, last_name, email, password, telefono, is_admin=False):
         self.name = name
         self.last_name = last_name
@@ -38,13 +39,16 @@ class Reservation(db.Model):
     date = db.Column(db.Date, nullable=False)
     hour = db.Column(db.Time, nullable=False)
     office = db.Column(db.Integer, nullable=False)
+    
     def __repr__(self):
         return f'<Reservation {self.user_id}>'
+    
     def __init__(self, user_id, date, hour, office):
         self.user_id = user_id
         self.date = date
         self.hour = hour
         self.office = office
+        
     def serialize(self):
         return {
             'id': self.id,
@@ -55,7 +59,36 @@ class Reservation(db.Model):
         }
 
 
+class Admin(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    last_name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    password = db.Column(db.String(20), nullable=False)
+    telefono = db.Column(db.String(20), nullable=False)
+    is_admin = db.Column(db.Boolean, default=True)  
+    is_active = db.Column(db.Boolean, default=True)  
+    
+    def __repr__(self):
+        return f'<Admin {self.email}>'
 
+    def __init__(self, name, last_name, email, password, telefono):
+        self.name = name
+        self.last_name = last_name
+        self.email = email
+        self.password = password
+        self.telefono = telefono
+        self.is_admin = True  # Este modelo solo maneja admins
+        self.is_active = True
 
-
-
+    def serialize(self):
+        
+        return {
+            "id": self.id,
+            "name": self.name,
+            "last_name": self.last_name,
+            "email": self.email,
+            "telefono": self.telefono,
+            "is_active": self.is_active,
+            "is_admin": self.is_admin,
+        }

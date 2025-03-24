@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Reservation
+from api.models import db, User, Reservation, Admin
 from api.utils import generate_sitemap, APIException
 import json
 import os
@@ -362,3 +362,26 @@ def guardar_reserva():
     except Exception as e:
         db.session.rollback()  # Revierte la transacción en caso de error
         return jsonify({"message": f"Error al guardar las reservas: {str(e)}"}), 500
+    
+    
+    
+    #AdminLogin 
+
+@api.route('/admin-login', methods=['POST'])
+def admin_login():
+    data = request.json
+    email = data.get("email", None)
+    password = data.get("password", None)
+
+    admin = Admin.query.filter_by(email=email).first()
+
+    if admin is None:
+        return jsonify({"msg": "No existe el administrador"}), 404
+    
+    if not admin.check_password(password):  # Verifica con la función hasheada
+        return jsonify({"msg": "Credenciales incorrectas"}), 401
+
+    # Genera un token de acceso exclusivo para administradores
+    access_token = create_access_token(identity={"email": email, "role": "admin"})
+
+    return jsonify(access_token=access_token, admin=admin.serialize()), 200

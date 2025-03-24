@@ -104,9 +104,6 @@ export const Register = () => {
         }
     }
 
-    const handleCheckboxChange = (e) => {
-        setIsAdmin(e.target.checked);
-    };
     return (
         <>
             <div className="mx-auto pt-3 register">
@@ -187,16 +184,6 @@ export const Register = () => {
                         <span id="passwordHelpInline" className="form-text">
                             Debe contener de 8 a 20 caracteres.
                         </span>
-                    </div>
-                    <div className="form-check form-switch ">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            role="switch"
-                            id="flexSwitchCheckDefault"
-                            onChange={handleCheckboxChange}
-                        />
-                        <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Eres Administrador?</label>
                     </div>
                 </div>
             </div>

@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
+import '../../styles/login.css';
 
 const Login = () => {
     const { actions, store } = useContext(Context);
@@ -21,6 +22,8 @@ const Login = () => {
             }
         }
     }
+
+    
     return (
         <div>
             {/* Dropdown for login */}

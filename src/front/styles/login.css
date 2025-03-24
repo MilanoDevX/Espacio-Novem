@@ -1,0 +1,22 @@
+
+.uno {
+  background-color: #F2E5D5;
+}
+
+.btndos {
+    margin: 7px 7px 0 7px;
+    border-color: #F2E5D5;
+    background-color: #afb796;
+    color: #F2E5D5;
+    border-radius: 5px;
+  }
+  
+  .btndos:hover {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    background-color: #afb796;
+    color: #6A7562;
+    border-color: #F2E5D5;
+    border-radius: 5px;
+  
+  }
