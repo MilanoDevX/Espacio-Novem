@@ -8,20 +8,24 @@ const Login = () => {
     const { actions, store } = useContext(Context);
     const [user, setUser] = useState({ email: "", password: "" });
     const navigate = useNavigate();
-    const registerUser = () => {
-        navigate("/register");
-    };
+
+    // const registerUser = () => {
+    //     navigate("/register");
+    // };
+
     const loginUser = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         const resp = await actions.login(user);
+        
         if (resp) {
-            if (store.user.is_admin || store.user.email === "") {
+
+            if (store.user.is_admin) {
                 navigate("/admin");
             } else {
                 navigate("/");
             }
         }
-    }
+    };
 
     
     return (
