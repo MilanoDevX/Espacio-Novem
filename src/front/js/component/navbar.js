@@ -17,10 +17,6 @@ export const Navbar = () => {
     navigate("/");
   };
 
-  const handleAdmin = () => {
-    navigate("/admin");
-  };
-
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary navbarcolor" aria-label="Eleventh navbar example mx-5">
       <div className="container-fluid">
@@ -38,7 +34,7 @@ export const Navbar = () => {
         )}
 
         {!store.user?.email && (
-          <button onClick={handleAdmin} className="adminbutton">
+          <button className="adminbutton">
             Espacio Novem
           </button>
         )}

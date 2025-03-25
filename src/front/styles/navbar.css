@@ -44,9 +44,9 @@
   font-size: 20px;
 }
 
-/* Estilos para la parte del perfil de usuario, asegurando que se mantenga en la derecha */
+
 .navbar-profile {
-  margin-left: auto; /* Esto asegura que el perfil esté a la derecha */
+  margin-left: auto;
 }
 
 @media (max-width: 768px) {
@@ -64,7 +64,7 @@
 
   .navbar-nav .nav-item {
     width: 100%;
-    justify-content: flex-start; /* Los items estarán alineados a la izquierda */
+    justify-content: flex-start;
   }
 
   .navbar-nav .nav-link {
@@ -73,7 +73,7 @@
   }
 
   .navbar-profile {
-    order: 1; /* Esto asegura que el perfil se mantenga en su lugar cuando el menú es desplegado */
+    order: 1; 
   }
 
   .btn {
