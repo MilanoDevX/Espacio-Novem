@@ -1,16 +1,19 @@
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
+
 db = SQLAlchemy()
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     last_name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(20), nullable=False)
+    password_hash = db.Column(db.String(256), nullable=False) 
     telefono = db.Column(db.String(20), nullable=False)
     is_admin = db.Column(db.Boolean, default=False) 
-    is_active = db.Column(db.Boolean, unique=False, nullable=False)
+    is_active = db.Column(db.Boolean, nullable=False, default=True)
     reservations = db.relationship('Reservation', backref='user', lazy=True)
-    
+
     def __repr__(self):
         return f'<User {self.email}>'
     
@@ -18,21 +21,31 @@ class User(db.Model):
         self.name = name
         self.last_name = last_name
         self.email = email
-        self.password = password
+        self.set_password(password) 
         self.telefono = telefono
         self.is_admin = is_admin
         self.is_active = True
-        
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
     def serialize(self):
+       
         return {
             "id": self.id,
-            "name":self.name,
-            "last_name":self.last_name,
+            "name": self.name,
+            "last_name": self.last_name,
             "email": self.email,
-            "telefono":self.telefono,
-            "is_active":self.is_active,
-            "is_admin":self.is_admin,            
+            "telefono": self.telefono,
+            "is_active": self.is_active,
+            "is_admin": self.is_admin,            
         }
+
+
+
 class Reservation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
@@ -56,39 +69,4 @@ class Reservation(db.Model):
             'date': self.date.strftime('%Y-%m-%d'),
             'hour': self.hour.strftime('%H:%M'),
             'office': self.office
-        }
-
-
-class Admin(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    last_name = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(20), nullable=False)
-    telefono = db.Column(db.String(20), nullable=False)
-    is_admin = db.Column(db.Boolean, default=True)  
-    is_active = db.Column(db.Boolean, default=True)  
-    
-    def __repr__(self):
-        return f'<Admin {self.email}>'
-
-    def __init__(self, name, last_name, email, password, telefono):
-        self.name = name
-        self.last_name = last_name
-        self.email = email
-        self.password = password
-        self.telefono = telefono
-        self.is_admin = True  # Este modelo solo maneja admins
-        self.is_active = True
-
-    def serialize(self):
-        
-        return {
-            "id": self.id,
-            "name": self.name,
-            "last_name": self.last_name,
-            "email": self.email,
-            "telefono": self.telefono,
-            "is_active": self.is_active,
-            "is_admin": self.is_admin,
         }

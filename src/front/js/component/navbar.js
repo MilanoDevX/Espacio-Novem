@@ -18,7 +18,7 @@ export const Navbar = () => {
   };
 
   const handleAdmin = () => {
-    navigate("/registerAdmin");
+    navigate("/admin");
   };
 
   return (

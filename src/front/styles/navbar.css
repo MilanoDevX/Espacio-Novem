@@ -1,38 +1,42 @@
 .navbarcolor {
-    background: #6a7562;
-  }
-  
-  .dos {
-    background-color: #afb796;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    
-  }
-  
-  .closenav {
-    background-color: #afb796;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .closenav:hover {
-    background-color:  rgba(233, 129, 129, 0.811);
-  }
+  background: #6a7562;
+}
+
+.dos {
+  background-color: #afb796;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.closenav {
+  background-color: #afb796;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.closenav:hover {
+  background-color: rgba(233, 129, 129, 0.811);
+}
 
 .navbar-nav {
   display: flex;
   align-items: center;
   gap: 10px;
+  justify-content: center;
+}
+
+.navbar-nav .nav-item {
+  display: flex;
+  justify-content: flex-start;
 }
 
 .nav-link svg {
   vertical-align: middle;
 }
 
-
 .adminbutton {
   background: none;
-  border: none; 
-  padding: 0; 
-  cursor: pointer; 
+  border: none;
+  padding: 0;
+  cursor: pointer;
   font-family: "Playfair Display", serif;
   font-style: italic;
   color: #F2E5D5;
@@ -40,4 +44,40 @@
   font-size: 20px;
 }
 
+/* Estilos para la parte del perfil de usuario, asegurando que se mantenga en la derecha */
+.navbar-profile {
+  margin-left: auto; /* Esto asegura que el perfil esté a la derecha */
+}
 
+@media (max-width: 768px) {
+  .navbar-collapse {
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .navbar-nav .nav-item {
+    width: 100%;
+    justify-content: flex-start; /* Los items estarán alineados a la izquierda */
+  }
+
+  .navbar-nav .nav-link {
+    text-align: left;
+    width: 100%;
+  }
+
+  .navbar-profile {
+    order: 1; /* Esto asegura que el perfil se mantenga en su lugar cuando el menú es desplegado */
+  }
+
+  .btn {
+    width: 100%;
+    text-align: left;
+  }
+}
