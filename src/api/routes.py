@@ -201,6 +201,40 @@ def login():
     return jsonify(access_token=access_token, user=user.serialize()),200
 
 
+#Funcion de  send email al user y admin
+
+def send_reservation_email(receivers_email, action, reservation_details):
+    message = MIMEMultipart("alternative")
+    message["Subject"] = f"Reserva {action} - Espacio Novem!"
+    message["From"] = os.getenv("SMTP_USERNAME")
+    message["To"] = ",".join(receivers_email)
+    html_content = f"""
+        <html>
+            <body>
+                <h1>Reserva {action} en Espacio Novem</h1>
+                <p>Detalles de la reserva:</p>
+                <p>Fecha: {reservation_details['date']}</p>
+                <p>Hora: {reservation_details['hour']}</p>
+                <p>Consultorio: {reservation_details['office']}</p>
+                <p>Gracias por usar nuestra plataforma.</p>
+            </body>
+        </html>
+    """
+    text = "Correo enviado desde la API Espacio Novem. Saludos👋."
+    message.attach(MIMEText(text, "plain"))
+    message.attach(MIMEText(html_content, "html"))
+
+    try:
+        server = smtplib.SMTP(smtp_host, smtp_port)
+        server.starttls()
+        server.login(sender_email, sender_password)
+        server.sendmail(sender_email, receivers_email, message.as_string())
+        server.quit()
+    except Exception as e:
+        print(f"Error al enviar correo: {str(e)}")
+        return False
+    return True
+
 #                                  Endpoint for reservations from one user 
 
 @api.route('/reservations', methods=['GET'])
@@ -307,27 +341,49 @@ def get_reservations_admin():
 
 #                          Endpoint to delete a specific reservation of a user (ID in the body)
 
-
 @api.route('/reservations', methods=['DELETE'])
 @jwt_required()
 def delete_reservation():
-
     try:
-        # Get the reservation ID from the request body
+    
         data = request.get_json()
         reserva_id = data.get('reserva_id')
 
         if not reserva_id:
             return jsonify({"error": "Reserva ID is required"}), 400
 
-        # Search the reservation by ID and by user ID
+     
         reserva = Reservation.query.filter_by(id=reserva_id).first()
 
         if not reserva:
             return jsonify({"message": "Reserva no encontrada"}), 404
 
+       
+        user = User.query.get(reserva.user_id)
+        reservation_details = {
+            'date': reserva.date,
+            'hour': reserva.hour,
+            'office': reserva.office
+        }
+
+    
         db.session.delete(reserva)
         db.session.commit()
+
+        # Envia email al user
+        user_email_sent = send_reservation_email([user.email], "eliminada", reservation_details)
+        if not user_email_sent:
+            return jsonify({"error": "Error al enviar el correo al usuario"}), 500
+
+        #Envia email al admin, hay que especificar el admin_email en el env.
+        admin_email = os.getenv("ADMIN_EMAIL")
+        if admin_email:
+            print(f"Enviando correo a admin: {admin_email}")
+            admin_email_sent = send_reservation_email([admin_email], "eliminada", reservation_details)
+            if not admin_email_sent:
+                return jsonify({"error": "Error al enviar el correo al administrador"}), 500
+        else:
+            return jsonify({"error": "Correo del administrador no configurado"}), 500
 
         return jsonify({"message": f"Reserva con ID {reserva_id} borrada exitosamente"}), 200
 
@@ -344,9 +400,8 @@ def delete_reservation():
 def guardar_reserva():
     reservas = request.get_json()  # Obtener el array de reservas
     email = get_jwt_identity()
-    #email = "eliasmilano.dev@gmail.com"
     user = User.query.filter_by(email=email).first()
-    
+
     if not isinstance(reservas, list):
         return jsonify({"message": "Se espera un array de reservas"}), 400
 
@@ -360,10 +415,19 @@ def guardar_reserva():
             )
             db.session.add(nueva_reserva)
         db.session.commit()
+
+        reservation_details = {
+            'date': reservas[0]['date'],
+            'hour': reservas[0]['hour'],
+            'office': reservas[0]['office']
+        }
+        send_reservation_email(user.email, "reservado", reservation_details)
+
         return jsonify({"message": "Reservas guardadas con éxito"}), 200
     except Exception as e:
         db.session.rollback()  # Revierte la transacción en caso de error
         return jsonify({"message": f"Error al guardar las reservas: {str(e)}"}), 500
+
 
 
 
