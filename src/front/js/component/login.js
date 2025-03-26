@@ -1,82 +1,120 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
-import '../../styles/login.css';
+import "../../styles/login.css";
 
 const Login = () => {
     const { actions, store } = useContext(Context);
-    const [user, setUser] = useState({ email: "", password: "" });
     const navigate = useNavigate();
 
-    // const registerUser = () => {
-    //     navigate("/register");
-    // };
+    const [user, setUser] = useState({
+        email: localStorage.getItem("rememberedEmail") || "",
+        password: "",
+        rememberMe: !!localStorage.getItem("rememberedEmail")
+    });
+
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setUser((prevUser) => ({
+            ...prevUser,
+            [name]: type === "checkbox" ? checked : value
+        }));
+    };
 
     const loginUser = async (e) => {
         e.preventDefault();
         const resp = await actions.login(user);
-        
-        if (resp) {
 
-            if (store.user.is_admin) {
-                navigate("/admin");
+        if (resp) {
+            if (user.rememberMe) {
+                localStorage.setItem("rememberedEmail", user.email);
             } else {
-                navigate("/");
+                localStorage.removeItem("rememberedEmail");
             }
+
+            navigate(store.user.is_admin ? "/admin" : "/");
         }
     };
 
-    
     return (
         <div>
-            {/* Dropdown for login */}
             <div className="btn-group dropstart">
-                <button type="button" className="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <button
+                    type="button"
+                    className="btn btn-secondary dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                >
                     Inicio Sesión
                 </button>
-                <ul className="dropdown-menu dos">
-                    <div className="card-login p-3 dos" style={{ width: '25rem' }}>
+                <ul className="dropdown-menu inicio">
+                    <div className="card-login p-3" style={{ width: "25rem" }}>
                         <form className="body-inicio uno">
-                            <div className="mb-4">
-                                <label htmlFor="exampleInputEmail1" className="form-label">Correo Electrónico</label>
+                            <div className="mb-3"> {/* Reducido el margen */}
+                                <label htmlFor="exampleInputEmail1" className="form-label">
+                                    Correo Electrónico
+                                </label>
                                 <input
                                     type="email"
-                                    value={user.email || ""}
+                                    name="email"
+                                    value={user.email}
                                     className="form-control form-control-lg dos"
                                     id="exampleInputEmail1"
                                     aria-describedby="emailHelp"
-                                    onChange={event => setUser({ ...user, email: event.target.value })}
+                                    onChange={handleChange}
                                 />
                             </div>
-                            <div className="mb-4">
-                                <label htmlFor="exampleInputPassword1" className="form-label">Contraseña</label>
+                            <div className="mb-3"> {/* Reducido el margen */}
+                                <label htmlFor="exampleInputPassword1" className="form-label">
+                                    Contraseña
+                                </label>
                                 <input
                                     type="password"
-                                    value={user.password || ""}
+                                    name="password"
+                                    value={user.password}
                                     className="form-control form-control-lg dos"
                                     id="exampleInputPassword1"
-                                    onChange={event => setUser({ ...user, password: event.target.value })}
+                                    onChange={handleChange}
                                 />
                             </div>
-                            <div className="mb-4 form-check">
+                            <div className="mb-3 form-check"> {/* Reducido el margen */}
+                                <input
+                                    type="checkbox"
+                                    className="form-check-input"
+                                    id="rememberMe"
+                                    name="rememberMe"
+                                    checked={user.rememberMe}
+                                    onChange={handleChange}
+                                />
+                                <label className="form-check-label" htmlFor="rememberMe">
+                                    Recordar usuario
+                                </label>
+                            </div>
+
+                            {/* Enlaces debajo de los campos */}
+                            <div className="mb-3">
                                 <Link to={"/register"} className="custom-link trans">
-                                    <p>Registrarse</p>
+                                    <p>Regístrate</p>
                                 </Link>
                             </div>
-                            <div className="mb-4 form-check">
+                            <div className="mb-3">
                                 <Link to={"/send-email"} className="custom-link">
                                     <p>¿Olvidaste tu contraseña?</p>
                                 </Link>
                             </div>
+                            
                             <div className="d-flex justify-content-end">
-                                <button className="button-pastel btndos" onClick={(e) => loginUser(e)}>Ingresar</button>
+                                <button className="button-pastel btndos" onClick={loginUser}>
+                                    Ingresar
+                                </button>
                             </div>
                         </form>
                     </div>
                 </ul>
             </div>
         </div>
-    )
-}
-export default Login
+    );
+};
+
+export default Login;

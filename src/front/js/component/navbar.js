@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate, Link } from "react-router-dom";
 import Login from "./login";
-import '../../styles/navbar.css';
+import '../../styles/navbar.css'; // Importa los estilos aquí
 
 export const Navbar = () => {
   const navigate = useNavigate();
@@ -20,7 +20,6 @@ export const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary navbarcolor" aria-label="Eleventh navbar example mx-5">
       <div className="container-fluid">
-     
         {store.user && store.user.email && (
           <button
             type="button"

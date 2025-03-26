@@ -58,92 +58,100 @@ export const ResetPassword = () => {
         }
     };
 
-
     const switchShown = (field) => {
         if (field === 'aleatoria') {
-            setShownAleatoria(!shownAleatoria);
+            setShownAleatoria(prev => !prev);
         } else if (field === 'nueva') {
-            setShown(!shown);
+            setShown(prev => !prev);
         }
     };
 
     return (
         <div className="mt-5 mx-auto d-flex flex-wrap justify-content-center login">
-    <div className="text-center">
-        <img className="loginimage" src={mujerbombilla} alt="Descripción de la imagen" />
-    </div>
-    <form className="form content" style={{ width: "370px" }}>
-        <h3>Cambio de Contraseña</h3>
-        <div className="mb-3">
-            <label className="form-label">Ingrese su Email</label>
-            <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="form-control"
-                aria-describedby="emailHelp"
-            />
-        </div>
-        <div className="mb-3">
-            <label className="form-label">Contraseña Enviada Por Email</label>
-            <div className="password-input">
-                <div className="input-container">
+            <div className="text-center">
+                <img className="loginimage" src={mujerbombilla} alt="Descripción de la imagen" />
+            </div>
+            <form className="form content" style={{ width: "370px" }}>
+                <h3>Cambio de Contraseña</h3>
+                
+                {/* Email Input */}
+                <div className="mb-3">
+                    <label className="form-label">Ingrese su Email</label>
                     <input
-                        type={shown ? "text" : "password"}
-                        value={aleatoria}
-                        onChange={(e) => setAleatoria(e.target.value)}
-                        className="form-control input"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="form-control"
                         aria-describedby="emailHelp"
                     />
-                    <button
-                        type="button"
-                        className="eye"
-                        onClick={switchShown}
-                    >
-                        <i className={`fa ${shown ? "fa-eye" : "fa-eye-slash"}`}></i>
-                    </button>
                 </div>
-                <span className="form-text">
-                    Debe contener de 8 a 20 caracteres.
-                </span>
-            </div>
-        </div>
-        <div className="mb-3">
-            <label className="form-label">Ingrese su Nueva Contraseña</label>
-            <div className="password-input">
-                <div className="input-container">
-                    <input
-                        type={shown ? "text" : "password"}
-                        value={nueva}
-                        onChange={(e) => setNueva(e.target.value)}
-                        className="form-control input"
-                        aria-describedby="emailHelp"
-                    />
-                    <button
-                        type="button"
-                        className="eye"
-                        onClick={switchShown}
-                    >
-                        <i className={`fa ${shown ? "fa-eye" : "fa-eye-slash"}`}></i>
-                    </button>
-                </div>
-                <span className="form-text">
-                    Debe contener de 8 a 20 caracteres.
-                </span>
-            </div>
-        </div>
-        <div className="text-center">
-            <button type="button" onClick={envio} className="btn btn-primary boton">
-                Cambiar Contraseña
-            </button>
-        </div>
-        <div className="text-center mt-2">
-            <Link to={"/register"} className="customs-links">
-                <p>Registrarse</p>
-            </Link>
-        </div>
-    </form>
-</div>
 
+                {/* Contraseña Enviada por Email */}
+                <div className="mb-3">
+                    <label className="form-label">Contraseña Enviada Por Email</label>
+                    <div className="password-input">
+                        <div className="input-container">
+                            <input
+                                type={shownAleatoria ? "text" : "password"}
+                                value={aleatoria}
+                                onChange={(e) => setAleatoria(e.target.value)}
+                                className="form-control input"
+                                aria-describedby="emailHelp"
+                            />
+                            <button
+                                type="button"
+                                className="eye"
+                                onClick={() => switchShown("aleatoria")}
+                            >
+                                <i className={`fa ${shownAleatoria ? "fa-eye" : "fa-eye-slash"}`}></i>
+                            </button>
+                        </div>
+                        <span className="form-text">
+                            Debe contener de 8 a 20 caracteres.
+                        </span>
+                    </div>
+                </div>
+
+                {/* Nueva Contraseña */}
+                <div className="mb-3">
+                    <label className="form-label">Ingrese su Nueva Contraseña</label>
+                    <div className="password-input">
+                        <div className="input-container">
+                            <input
+                                type={shown ? "text" : "password"}
+                                value={nueva}
+                                onChange={(e) => setNueva(e.target.value)}
+                                className="form-control input"
+                                aria-describedby="emailHelp"
+                            />
+                            <button
+                                type="button"
+                                className="eye"
+                                onClick={() => switchShown("nueva")}
+                            >
+                                <i className={`fa ${shown ? "fa-eye" : "fa-eye-slash"}`}></i>
+                            </button>
+                        </div>
+                        <span className="form-text">
+                            Debe contener de 8 a 20 caracteres.
+                        </span>
+                    </div>
+                </div>
+
+                {/* Botón de envío */}
+                <div className="text-center">
+                    <button type="button" onClick={envio} className="btn btn-primary boton">
+                        Cambiar Contraseña
+                    </button>
+                </div>
+
+                {/* Enlace a registro */}
+                <div className="text-center mt-2">
+                    <Link to={"/register"} className="customs-links">
+                        <p>Registrarse</p>
+                    </Link>
+                </div>
+            </form>
+        </div>
     );
 };
