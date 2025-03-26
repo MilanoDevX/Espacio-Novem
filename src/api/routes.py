@@ -218,7 +218,7 @@ def send_reservation_email(receivers_email, action, reservation_details, perform
     smtp_port = os.getenv("SMTP_PORT")
     
     print(f"SMTP_USERNAME: {sender_email}")
-    print(f"SMTP_PASSWORD: {'***' if sender_password else None}")  # Oculta la contraseña por seguridad
+    print(f"SMTP_PASSWORD: {'***' if sender_password else None}")  
     print(f"SMTP_HOST: {smtp_host}")
     print(f"SMTP_PORT: {smtp_port}")
 
@@ -425,7 +425,6 @@ def delete_reservation():
 #                                               Endpoint to save a reservation
 
 
-# Endpoint to save a reservation
 @api.route('/reservations', methods=['POST'])
 @jwt_required()
 def guardar_reserva():
@@ -475,10 +474,6 @@ def guardar_reserva():
     except Exception as e:
         db.session.rollback()
         return jsonify({"message": f"Error al guardar las reservas: {str(e)}"}), 500
-
-
-
-
 
 
 #                                                           UserPerofile
