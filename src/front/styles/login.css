@@ -1,0 +1,59 @@
+
+.uno {
+  background-color: #F2E5D5;
+}
+
+.btndos {
+    margin: 7px 7px 0 7px;
+    border-color: #F2E5D5;
+    background-color: #afb796;
+    color: #F2E5D5;
+    border-radius: 5px;
+  }
+  
+  .btndos:hover {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    background-color: #afb796;
+    color: #6A7562;
+    border-color: #F2E5D5;
+    border-radius: 5px;
+  
+  }
+
+
+.card-login .mb-3 {
+  margin-bottom: 1rem; 
+}
+
+
+.custom-link {
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: #007bff;
+  cursor: pointer;
+  display: block; 
+}
+
+
+.custom-link p {
+  margin: 0;
+  padding: 0;
+  text-align: left; 
+}
+
+
+.d-flex.justify-content-between {
+  margin-top: 1rem; 
+}
+
+
+.button-pastel {
+  margin-top: 1.5rem;
+  padding: 0.5rem 2rem;
+}
+
+
+.form-control-lg {
+  padding: 0.75rem;
+}

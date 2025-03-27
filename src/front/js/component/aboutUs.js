@@ -8,7 +8,6 @@ import user from "../../img/user.webp";
 export const AboutUs = () => {
     return (
         <>
-          
             <div className="d-flex justify-content-center pt-5">
                 <div className="d-flex ">
                     <img src={colegascharlando} className="card-img m-5" alt="Dos mujeres" />
@@ -21,23 +20,21 @@ export const AboutUs = () => {
 
             <div className="d-flex">
                 <div className="d-flex align-items-center">
-                <img className="registeruser juntas rounded-circle m-2" src={user} alt="Psicologa atendiedno a paciente en el consultorio" />
+                    <img className="registeruser juntas rounded-circle m-2" src={user} alt="Psicologa atendiedno a paciente en el consultorio" />
                     <div className="d-flex">
-                    <h5 className="card-title about ">Julia: </h5>
+                        <h5 className="card-title about ">Julia: </h5>
                         <p className="card-text about "> Soy Psicologa desde hace 15 años y estoy convencida que elegi la mejor carrera .</p>
-                    
                     </div>
-                    <div className="d-flex align-items-center">
-                <img className="registeruser juntas rounded-circle m-2" src={user} alt="Psicologa atendiedno a paciente en el consultorio" />
+                </div>
+
+                <div className="d-flex align-items-center">
+                    <img className="registeruser juntas rounded-circle m-2" src={user} alt="Psicologa atendiedno a paciente en el consultorio" />
                     <div className="d-flex">
-                    <h5 className="card-title about ">Sofia: </h5>
+                        <h5 className="card-title about ">Sofia: </h5>
                         <p className="card-text about "> Soy Psicologa desde hace 10 años comprometida con mi trabajo .</p>
-                    
                     </div>
                 </div>
             </div>
-            </div>
         </>
-    )
-
-}
+    );
+};

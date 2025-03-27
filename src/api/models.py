@@ -6,7 +6,7 @@ db = SQLAlchemy()
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    last_name = db.Column(db.String(100), nullable=False) 
+    last_name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password_hash = db.Column(db.String(256), nullable=False)
     telefono = db.Column(db.String(20), nullable=False) 
@@ -33,16 +33,18 @@ class User(db.Model):
         return check_password_hash(self.password_hash, password)
 
     def serialize(self):
+       
         return {
             "id": self.id,
-            "name":self.name,
-            "last_name":self.last_name,
+            "name": self.name,
+            "last_name": self.last_name,
             "email": self.email,
-            "telefono":self.telefono,
-            "is_active":self.is_active,
-            "is_admin":self.is_admin,            
+            "telefono": self.telefono,
+            "is_active": self.is_active,
+            "is_admin": self.is_admin,            
         }
-    
+
+
 
 class Reservation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -59,7 +61,7 @@ class Reservation(db.Model):
         self.date = date
         self.hour = hour
         self.office = office
-
+        
     def serialize(self):
         return {
             'id': self.id,
