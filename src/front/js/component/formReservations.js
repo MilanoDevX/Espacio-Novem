@@ -140,7 +140,7 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
                 {[1, 2, 3, 4].map((office) => (
                   <td key={office}>
                     {row.offices.includes(office) ? (
-                      <i class="fa-solid fa-x"></i> // Muestra 'X' si el consultorio está reservado
+                      <i className="fa-solid fa-x"></i> // Muestra 'X' si el consultorio está reservado
                     ) : (
                       <input
                         className="input-color"
