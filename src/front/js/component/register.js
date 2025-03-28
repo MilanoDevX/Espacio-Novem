@@ -103,9 +103,6 @@ export const Register = () => {
         }
     }
 
-    const handleCheckboxChange = (e) => {
-        setIsAdmin(e.target.checked);
-    };
     return (
         <>
             <div className="mx-auto pt-3 register">
