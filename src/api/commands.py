@@ -33,23 +33,35 @@ def setup_commands(app):
     @app.cli.command("insert-users")
     def insert_users():
         new_admin = User(
-        name = "Admin",
-        last_name = "Admin",
-        email = "admin@novem.com",
-        password = "111111111",
-        telefono = "1234567890",
+        name = "Espacio",
+        last_name = "Novem",
+        email = "espacionovem@gmail.com",
+        password = "123456789",
+        telefono = "123456789",
         is_admin = True,
         )
         db.session.add(new_admin)
         db.session.commit()
         print("Admin user created")
 
+        # new_admin2 = User(
+        # name = "Lucía",
+        # last_name = "Eguren",
+        # email = "@gmail.com",
+        # password = "123456789",
+        # telefono = "123456789",
+        # is_admin = True,
+        # )
+        # db.session.add(new_admin2)
+        # db.session.commit()
+        # print("Admin user created")
+        
         new_admin2 = User(
-        name = "Elias",
-        last_name = "Milano",
-        email = "eliasmilano@gmail.com",
-        password = "111111111",
-        telefono = "1234567890",
+        name = "Admin",
+        last_name = "Admin",
+        email = "trabajosdeveloper2025@gmail.com",
+        password = "123456789",
+        telefono = "123456789",
         is_admin = True,
         )
         db.session.add(new_admin2)

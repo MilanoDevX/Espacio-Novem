@@ -68,6 +68,11 @@
     color: #d4af37;
 }
 
+h5 {
+    color: #d4af37; 
+    font-weight: bold;
+    font-size: 30px;
+}
 
 .politica-reserva {
     width: 100%;

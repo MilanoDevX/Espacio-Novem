@@ -103,6 +103,11 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
     const currentDateTime = new Date();
     const selectedDateTime = new Date(`${selectedDate}T${hour}:00`);
 
+    if (selectedDateTime.toDateString() === currentDateTime.toDateString()) {
+      const currentHour = currentDateTime.getHours();
+      const selectedHour = parseInt(hour.split(":")[0]);
+      return selectedHour < currentHour;
+    }
     return selectedDateTime < currentDateTime;
   };
 
@@ -166,12 +171,12 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
             );
           })}
         </tbody>
-        </table>
-        <div className="text-center my-0">
-          <button className="btn reservation-button" onClick={handleScheduleSubmit}>Agendar</button>
-        </div>
+      </table>
+      <div className="text-center my-0">
+        <button className="btn reservation-button" onClick={handleScheduleSubmit}>Agendar</button>
       </div>
-    );
-  };
+    </div>
+  );
+};
 
 export default FormReservations;
