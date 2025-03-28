@@ -187,7 +187,7 @@ def register():
 @api.route('/login', methods=['POST'])
 def login():
     data = request.json
-    print("Datos recibidos:", data)  # <-- Agrega esto para ver qué se recibe
+    print("Datos recibidos:", data)  
 
     email = data.get("email", None)
     password = data.get("password", None)
@@ -196,7 +196,7 @@ def login():
         return jsonify({"msg": "Email y contraseña son requeridos"}), 400
 
     user = User.query.filter_by(email=email).first()
-    print("Usuario encontrado:", user)  # <-- Agrega esto para ver si el usuario existe
+    print("Usuario encontrado:", user)  
 
     if user is None:
         return jsonify({"msg": "No existe el usuario"}), 404
@@ -484,6 +484,30 @@ def guardar_reserva():
 def get_user_profile():
     email = get_jwt_identity()
     user = User.query.filter_by(email=email).first()
+    return jsonify(user.serialize()), 200
+
+
+@api.route('/userProfile', methods=['PUT'])
+@jwt_required()
+def update_user_profile():
+    email = get_jwt_identity()
+    user = User.query.filter_by(email=email).first()
+    
+    if not user:
+        return jsonify({"msg": "Usuario no encontrado"}), 404
+    
+    data = request.get_json()
+
+    if "name" in data:
+        user.name = data["name"]
+    if "last_name" in data:
+        user.last_name = data["last_name"]
+    if "telefono" in data:
+        user.telefono = data["telefono"]
+  
+
+    db.session.commit()
+    
     return jsonify(user.serialize()), 200
 
 @api.route("/protected", methods=["GET"])
