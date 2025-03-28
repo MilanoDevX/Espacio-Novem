@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import "../../styles/userProfile.css";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
+import logo from "../../img/image.png";
+
 
 export const UserProfile = () => {
   const { actions, store } = useContext(Context);
@@ -99,11 +101,7 @@ export const UserProfile = () => {
       <div className="offcanvas-body">
         <div className="d-flex flex-column align-items-center">
           <div className="card p-3">
-            <img
-              src="https://png.pngtree.com/thumb_back/fh260/background/20230612/pngtree-male-avatar-image-in-the-circle-image_2908803.jpg"
-              className="card-img-top"
-              alt="avatar"
-            />
+          <img src={logo} className="card-img-top" alt="avatar" />
             <div className="card-body">
               {["name", "last_name", "telefono"].map((field) => (
                 <div className="d-flex justify-content-between align-items-center mb-2" key={field}>
@@ -129,7 +127,7 @@ export const UserProfile = () => {
               <div className="d-flex justify-content-between align-items-center mb-2">
                 <span>Correo: {store.user?.email}</span>
               </div>
-              <button className="btn btn-danger mt-3" onClick={handleLogout}>
+              <button className="btn2 btn-danger mt-3" onClick={handleLogout}>
                 Cerrar sesión
               </button>
             </div>
