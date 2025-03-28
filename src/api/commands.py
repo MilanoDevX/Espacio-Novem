@@ -1,6 +1,7 @@
 
 import click
 from api.models import db, User
+from werkzeug.security import generate_password_hash, check_password_hash
 
 """
 In this file, you can add as many commands as you want using the @app.cli.command decorator
@@ -29,6 +30,29 @@ def setup_commands(app):
 
         print("All test users created")
 
-    @app.cli.command("insert-test-data")
-    def insert_test_data():
-        pass
+    @app.cli.command("insert-users")
+    def insert_users():
+        new_admin = User(
+        name = "Admin",
+        last_name = "Admin",
+        email = "admin@novem.com",
+        password = "111111111",
+        telefono = "1234567890",
+        is_admin = True,
+        )
+        db.session.add(new_admin)
+        db.session.commit()
+        print("Admin user created")
+
+        new_admin2 = User(
+        name = "Elias",
+        last_name = "Milano",
+        email = "eliasmilano@gmail.com",
+        password = "111111111",
+        telefono = "1234567890",
+        is_admin = True,
+        )
+        db.session.add(new_admin2)
+        db.session.commit()
+        print("Admin user created")
+        

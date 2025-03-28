@@ -7,4 +7,7 @@ npm run build
 
 pipenv install
 
+pipenv shell
+
 pipenv run upgrade
+flask insert-users
