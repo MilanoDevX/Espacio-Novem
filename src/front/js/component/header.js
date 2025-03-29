@@ -3,21 +3,20 @@ import "../../styles/header.css";
 import consultories from "../../img/consultorio.jpg";
 import { Benefits } from "./benefits";
 
-
 export const Header = () => {
 	return (
 		<>
-			<div className="header d-flex flex-lg-row flex-column justify-content-center align-items-center">
-				<div className="titlenovem title-espacio me-lg-5 mb-4 mb-lg-0">
-					<h1 className="text-center">Espacio</h1>
-					<h1 className="text-center2">Novem</h1>
-					<h3 className="text-end">Alquiler de espacios profesionales</h3>
-					<img className="imageconultories me-lg-4 imgheader img-fluid" src={consultories} alt="Patient" />
+			<div className="header d-flex flex-column flex-lg-row justify-content-center align-items-center text-center text-lg-start">
+				<div className="titlenovem me-lg-5 mb-4 mb-lg-0">
+					<h1>Espacio</h1>
+					<h1 className="text-secondary">Novem</h1>
+					<h3>Alquiler de espacios profesionales</h3>
 				</div>
-				<div>
+				<div className="image-container">
+					<img className="imageconultories img-fluid" src={consultories} alt="Consultorio" />
 				</div>
 			</div>
-			<Benefits/>
+			<Benefits />
 		</>
-	)
+	);
 }

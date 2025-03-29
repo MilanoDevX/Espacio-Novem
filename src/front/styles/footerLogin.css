@@ -3,8 +3,9 @@
   background-color: #6a7562;
   color: #F2E5D5;
   text-align: center;
+  width: 100%;
+  margin-top: 20px; /* Agrega un pequeño espacio entre el contenido y el footer */
 }
-
 
 .footerLogin-content {
   display: flex;
@@ -47,7 +48,6 @@
   font-size: 16px;
 }
 
-
 @media (max-width: 768px) {
   .footerLogin-content {
     flex-direction: column;
@@ -55,7 +55,7 @@
   }
 
   .footerLogin-item i {
-    padding: 8px; 
+    padding: 8px;
   }
 
   .footerLogin-title {
@@ -85,6 +85,6 @@
   }
 
   .footerLogin-item i {
-    padding: 6px; 
+    padding: 6px;
   }
 }

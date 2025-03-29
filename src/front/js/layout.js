@@ -20,6 +20,7 @@ import { Footer } from "./component/footer";
 import { FooterLogin } from "./component/footerLogin";
 import { Benefits } from "./component/benefits";
 
+
 import ProtectedRoute from "./component/protectedRoute.js";
 
 
@@ -30,9 +31,10 @@ const FooterComponent = () => {
     const isRegister = location.pathname.startsWith("/register");
     const isSendEmail = location.pathname.startsWith("/send-email");
     const isResetPass = location.pathname.startsWith("/reset-password");
+    const isAgendaRoute = location.pathname.startsWith("/agenda"); 
 
-    if (isAdminRoute || isRegister || isSendEmail || isResetPass) {
-        return null;
+    if (isAdminRoute || isRegister || isSendEmail || isResetPass || isAgendaRoute) {
+        return null; 
     }
 
     return location.pathname === "/" ? <Footer /> : <FooterLogin />;
