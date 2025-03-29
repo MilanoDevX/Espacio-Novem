@@ -27,6 +27,10 @@
   font-weight: bold;
 }
 
+.table td input {
+  vertical-align: middle; /* centrado vertical de los radiobuttons */
+  }
+
 /* Estilo para ajustar el ancho de las columnas */
 .table th,
 .table td {
@@ -34,6 +38,7 @@
   text-align: center;
   margin: 0px; /* Margen para justificar ancho */
   word-break: break-word;
+  vertical-align: middle;
 }
 
 /* Estilo para las filas */
@@ -112,26 +117,27 @@ h3 {
     width: auto;
   }
 
-  .table {
-    font-size: 12px;
-    padding: 0px;
-  }
-
   .reservation-button {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   /* Ajustar texto en celdas */
 .table th,
 .table td {
-  padding: 5px 5px 0px 5px;
+  padding: 5px;
+  font-size: 1em;
   text-align: center;
+  vertical-align: middle;
 }
 
   /* Estilo de los radios disponibles */
 .table tbody tr td input[type="radio"]:enabled {
   cursor: pointer;
 }
+
+.table td input {
+  vertical-align: middle; 
+  }
 
 
 

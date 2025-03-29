@@ -36,6 +36,7 @@
   text-align: center;
   white-space: nowrap;
   height: 50px;
+  font-weight: bold;
 }
 
 .admin-table th {
@@ -64,13 +65,11 @@
 .admin-past-date-row {
   background-color: #d3d3d3;
   color: #6A7562;
-  /* pointer-events: none; */
 }
 
 .admin-within-24h-row {
   background-color: #DAB79F;
   color: #6A7562;
-  /* pointer-events: none; */
 }
 
 .italic {
@@ -89,12 +88,12 @@
 
   .admin-table th, .admin-table td {
       padding: 6px;
-      font-size: 0.75em;
+      font-size: 0.82em;
       height: 35px;
   }
 
   .delete-btn {
-      padding: 6px 10px;
+      padding: 5px 6px;
       font-size: 0.9em;
   }
 }
