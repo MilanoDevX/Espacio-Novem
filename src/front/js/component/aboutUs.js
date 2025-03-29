@@ -12,7 +12,7 @@ export const AboutUs = () => {
                 <div className="d-flex ">
                     <img src={colegascharlando} className="card-img m-5" alt="Dos mujeres" />
                     <div className="card-img-overlay my-5">
-                        <h2 className="card-title about-us text-center">Quienes somos </h2>
+                        <h2 className="card-title about-us text-center mt-3">Quienes somos </h2>
                         <p className="card-text about text-center ">Somos un equipo de psicologas brindamos nuestro servicio y alquilamos nuestras oficinas .</p>
                     </div>
                 </div>

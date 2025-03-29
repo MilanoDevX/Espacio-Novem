@@ -12,6 +12,7 @@ body {
   font-weight: weight;
   font-style: normal;
   color: #5b493e;
+  * {cursor: default;}
 }
 
 .body-inicio {

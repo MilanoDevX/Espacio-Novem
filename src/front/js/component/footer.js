@@ -17,7 +17,7 @@ export const Footer = () => {
                 </div>
 
                 <div className="contact-container">
-                    <h2>Espacio Novem</h2>
+                    <h5 className="my-3">Espacio Novem</h5>
 
                     <div className="contact-detail">
                         <i className="fa-brands fa-whatsapp"></i>

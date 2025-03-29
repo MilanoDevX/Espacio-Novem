@@ -26,8 +26,8 @@ smtp_port = os.getenv("SMTP_PORT")
 receiver_email = [""]
 
 
-#                                                  Enviar email
 
+### Enviar email
 def send_signup_email(receivers_email):
     message = MIMEMultipart("alternative")
     message["Subject"] = "Bienvenido a Espacio Novem!"
@@ -57,8 +57,7 @@ def send_signup_email(receivers_email):
 
 
 
-#                                                Random password
-
+### Random password
 def generate_random_password(length=10):
     chars = string.ascii_letters + string.digits + string.punctuation
     password = ''.join(random.choice(chars) for _ in range(length))
@@ -66,14 +65,11 @@ def generate_random_password(length=10):
 
 
 
-#                                                 Reset-Password
-
-
+### Reset-Password
 @api.route('/send-email', methods=['PUT'])
 def send_email():
    data = request.json
    receivers_email = data["email"]
-
  
    if isinstance(receivers_email, str):
        receivers_email = [receivers_email]
@@ -123,9 +119,7 @@ def send_email():
 
 
 
-#                                               Password recuperar
-
-
+### Password recuperar
 @api.route('/reset-password', methods=['PUT'])
 def recuperar_password():
     data = request.json
@@ -146,13 +140,10 @@ def recuperar_password():
     db.session.commit()
 
     return jsonify({"msg": "Contraseña actualizada con éxito"}), 200
-
   
 
 
-#                                                  Registro
-
-
+### Registro
 @api.route('/signup', methods=['POST'])
 def register():
     data=request.json
@@ -181,9 +172,7 @@ def register():
 
 
 
-#                                                           Login 
-
-
+### Login 
 @api.route('/login', methods=['POST'])
 def login():
     data = request.json
@@ -209,8 +198,7 @@ def login():
 
 
 
-#Funcion de  send email al user y admin
-
+### Funcion de  send email al user y admin
 def send_reservation_email(receivers_email, action, reservation_details, performed_by=None):
     sender_email = os.getenv("SMTP_USERNAME")
     sender_password = os.getenv("SMTP_PASSWORD")
@@ -266,8 +254,9 @@ def send_reservation_email(receivers_email, action, reservation_details, perform
         return False
     return True
 
-#                                  Endpoint for reservations from one user 
 
+
+### Endpoint for reservations from one user 
 @api.route('/reservations', methods=['GET'])
 @jwt_required()
 def get_reservations_by_email():
@@ -302,9 +291,8 @@ def get_reservations_by_email():
         return jsonify({"error": str(e)}), 400
 
 
-#                                         Endpoint for reservations from all users
 
-
+### Endpoint for reservations from all users
 @api.route('/reservations_all', methods=['GET'])
 @jwt_required()
 def get_all_reservations():
@@ -317,9 +305,8 @@ def get_all_reservations():
         return jsonify({"error": str(e)}), 400
 
 
-#                             Endpoint for reservations from all users (for Administrator)
 
-
+### Endpoint for reservations from all users (for Administrator)
 @api.route('/admin', methods=['GET'])
 @jwt_required()
 def get_reservations_admin():
@@ -370,8 +357,8 @@ def get_reservations_admin():
         return jsonify({"error": str(e)}), 400
 
 
-#                          Endpoint to delete a specific reservation of a user (ID in the body)
 
+### Endpoint to delete a specific reservation of a user (ID in the body)
 @api.route('/reservations', methods=['DELETE'])
 @jwt_required()
 def delete_reservation():
@@ -422,9 +409,7 @@ def delete_reservation():
 
 
 
-#                                               Endpoint to save a reservation
-
-
+### Endpoint to save a reservation
 @api.route('/reservations', methods=['POST'])
 @jwt_required()
 def guardar_reserva():
@@ -476,9 +461,8 @@ def guardar_reserva():
         return jsonify({"message": f"Error al guardar las reservas: {str(e)}"}), 500
 
 
-#                                                           UserPerofile
 
-
+### UserPerofile
 @api.route('/userProfile', methods=['GET'])
 @jwt_required()
 def get_user_profile():

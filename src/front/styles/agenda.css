@@ -8,6 +8,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: "Josefin Sans";
 }
 
 .agenda-header {
@@ -37,6 +38,9 @@
     text-align: center;
     white-space: nowrap; /* Evita que el contenido se divida en varias líneas */
     height: 50px; /* Ajusta la altura de todas las filas */
+    font-size: 1em;
+    font-family: "Josefin Sans";
+    font-weight: bold;
 }
 
 .agenda-table th {
@@ -48,7 +52,7 @@
     width: auto;
 }
 
-.delete-btn {
+.agenda-delete-btn {
     background-color: #6A7562;  /* Verde oscuro */
     color: white;
     border: none;
@@ -57,7 +61,7 @@
     border-radius: 5px;
 }
 
-.delete-btn:hover {
+.agenda-delete-btn:hover {
     background-color: #8e9b84;  /* Verde claro especial */
     color: white;
 }
@@ -90,13 +94,14 @@
 
     .agenda-table th, .agenda-table td {
         padding: 6px;
-        font-size: 0.75em;
+        font-size: 1em;
         height: 35px; /* Ajusta la altura de todas las filas */
+        width: 100px;
 
     }
 
-    .delete-btn {
+    .agenda-delete-btn {
         padding: 6px 10px;
-        font-size: 0.9em;
+        font-size: 1em;
     }
 }
