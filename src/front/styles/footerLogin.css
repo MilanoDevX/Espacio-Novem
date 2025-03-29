@@ -4,13 +4,14 @@
   color: #F2E5D5;
   text-align: center;
   width: 100%;
-  margin-top: 20px; /* Agrega un pequeño espacio entre el contenido y el footer */
+  margin-top: 20px; 
 }
 
 .footerLogin-content {
   display: flex;
   justify-content: center;
   gap: 20px;
+  
 }
 
 .footerLogin-item {
@@ -70,10 +71,6 @@
 @media (max-width: 480px) {
   .footerLogin {
     padding: 15px;
-  }
-
-  .footerLogin-title {
-    font-size: 14px;
   }
 
   .footerLogin-item p {
