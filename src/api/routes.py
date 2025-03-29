@@ -199,21 +199,11 @@ def login():
 
 
 ### Funcion de  send email al user y admin
-def send_reservation_email(receivers_email, action, reservation_details, performed_by=None):
+def send_reservation_email(receivers_email, action, reservation_details, performed_by=None, reservation_id=None):
     sender_email = os.getenv("SMTP_USERNAME")
     sender_password = os.getenv("SMTP_PASSWORD")
     smtp_host = os.getenv("SMTP_HOST")
     smtp_port = os.getenv("SMTP_PORT")
-    
-    print(f"SMTP_USERNAME: {sender_email}")
-    print(f"SMTP_PASSWORD: {'***' if sender_password else None}")  
-    print(f"SMTP_HOST: {smtp_host}")
-    print(f"SMTP_PORT: {smtp_port}")
-
-    # Verifica si alguna variable es None antes de continuar
-    if not all([sender_email, sender_password, smtp_host, smtp_port]):
-        print("❌ ERROR: Alguna de las variables SMTP es None. Verifica tu configuración.")
-        return False
     
     message = MIMEMultipart("alternative")
     message["Subject"] = f"Reserva {action} - Espacio Novem!"
@@ -224,6 +214,7 @@ def send_reservation_email(receivers_email, action, reservation_details, perform
         <html>
             <body>
                 <h1>Reserva {action} en Espacio Novem</h1>
+                <p><strong>Numero de reserva:</strong> {reservation_id}</p>
                 <p><strong>Nombre:</strong> {reservation_details['user_name']} {reservation_details['user_last_name']}</p>
                 <p><strong>Fecha:</strong> {reservation_details['date']}</p>
                 <p><strong>Hora:</strong> {reservation_details['hour']}</p>
@@ -393,11 +384,11 @@ def delete_reservation():
         performed_by = f"{current_user.name} {current_user.last_name} ({current_user.email})"
 
         # Enviar correo al usuario
-        send_reservation_email([user.email], "eliminada", reservation_details, performed_by)
+        send_reservation_email([user.email], "eliminada", reservation_details, performed_by, reserva.id)
 
         # Enviar correo al admin
         if admin_email:
-            send_reservation_email([admin_email], "eliminada", reservation_details, performed_by)
+            send_reservation_email([admin_email], "eliminada", reservation_details, performed_by, reserva.id)
         else:
             return jsonify({"error": "Correo del administrador no configurado"}), 500
 
@@ -406,6 +397,7 @@ def delete_reservation():
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": "Ha ocurrido un error durante la eliminación de la reserva", "detalles": str(e)}), 500
+
 
 
 
@@ -438,6 +430,8 @@ def guardar_reserva():
             )
             db.session.add(nueva_reserva)
 
+            db.session.flush()  # Esto asignará el ID de la reserva
+
             reservation_details = {
                 'user_name': user.name,
                 'user_last_name': user.last_name,
@@ -446,12 +440,11 @@ def guardar_reserva():
                 'office': reserva['office']
             }
 
-            # Enviar correo al usuario
-            send_reservation_email([user.email], "creada", reservation_details)
+            send_reservation_email([user.email], "creada", reservation_details, reservation_id=nueva_reserva.id)
 
             # Enviar correo al administrador
             if admin_email:
-                send_reservation_email([admin_email], "creada", reservation_details)
+                send_reservation_email([admin_email], "creada", reservation_details, reservation_id=nueva_reserva.id)
 
         db.session.commit()
         return jsonify({"message": "Reservas guardadas con éxito"}), 200
@@ -459,6 +452,7 @@ def guardar_reserva():
     except Exception as e:
         db.session.rollback()
         return jsonify({"message": f"Error al guardar las reservas: {str(e)}"}), 500
+
 
 
 
