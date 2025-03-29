@@ -1,115 +1,76 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/admin.css";
-import Swal from 'sweetalert2';
-import { parseISO, isBefore, addHours, isWithinInterval, format } from 'date-fns';
+import { format } from 'date-fns';
 
 export const Admin = () => {
     const { actions, store } = useContext(Context);
     const [appointments, setAppointments] = useState([]);
+    const [filteredAppointments, setFilteredAppointments] = useState([]);
+    const [search, setSearch] = useState("");
 
     useEffect(() => {
         const fetchAppointments = async () => {
             const data = await actions.getReservationsAdmin();
-            console.log(data);
-
-            if (data && data.length > 0) {
-                const sortedAppointments = data.sort((a, b) => {
-                    return new Date(b.date) - new Date(a.date); // Orden descendente por fecha
-                });
+            if (data) {
+                const sortedAppointments = data.sort((a, b) => new Date(b.date) - new Date(a.date));
                 setAppointments(sortedAppointments);
-            } else {
-                setAppointments(data);
+                setFilteredAppointments(sortedAppointments);
             }
         };
-
         fetchAppointments();
     }, []);
 
-    const handleDelete = async (id) => {
-        const response = await actions.deleteReservation(id);
-        if (response) {
-            setAppointments(appointments.filter((appointment) => appointment.id !== id));
-            Swal.fire({
-                icon: "success",
-                title: "Reserva eliminada con éxito",
-                text: "",
-                timer: 1000,
-                showConfirmButton: false,
-            });
-        } else {
-            alert("Hubo un error al eliminar la reserva");
-        }
-    };
-
-    const formatDate = (dateString) => {
-        if (!dateString) return '';
-        const date = new Date(dateString);
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const year = date.getFullYear();
-        return `${day}/${month}/${year}`;
-    };
-
-    const convertUTCDateToLocalDate = (date) => {
-        if (!date) return null;
-        const newDate = new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
-        return newDate;
-    };
+    useEffect(() => {
+        setFilteredAppointments(
+            appointments.filter(appointment => 
+                appointment.user_name.toLowerCase().includes(search.toLowerCase()) ||
+                appointment.user_last_name.toLowerCase().includes(search.toLowerCase())
+            )
+        );
+    }, [search, appointments]);
 
     return (
         <div className="admin-container">
             <div className="admin-header">
-                <h2>
-                    Registro de Consultas
-                </h2>
+                <h2>Registro de Consultas</h2>
+                <input 
+                    type="text" 
+                    placeholder=" Filtrar por nombre o apellido" 
+                    value={search} 
+                    onChange={(e) => setSearch(e.target.value)} 
+                    className="search-input"
+                />
             </div>
             <div className="admin-table-container">
                 <table className="admin-table">
                     <thead>
                         <tr>
-                            <th className="auto-width">Reserva</th>
-                            <th className="auto-width">Fecha</th>
-                            <th className="auto-width">Hora</th>
-                            <th className="auto-width">Consultorio</th>
-                            <th className="auto-width">Nombre</th>
-                            <th className="auto-width">Apellido</th>
-                            <th className="auto-width">Email</th>
-                            <th className="auto-width">Acción</th>
+                            <th>Reserva</th>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                            <th>Consultorio</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Email</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {appointments.length > 0 ? (
-                            appointments.map((appointment) => {
-                                const appointmentDateTime = parseISO(appointment.date + 'T' + appointment.hour + ':00');
-                                const now = new Date();
-                                const isPast = isBefore(appointmentDateTime, now);
-                                const isWithin24Hours = isWithinInterval(appointmentDateTime, { start: now, end: addHours(now, 24) });
-
-                                return (
-                                    <tr key={appointment.id} className={isPast ? 'admin-past-date-row' : isWithin24Hours ? 'admin-within-24h-row' : ''}>
-                                        <td>{appointment.id}</td>
-                                        <td>{format(convertUTCDateToLocalDate(new Date(appointment.date)), 'dd/MM/yyyy')}</td>
-                                        <td>{appointment.hour}</td>
-                                        <td>{appointment.office}</td>
-                                        <td>{appointment.user_name}</td>
-                                        <td>{appointment.user_last_name}</td>
-                                        <td>{appointment.user_email}</td>
-                                        <td>
-                                            {!isPast && (
-                                                <button className="delete-btn" onClick={() => handleDelete(appointment.id)}>
-                                                    Eliminar
-                                                </button>
-                                            )}
-                                        </td>
-                                    </tr>
-                                );
-                            })
+                        {filteredAppointments.length > 0 ? (
+                            filteredAppointments.map((appointment) => (
+                                <tr key={appointment.id}>
+                                    <td>{appointment.id}</td>
+                                    <td>{format(new Date(appointment.date), 'dd/MM/yyyy')}</td>
+                                    <td>{appointment.hour}</td>
+                                    <td>{appointment.office}</td>
+                                    <td>{appointment.user_name}</td>
+                                    <td>{appointment.user_last_name}</td>
+                                    <td>{appointment.user_email}</td>
+                                </tr>
+                            ))
                         ) : (
                             <tr>
-                                <td colSpan="8" className="text-center text-danger">
-                                    No hay consultas registradas.
-                                </td>
+                                <td colSpan="7" className="text-center text-danger">No hay consultas registradas.</td>
                             </tr>
                         )}
                     </tbody>
