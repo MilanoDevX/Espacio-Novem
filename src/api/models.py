@@ -8,10 +8,10 @@ class User(db.Model):
     name = db.Column(db.String(100), nullable=False)
     last_name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
-    password_hash = db.Column(db.String(256), nullable=False) 
-    telefono = db.Column(db.String(20), nullable=False)
-    is_admin = db.Column(db.Boolean, default=False) 
-    is_active = db.Column(db.Boolean, nullable=False, default=True)
+    password_hash = db.Column(db.String(256), nullable=False)
+    telefono = db.Column(db.String(20), nullable=False) 
+    is_admin = db.Column(db.Boolean, default=False)
+    is_active = db.Column(db.Boolean, unique=False, nullable=False)
     reservations = db.relationship('Reservation', backref='user', lazy=True)
 
     def __repr__(self):
@@ -21,11 +21,11 @@ class User(db.Model):
         self.name = name
         self.last_name = last_name
         self.email = email
-        self.set_password(password) 
+        self.set_password(password)
         self.telefono = telefono
         self.is_admin = is_admin
         self.is_active = True
-
+    
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 

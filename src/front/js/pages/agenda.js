@@ -82,7 +82,7 @@ export const Agenda = () => {
                                         ) : isWithin24Hours ? (
                                             <i className="italic">Próxima</i>
                                         ) : (
-                                            <button className="delete-btn" onClick={() => handleDelete(id)}>
+                                            <button className="agenda-delete-btn" onClick={() => handleDelete(id)}>
                                                 Eliminar
                                             </button>
                                         )}
