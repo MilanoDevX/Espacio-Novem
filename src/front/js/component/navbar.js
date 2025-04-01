@@ -187,16 +187,16 @@ export const Navbar = () => {
                     onChange={handleChange}
                   />
                 </div>
-                <div className="mb-3 form-check">
+                <div className="mb-3 d-flex align-items-center">
                   <input
                     type="checkbox"
-                    className="form-check-input"
+                    className="form-check-input me-2"
                     id="rememberMe"
                     name="rememberMe"
                     checked={user.rememberMe}
                     onChange={handleChange}
                   />
-                  <label className="form-check-label ms-2 " htmlFor="rememberMe">
+                  <label className="form-check-label pt-1" htmlFor="rememberMe">
                     Recordar usuario
                   </label>
                 </div>
@@ -210,7 +210,7 @@ export const Navbar = () => {
                     <p>¿Olvidaste tu contraseña?</p>
                   </Link>
                 </div>
-                <div className="d-flex justify-content-end">
+                <div className="d-flex justify-content-center">
                   <button className="btn btn-primary" type="submit">
                     Ingresar
                   </button>
