@@ -4,7 +4,14 @@
   color: #F2E5D5;
   text-align: center;
   width: 100%;
-  margin-top: 20px; /* Agrega un pequeño espacio entre el contenido y el footer */
+  margin-top: 20px;
+}
+
+.footerLogin-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center; 
 }
 
 .footerLogin-content {
@@ -49,17 +56,21 @@
 }
 
 @media (max-width: 768px) {
+  .footerLogin-title {
+    font-size: 16px;
+    text-align: left; 
+  }
+
   .footerLogin-content {
     flex-direction: column;
     gap: 15px;
+    justify-content: flex-start; 
+    align-items: flex-start;
+    text-align: left; 
   }
 
   .footerLogin-item i {
     padding: 8px;
-  }
-
-  .footerLogin-title {
-    font-size: 16px;
   }
 
   .footerLogin-item p {
@@ -74,6 +85,7 @@
 
   .footerLogin-title {
     font-size: 14px;
+    text-align: left; 
   }
 
   .footerLogin-item p {
@@ -82,6 +94,9 @@
 
   .footerLogin-content {
     gap: 10px;
+    justify-content: flex-start;
+    align-items: flex-start; 
+    text-align: left; 
   }
 
   .footerLogin-item i {
