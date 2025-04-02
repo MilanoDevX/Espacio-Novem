@@ -111,6 +111,20 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
     return selectedDateTime < currentDateTime;
   };
 
+  const isCurrentHour = (hour) => {
+    if (!selectedDate) return false;
+
+    const currentDateTime = new Date();
+    const selectedDateTime = new Date(`${selectedDate}T${hour}:00`);
+
+    if (selectedDateTime.toDateString() === currentDateTime.toDateString()) {
+      const currentHour = currentDateTime.getHours();
+      const selectedHour = parseInt(hour.split(":")[0]);
+      return selectedHour === currentHour;
+    }
+    return false;
+  };
+
   return (
     <div className="form-reservations-container container">
       <table className="table table-bordered text-center">
@@ -132,14 +146,15 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
             const row = getRowData(hour);
             const status = isAvailable(row.offices) ? 'Disponible' : 'No disponible';
             const pastHour = isPastHour(hour);
+            const currentHour = isCurrentHour(hour);
 
             return (
-              <tr key={hour} className={status === 'No disponible' || pastHour ? 'no-available' : ''}>
+              <tr key={hour} className={status === 'No disponible' || pastHour || currentHour ? 'no-available' : ''}>
                 <td>{row.hour}</td>
-                <td>{pastHour ? 'No disponible' : status}</td>
+                <td>{pastHour || currentHour ? 'No disponible' : status}</td>
                 {[1, 2, 3, 4].map((office) => (
                   <td key={office}>
-                    {pastHour ? null : row.offices.includes(office) ? (
+                    {pastHour || currentHour ? null : row.offices.includes(office) ? (
                       <i className="fa-solid fa-x"></i>
                     ) : (
                       <input
@@ -155,7 +170,7 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
                   </td>
                 ))}
                 <td>
-                  {pastHour ? null : (
+                  {pastHour || currentHour ? null : (
                     <input
                       className="input-color"
                       type="radio"
