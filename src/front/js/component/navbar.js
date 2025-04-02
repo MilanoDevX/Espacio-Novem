@@ -13,8 +13,13 @@ export const Navbar = () => {
     rememberMe: false,
   });
 
+  // Asegúrate de que el store y la acción para obtener el usuario estén definidos
   useEffect(() => {
-    actions.getCurrentUser();
+    if (actions.getCurrentUser) {
+      actions.getCurrentUser().catch((err) => {
+        console.error("Error al obtener el usuario:", err);
+      });
+    }
   }, [actions]);
 
   const handleLogout = () => {
@@ -40,14 +45,14 @@ export const Navbar = () => {
       } else {
         localStorage.removeItem("rememberedEmail");
       }
-      navigate(store.user.is_admin ? "/admin" : "/");
+      navigate(store.user?.is_admin ? "/admin" : "/");
     }
   };
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary navbarcolor" aria-label="Eleventh navbar example mx-5">
       <div className="container-fluid">
-        {store.user && store.user.email ? (
+        {store.user?.email ? (
           <button
             type="button"
             className="btn dos m-2"
@@ -223,4 +228,3 @@ export const Navbar = () => {
     </nav>
   );
 };
-

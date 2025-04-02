@@ -40,7 +40,7 @@ jwt = JWTManager(app)
 
 
 # add the admin
-setup_admin(app)
+setup_admin(app) #borrar el admin
 
 # add the admin
 setup_commands(app)
