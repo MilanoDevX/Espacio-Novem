@@ -1,25 +1,21 @@
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
+import { Context } from "../store/appContext";
 import { useNavigate } from 'react-router-dom';
 
 function ProtectedRoute({ children }) {
     const navigate = useNavigate();
-    
+    const { store, actions } = useContext(Context);
     useEffect(() => {
-        const token = localStorage.getItem('access_token');
-        if (!token) {
+        actions.getCurrentUser();
+        
+    }, []);
+
+    useEffect(() => {
+        
+        if (store.auth == false) {
             navigate('/');
-        } else {
-            fetch('/api/verify-token', {
-                headers: { Authorization: token },
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        navigate('/');
-                    }
-                })
-                .catch(() => navigate('/'));
-        }
-    }, [navigate]);
+        } 
+    }, [store.auth]);
 
     return children;
 }
