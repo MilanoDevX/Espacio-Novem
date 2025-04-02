@@ -97,3 +97,8 @@
       font-size: 0.9em;
   }
 }
+
+.search-input {
+  background-color:  #AFB796;
+  color: #6A7562;
+}
