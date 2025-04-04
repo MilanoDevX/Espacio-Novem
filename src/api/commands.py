@@ -30,19 +30,19 @@ def setup_commands(app):
 
         print("All test users created")
 
-    @app.cli.command("insert-users")
-    def insert_users():
-        new_admin = User(
-        name = "Espacio",
-        last_name = "Novem",
-        email = "espacionovem@gmail.com",
-        password = "123456789",
-        telefono = "123456789",
-        is_admin = True,
-        )
-        db.session.add(new_admin)
-        db.session.commit()
-        print("Admin user created")
+    # @app.cli.command("insert-users")
+    # def insert_users():
+    #     new_admin = User(
+    #     name = "Espacio",
+    #     last_name = "Novem",
+    #     email = "espacionovem@gmail.com",
+    #     password = "123456789",
+    #     telefono = "123456789",
+    #     is_admin = True,
+    #     )
+    #     db.session.add(new_admin)
+    #     db.session.commit()
+    #     print("Admin user created")
 
         # new_admin2 = User(
         # name = "Lucía",
@@ -56,15 +56,15 @@ def setup_commands(app):
         # db.session.commit()
         # print("Admin user created")
         
-        new_admin2 = User(
-        name = "Admin",
-        last_name = "Admin",
-        email = "trabajosdeveloper2025@gmail.com",
-        password = "123456789",
-        telefono = "123456789",
-        is_admin = True,
-        )
-        db.session.add(new_admin2)
-        db.session.commit()
-        print("Admin user created")
+        # new_admin2 = User(
+        # name = "Admin",
+        # last_name = "Admin",
+        # email = "trabajosdeveloper2025@gmail.com",
+        # password = "123456789",
+        # telefono = "123456789",
+        # is_admin = True,
+        # )
+        # db.session.add(new_admin2)
+        # db.session.commit()
+        # print("Admin user created")
         

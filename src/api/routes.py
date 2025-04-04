@@ -19,7 +19,7 @@ CORS(app, supports_credentials=True)
 api = Blueprint('api', __name__)
 CORS(api)
 sender_email = os.getenv("SMTP_USERNAME")
-sender_password = os.getenv("SMTP_APP_PASSWORD")
+sender_password = os.getenv("SMTP_PASSWORD")
 smtp_host = os.getenv("SMTP_HOST")
 smtp_port = os.getenv("SMTP_PORT")
 
