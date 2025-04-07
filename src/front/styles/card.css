@@ -104,3 +104,12 @@
         max-width: 100%;
     }
 }
+.btn3 {
+    margin: 7px 7px 0 7px;
+    border-color: rgba(91, 73, 62, 0.5);
+    background-color:#afb796;
+    color:white ;
+    border-radius: 5px;
+    width: 25%; 
+    padding: 10px; 
+  }

@@ -5,11 +5,13 @@
 .dos {
   background-color: #afb796;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
 }
 
 .closenav {
   background-color: #afb796;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
 }
 
 .closenav:hover {
