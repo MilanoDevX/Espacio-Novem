@@ -88,9 +88,9 @@ export const UserProfile = () => {
       aria-labelledby="offcanvasExampleLabel"
     >
       <div className="offcanvas-header">
-        <h5 className="offcanvas-title" id="offcanvasExampleLabel">
-          Perfil del Usuario 🟢
-        </h5>
+        <h4 className="offcanvas-title" id="offcanvasExampleLabel">
+       Perfil del Usuario 
+        </h4>
         <button
           type="button"
           className="btn-close"
