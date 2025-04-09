@@ -3,44 +3,34 @@ import React, { useState, useEffect, useContext } from 'react';
 import '../../styles/formReservations.css';
 import { Context } from "../store/appContext"
 import Swal from 'sweetalert2'
-
 const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
   const [schedule, setSchedule] = useState([]);
   const { actions, store } = useContext(Context);
-
   useEffect(() => {
     if (!selectedDate) return;
-
     const fetchData = async () => {
       const data = await actions.getReservations();
-
       if (data) {
         const filteredData = data.filter((entry) => entry.date === selectedDate);
         setSchedule(filteredData);
       }
     };
-
     fetchData();
   }, [selectedDate]);
-
   const allHours = [
     '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00',
     '17:00', '18:00', '19:00',
   ];
-
   const handleRadioChange = (hour, office) => {
     console.log(`Hora: ${hour}, Consultorio seleccionado: ${office}`);
   };
-
   const handleScheduleSubmit = async () => {
     console.log("Datos enviados al backend");
-
     const selectedReservations = [];
     allHours.forEach((hour) => {
       const selectedOffice = document.querySelector(
         `input[name="office-${hour}"]:checked`
       )?.value;
-
       if (selectedOffice && selectedOffice !== "Ninguno") {
         selectedReservations.push({
           date: selectedDate,
@@ -49,7 +39,6 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
         });
       }
     });
-
     if (selectedReservations.length > 0) {
       const resp = await actions.submitReservations(selectedReservations);
       if (resp) {
@@ -63,11 +52,9 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
       } else {
         alert("Hubo un error al guardar las reservas");
       }
-
       if (onReservationsUpdated) {
         await onReservationsUpdated();
       }
-
       const updatedData = await actions.getReservations();
       if (updatedData) {
         const filteredData = updatedData.filter((entry) => entry.date === selectedDate);
@@ -83,26 +70,20 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
       });
     }
   };
-
   const getRowData = (hour) => {
     const filteredEntries = schedule.filter((entry) => entry.hour === hour);
     const reservedoffices = filteredEntries.flatMap(entry => entry.office);
-
     return {
       hour,
       offices: reservedoffices,
       default: 'Ninguno',
     };
   };
-
   const isAvailable = (offices) => offices.length < 4;
-
   const isPastHour = (hour) => {
     if (!selectedDate) return false;
-
     const currentDateTime = new Date();
     const selectedDateTime = new Date(`${selectedDate}T${hour}:00`);
-
     if (selectedDateTime.toDateString() === currentDateTime.toDateString()) {
       const currentHour = currentDateTime.getHours();
       const selectedHour = parseInt(hour.split(":")[0]);
@@ -110,21 +91,6 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
     }
     return selectedDateTime < currentDateTime;
   };
-
-  const isCurrentHour = (hour) => {
-    if (!selectedDate) return false;
-
-    const currentDateTime = new Date();
-    const selectedDateTime = new Date(`${selectedDate}T${hour}:00`);
-
-    if (selectedDateTime.toDateString() === currentDateTime.toDateString()) {
-      const currentHour = currentDateTime.getHours();
-      const selectedHour = parseInt(hour.split(":")[0]);
-      return selectedHour === currentHour;
-    }
-    return false;
-  };
-
   return (
     <div className="form-reservations-container container">
       <table className="table table-bordered text-center">
@@ -146,15 +112,13 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
             const row = getRowData(hour);
             const status = isAvailable(row.offices) ? 'Disponible' : 'No disponible';
             const pastHour = isPastHour(hour);
-            const currentHour = isCurrentHour(hour);
-
             return (
-              <tr key={hour} className={status === 'No disponible' || pastHour || currentHour ? 'no-available' : ''}>
+              <tr key={hour} className={status === 'No disponible' || pastHour ? 'no-available' : ''}>
                 <td>{row.hour}</td>
-                <td>{pastHour || currentHour ? 'No disponible' : status}</td>
+                <td>{pastHour ? 'No disponible' : status}</td>
                 {[1, 2, 3, 4].map((office) => (
                   <td key={office}>
-                    {pastHour || currentHour ? null : row.offices.includes(office) ? (
+                    {pastHour ? null : row.offices.includes(office) ? (
                       <i className="fa-solid fa-x"></i>
                     ) : (
                       <input
@@ -170,7 +134,7 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
                   </td>
                 ))}
                 <td>
-                  {pastHour || currentHour ? null : (
+                  {pastHour ? null : (
                     <input
                       className="input-color"
                       type="radio"
@@ -193,5 +157,13 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
     </div>
   );
 };
-
 export default FormReservations;
+
+
+
+
+
+
+
+
+
