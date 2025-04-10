@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import "../../styles/admin.css";
 import { format, isPast, isWithinInterval, addHours } from "date-fns";
 import Swal from "sweetalert2";
+
 export const Admin = () => {
     const { actions, store } = useContext(Context);
     const [appointments, setAppointments] = useState([]);
@@ -14,23 +15,24 @@ export const Admin = () => {
             if (data) {
                 const sortedAppointments = data.sort((a, b) => new Date(b.date) - new Date(a.date));
                 setAppointments(sortedAppointments);
+                setFilteredAppointments(sortedAppointments);
             }
         };
         fetchAppointments();
-    }, [actions]);
+    }, []);
     useEffect(() => {
-        const searchLower = search.toLowerCase();
         setFilteredAppointments(
-            appointments.filter(({ user_name, user_last_name }) =>
-                user_name.toLowerCase().includes(searchLower) ||
-                user_last_name.toLowerCase().includes(searchLower)
+            appointments.filter(appointment =>
+                appointment.user_name.toLowerCase().includes(search.toLowerCase()) ||
+                appointment.user_last_name.toLowerCase().includes(search.toLowerCase())
             )
         );
     }, [search, appointments]);
-    const convertUTCDateToLocalDate = (dateString) => {
-        const date = new Date(dateString);
+    // Función para convertir UTC a hora local
+    const convertUTCDateToLocalDate = (date) => {
         return new Date(date.getTime() - date.getTimezoneOffset() * 60000);
     };
+    // Manejar eliminación de reserva con SweetAlert2
     const handleDelete = async (id) => {
         Swal.fire({
             title: "¿Estás seguro?",
@@ -44,8 +46,13 @@ export const Admin = () => {
             if (result.isConfirmed) {
                 const response = await actions.deleteReservation(id);
                 if (response) {
-                    setAppointments(prev => prev.filter(appointment => appointment.id !== id));
-                    Swal.fire("Eliminado", "La reserva ha sido eliminada con éxito.", "success");
+                    setAppointments(appointments.filter(appointment => appointment.id !== id));
+                    setFilteredAppointments(filteredAppointments.filter(appointment => appointment.id !== id));
+                    Swal.fire({
+                        title: "Eliminado",
+                        text: "La reserva ha sido eliminada con éxito.",
+                        icon: "success"
+                    });
                 }
             }
         });
@@ -79,7 +86,7 @@ export const Admin = () => {
                     <tbody>
                         {filteredAppointments.length > 0 ? (
                             filteredAppointments.map((appointment) => {
-                                const localDate = convertUTCDateToLocalDate(appointment.date);
+                                const localDate = convertUTCDateToLocalDate(new Date(appointment.date));
                                 const isPastAppointment = isPast(localDate);
                                 const isWithin24Hours = isWithinInterval(localDate, {
                                     start: new Date(),

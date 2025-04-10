@@ -6,26 +6,20 @@ import Swal from 'sweetalert2';
 
 export const Agenda = () => {
     const { actions, store } = useContext(Context);
-
     const now = new Date();
     const todayFormatted = format(now, 'yyyy-MM-dd');
     const [selectedDate, setSelectedDate] = useState(todayFormatted);
     const [reservations, setReservations] = useState([]);
-
     useEffect(() => {
         const fetchData = async () => {
             const data = await actions.getReservationsByEmail();
-
             const sortedData = data.sort((a, b) =>
                 parseISO(b.date + 'T' + b.hour + ':00') - parseISO(a.date + 'T' + a.hour + ':00')
             );
-
             setReservations(sortedData);
         };
-
         fetchData();
     }, []);
-
     const handleDelete = async (id) => {
         const result = await Swal.fire({
             title: '¿Estás segura/o de eliminar esta reserva?',
@@ -33,17 +27,14 @@ export const Agenda = () => {
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
+            cancelButtonColor: '#3085D6',
             confirmButtonText: 'Sí, eliminar',
             cancelButtonText: 'Cancelar'
         });
-
         if (result.isConfirmed) {
             const response = await actions.deleteReservation(id);
-
             if (response) {
                 setReservations(prev => prev.filter(reservation => reservation.id !== id));
-
                 Swal.fire({
                     icon: "success",
                     title: store.user?.is_admin
@@ -62,7 +53,6 @@ export const Agenda = () => {
             }
         }
     };
-
     return (
         <div className="agenda-container">
             <div className="agenda-header">
@@ -96,7 +86,6 @@ export const Agenda = () => {
                                     start: now,
                                     end: addHours(now, 24)
                                 });
-
                                 return (
                                     <tr
                                         key={id}
