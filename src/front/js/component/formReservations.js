@@ -135,7 +135,7 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
 
 
   return (
-    <div className="form-reservations-container container">
+    <div className="form-reservations-container container"  style={{ opacity: loading ? 0.5 : 1 }}>
       {loading && (
         // Se muestra el spinner sobre la interfaz cuando loading es true
         <div className="spinner-overlay">
