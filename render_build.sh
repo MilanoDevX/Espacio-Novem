@@ -9,5 +9,5 @@ pipenv install
 
 # pipenv shell
 
-pipenv run upgrade
-flask insert-users
+# pipenv run upgrade
+# flask insert-users
