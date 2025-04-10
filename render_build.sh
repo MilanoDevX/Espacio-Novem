@@ -7,7 +7,7 @@ npm run build
 
 pipenv install
 
-pipenv shell
+# pipenv shell
 
 pipenv run upgrade
 flask insert-users
