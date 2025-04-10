@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback } from 'react';
 import Calendar from '../component/calendar';
 import FormReservations from '../component/formReservations';
@@ -41,3 +40,12 @@ export const Reservations = () => {
         </div>
     );
 };
+
+
+
+
+
+
+
+
+

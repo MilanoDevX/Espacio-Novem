@@ -271,7 +271,7 @@ def get_reservations_admin():
         return jsonify(serialized_reservations), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
-        ### Endpoint to delete a specific reservation of a user (ID in the body)
+### Endpoint to delete a specific reservation of a user (ID in the body)
 @api.route('/reservations', methods=['DELETE'])
 @jwt_required()
 def delete_reservation():
@@ -308,6 +308,8 @@ def delete_reservation():
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": "Ha ocurrido un error durante la eliminación de la reserva", "detalles": str(e)}), 500
+
+
 ### Endpoint to save a reservation
 @api.route('/reservations', methods=['POST'])
 @jwt_required()
