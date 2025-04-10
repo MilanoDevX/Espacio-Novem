@@ -78,10 +78,26 @@
     order: 1; 
   }
 
-  .btn {
-    width: 100%;
-    text-align: left;
-  }
+  .btn-consult {
+    background-color: #6A7562;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-consult:hover {
+    background-color: #AFB796;
+    color: #6A7562;
+}
+
+.btn-consult:active {
+    background-color: #9AA082;
+    transform: translateY(1px);
+}
 }
 
 .inicio{

@@ -230,7 +230,7 @@ export const Navbar = () => {
                   </Link>
                 </div>
                 <div className="d-flex justify-content-center">
-                  <button className="btn btn-primary" type="submit">
+                  <button className="btn-consult" type="submit">
                     Ingresar
                   </button>
                 </div>
