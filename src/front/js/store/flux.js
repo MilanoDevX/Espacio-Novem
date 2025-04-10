@@ -2,6 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     return {
         store: {
             user: { email: "" },
+            auth: null,
         },
         actions: {
             login: async (useNew) => {
@@ -28,6 +29,28 @@ const getState = ({ getStore, getActions, setStore }) => {
                     console.error("Error en la solicitud:", error);
                     setStore({ auth: false });
                     return false, { status: false };
+                }
+            },
+            getCurrentUser: async () => {
+                const token = localStorage.getItem("access_token");
+                if (token) {
+                    const response = await fetch(process.env.BACKEND_URL + "/protected", {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    });
+                    console.log(response);
+                    if (response.ok) {
+                        const data = await response.json();
+                        setStore({ user: data, auth: true });
+                        return data;
+                    } else {
+                        console.error("Error al obtener el usuario actual:", response.statusText);
+                        setStore({ user: false, auth: false });
+                        return null;
+                    }
+                } else {
+                    return null;
                 }
             },
             signup: async (user) => {
