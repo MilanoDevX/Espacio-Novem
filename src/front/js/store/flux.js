@@ -2,7 +2,6 @@ const getState = ({ getStore, getActions, setStore }) => {
     return {
         store: {
             user: { email: "" },
-            auth: null,
         },
         actions: {
             login: async (useNew) => {
@@ -31,28 +30,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                     return false, { status: false };
                 }
             },
-            getCurrentUser: async () => {
-                const token = localStorage.getItem("access_token");
-                if (token) {
-                    const response = await fetch(process.env.BACKEND_URL + "/protected", {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    });
-                    console.log(response);
-                    if (response.ok) {
-                        const data = await response.json();
-                        setStore({ user: data, auth: true });
-                        return data;
-                    } else {
-                        console.error("Error al obtener el usuario actual:", response.statusText);
-                        setStore({ user: false, auth: false });
-                        return null;
-                    }
-                } else {
-                    return null;
-                }
-            },
             signup: async (user) => {
                 try {
                     const resp = await fetch(process.env.BACKEND_URL + "/signup", {
@@ -77,7 +54,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
             restablecerPassword: async (email) => {
                 try {
-
                     const response = await fetch(process.env.BACKEND_URL + "/send-email", {
                         method: "PUT",
                         headers: { "Content-Type": "application/json" },
@@ -96,23 +72,18 @@ const getState = ({ getStore, getActions, setStore }) => {
                     console.log(error);
                     return false;
                 }
-
             },
-
             recuperarPassword: async (email, nueva, aleatoria) => {
                 console.log("Enviando datos:", email, nueva, aleatoria);
                 try {
                     const url = process.env.BACKEND_URL + "/reset-password";
                     console.log("URL de la API:", url);
-
                     const response = await fetch(url, {
                         method: "PUT",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ email, nueva, aleatoria }),
                     });
-
                     console.log("Respuesta recibida:", response.status, response.statusText);
-
                     if (response.ok) {
                         return true;
                     }
@@ -122,7 +93,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                     return false;
                 }
             },
-
             getProfile: async () => {
                 try {
                     const token = localStorage.getItem("access_token");
@@ -130,7 +100,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                         setStore({ user: null, token: null, auth: false });
                         return false;
                     }
-            
                     const response = await fetch(process.env.BACKEND_URL + "/userProfile", {
                         method: "GET",
                         headers: {
@@ -138,13 +107,11 @@ const getState = ({ getStore, getActions, setStore }) => {
                             "Authorization": "Bearer " + token
                         },
                     });
-            
                     if (response.status == 401) {
                         setStore({ user: null, token: null, auth: false });
                         localStorage.removeItem("access_token");
                         return false;
                     }
-            
                     if (response.ok) {
                         const data = await response.json();
                         setStore({ user: data });
@@ -155,8 +122,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                     return false;
                 }
             },
-            
-
             getReservationsByEmail: async () => {
                 try {
                     const token = localStorage.getItem("access_token");
@@ -170,7 +135,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                     // console.log(response);
                     if (response.status == 200) {
                         const data = await response.json();
-
                         // console.log("Reservas", data);
                         setStore({ reservations: data });
                         return data;
@@ -183,7 +147,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                     return false
                 }
             },
-
             deleteReservation: async (id) => {
                 try {
                     const token = localStorage.getItem("access_token");
@@ -208,7 +171,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                     return false;
                 }
             },
-
             getReservationsAdmin: async () => {
                 try {
                     const token = localStorage.getItem("access_token");
@@ -222,7 +184,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                     // console.log(response);
                     if (response.status == 200) {
                         const data = await response.json();
-
                         // console.log("Reservas", data);
                         setStore({ reservations: data });
                         return data;
@@ -258,8 +219,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                     return false;
                 }
             },
-            
-
             submitReservations: async (selectedReservations) => {
                 try {
                     const token = localStorage.getItem("access_token");
@@ -271,13 +230,11 @@ const getState = ({ getStore, getActions, setStore }) => {
                         },
                         body: JSON.stringify(selectedReservations)
                     });
-
                     if (!response.ok) {
                         throw new Error(
                           `Error al guardar las reservas: ${response.statusText}`
                         );
                       }
-
                     if (response.status == 200) {
                         return true;
                     } else {

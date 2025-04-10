@@ -1,27 +1,22 @@
-
 import React, { useState, useCallback } from 'react';
 import Calendar from '../component/calendar';
 import FormReservations from '../component/formReservations';
 import { format, startOfToday, parseISO } from 'date-fns';
 import { Context } from "../store/appContext"
 import { useContext } from "react";
-
 export const Reservations = () => {
     const today = format(startOfToday(), 'yyyy-MM-dd'); // Aplicando formato
     const [selectedDate, setSelectedDate] = useState(today);
     const { actions } = useContext(Context);
-
     const handleDateSelect = (date) => {
         const parsedDate = typeof date === 'string' ? parseISO(date) : date;
         const formattedDate = format(parsedDate, 'yyyy-MM-dd'); // Formato estándar para la comparación
         setSelectedDate(formattedDate);
     };
-
     const handleReservationsUpdated = useCallback(async () => {
         // Recarga las reservas cuando FormReservations le indica que se han actualizado.
         await actions.getReservations();
     }, [actions]);
-
     return (
         <div>
             <div className="pt-3 pb-0 mb-0">
@@ -45,3 +40,12 @@ export const Reservations = () => {
         </div>
     );
 };
+
+
+
+
+
+
+
+
+

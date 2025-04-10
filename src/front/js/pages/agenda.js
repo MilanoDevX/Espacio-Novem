@@ -3,28 +3,29 @@ import { Context } from "../store/appContext";
 import '../../styles/agenda.css';
 import { format, parseISO, isBefore, addHours, isWithinInterval } from 'date-fns';
 import Swal from 'sweetalert2';
+import Spinner from "../component/spinner.js";
+
 
 export const Agenda = () => {
     const { actions, store } = useContext(Context);
-
     const now = new Date();
     const todayFormatted = format(now, 'yyyy-MM-dd');
     const [selectedDate, setSelectedDate] = useState(todayFormatted);
     const [reservations, setReservations] = useState([]);
+    const [loading, setLoading] = useState(false);
+
 
     useEffect(() => {
         const fetchData = async () => {
             const data = await actions.getReservationsByEmail();
-
             const sortedData = data.sort((a, b) =>
                 parseISO(b.date + 'T' + b.hour + ':00') - parseISO(a.date + 'T' + a.hour + ':00')
             );
-
             setReservations(sortedData);
         };
-
         fetchData();
     }, []);
+
 
     const handleDelete = async (id) => {
         const result = await Swal.fire({
@@ -33,17 +34,18 @@ export const Agenda = () => {
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
+            cancelButtonColor: '#3085D6',
             confirmButtonText: 'Sí, eliminar',
             cancelButtonText: 'Cancelar'
         });
 
         if (result.isConfirmed) {
+            setLoading(true); // Mostrar spinner mientras se elimina la reserva
             const response = await actions.deleteReservation(id);
+            setLoading(false); // Ocultar spinner una vez finalizada la operación
 
             if (response) {
                 setReservations(prev => prev.filter(reservation => reservation.id !== id));
-
                 Swal.fire({
                     icon: "success",
                     title: store.user?.is_admin
@@ -52,6 +54,7 @@ export const Agenda = () => {
                     timer: 1500,
                     showConfirmButton: false
                 });
+
             } else {
                 Swal.fire({
                     icon: "error",
@@ -63,12 +66,19 @@ export const Agenda = () => {
         }
     };
 
+
     return (
         <div className="agenda-container">
+            {/* Se muestra el spinner sobre la interfaz mientras loading es true */}
+            {loading && (
+                <div className="spinner-overlay">
+                    <Spinner />
+                </div>
+            )}
             <div className="agenda-header">
                 <h2>Registro de reservas</h2>
             </div>
-            <div className="agenda-table-container">
+            <div className="agenda-table-container"  style={{ opacity: loading ? 0.5 : 1 }}>
                 <table className="agenda-table">
                     <thead>
                         <tr>
@@ -96,7 +106,6 @@ export const Agenda = () => {
                                     start: now,
                                     end: addHours(now, 24)
                                 });
-
                                 return (
                                     <tr
                                         key={id}
@@ -135,3 +144,8 @@ export const Agenda = () => {
         </div>
     );
 };
+
+
+
+
+
