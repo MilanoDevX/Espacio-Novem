@@ -2,19 +2,15 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate, Link } from "react-router-dom";
 import { Modal } from "bootstrap";
-import '../../styles/navbar.css'; 
-
-
+import '../../styles/navbar.css';
 export const Navbar = () => {
   const navigate = useNavigate();
   const { store, actions } = useContext(Context);
-
   const [user, setUser] = useState({
     email: "",
     password: "",
     rememberMe: false,
   });
-
   // Obtenemos el usuario actual si la acción está definida
   useEffect(() => {
     if (actions.getCurrentUser) {
@@ -23,12 +19,10 @@ export const Navbar = () => {
       });
     }
   }, [actions]);
-
   const handleLogout = () => {
     actions.logout();
     navigate("/");
   };
-
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setUser((prevUser) => ({
@@ -36,23 +30,19 @@ export const Navbar = () => {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
-
   const loginUser = async (e) => {
     e.preventDefault();
     const resp = await actions.login(user);
-  
     if (resp) {
       // Cerrar el modal de login al ingresar de forma exitosa
       const loginModalElement = document.getElementById("loginModal");
       const modalInstance = Modal.getInstance(loginModalElement) || new Modal(loginModalElement);
       modalInstance.hide();
-  
       // Elimina el backdrop manualmente (en caso de que no se remueva automáticamente)
       const backdrop = document.querySelector(".modal-backdrop");
       if (backdrop) {
         backdrop.remove();
       }
-  
       if (user.rememberMe) {
         localStorage.setItem("rememberedEmail", user.email);
       } else {
@@ -62,7 +52,6 @@ export const Navbar = () => {
       navigate(store.user?.is_admin ? "/admin" : "/");
     }
   };
-
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary navbarcolor" aria-label="Eleventh navbar example mx-5">
       <div className="container-fluid">
@@ -81,7 +70,6 @@ export const Navbar = () => {
             Espacio Novem
           </button>
         )}
-
         <button
           className="navbar-toggler text-light border-0 ms-auto"
           type="button"
@@ -93,7 +81,6 @@ export const Navbar = () => {
         >
           <span className="fa-solid fa-bars"></span>
         </button>
-
         <div className="collapse navbar-collapse justify-content-end" id="navbarContent">
           <ul className="navbar-nav me-3 mb-2 mb-lg-0 d-flex align-items-center">
             <li className="nav-item">
@@ -104,7 +91,6 @@ export const Navbar = () => {
                 Inicio
               </Link>
             </li>
-
             {store.user?.email && (
               <>
                 <li className="nav-item">
@@ -125,7 +111,6 @@ export const Navbar = () => {
                 </li>
               </>
             )}
-
             {store.user?.is_admin && (
               <li className="nav-item">
                 <Link className="nav-link text-light" to="/admin">
@@ -136,7 +121,6 @@ export const Navbar = () => {
                 </Link>
               </li>
             )}
-
             <li className="nav-item">
               <Link className="nav-link text-light" to="/aboutUs">
                 <span className="d-lg-none me-1">
@@ -145,7 +129,6 @@ export const Navbar = () => {
                 Quienes Somos
               </Link>
             </li>
-
             {store.user?.email && (
               <li className="nav-item">
                 <button onClick={handleLogout} className="btn closenav m-2">
@@ -153,7 +136,6 @@ export const Navbar = () => {
                 </button>
               </li>
             )}
-
             {!store.user?.email && (
               <li className="nav-item">
                 <button
@@ -169,7 +151,6 @@ export const Navbar = () => {
           </ul>
         </div>
       </div>
-
       <div className="modal fade" id="loginModal" tabIndex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content">
