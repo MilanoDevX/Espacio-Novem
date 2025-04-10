@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 function ProtectedRoute({ children }) {
     const navigate = useNavigate();
     const [isAuthorized, setIsAuthorized] = useState(false);

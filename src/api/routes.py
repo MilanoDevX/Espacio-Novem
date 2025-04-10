@@ -13,7 +13,6 @@ from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_requir
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS
 from datetime import datetime, date, timedelta
-
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 api = Blueprint('api', __name__)
@@ -121,7 +120,6 @@ def recuperar_password():
     exist_user.set_password(nueva)
     db.session.commit()
     return jsonify({"msg": "Contraseña actualizada con éxito"}), 200
-
 ### Registro
 
 @api.route('/signup', methods=['POST'])
@@ -400,7 +398,6 @@ def update_user_profile():
         user.telefono = data["telefono"]
     db.session.commit()
     return jsonify(user.serialize()), 200
-
 @api.route("/protected", methods=["GET"])
 @jwt_required()
 def protected():

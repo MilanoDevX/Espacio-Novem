@@ -4,7 +4,6 @@ import FormReservations from '../component/formReservations';
 import { format, startOfToday, parseISO } from 'date-fns';
 import { Context } from "../store/appContext"
 import { useContext } from "react";
-
 export const Reservations = () => {
     const today = format(startOfToday(), 'yyyy-MM-dd'); // Aplicando formato
     const [selectedDate, setSelectedDate] = useState(today);
@@ -41,3 +40,12 @@ export const Reservations = () => {
         </div>
     );
 };
+
+
+
+
+
+
+
+
+

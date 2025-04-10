@@ -60,3 +60,8 @@ def setup_commands(app):
         # db.session.add(new_admin2)
         # db.session.commit()
         # print("Admin user created")
+
+
+
+
+

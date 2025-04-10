@@ -4,11 +4,17 @@ import "../../styles/admin.css";
 import { format, isPast, isWithinInterval, addHours } from "date-fns";
 import Swal from "sweetalert2";
 
+import Spinner from "./spinner.js";
+
+
 export const Admin = () => {
     const { actions, store } = useContext(Context);
     const [appointments, setAppointments] = useState([]);
     const [filteredAppointments, setFilteredAppointments] = useState([]);
     const [search, setSearch] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+
+
     useEffect(() => {
         const fetchAppointments = async () => {
             const data = await actions.getReservationsAdmin();
@@ -20,6 +26,8 @@ export const Admin = () => {
         };
         fetchAppointments();
     }, []);
+
+
     useEffect(() => {
         setFilteredAppointments(
             appointments.filter(appointment =>
@@ -28,10 +36,14 @@ export const Admin = () => {
             )
         );
     }, [search, appointments]);
+
+
     // Función para convertir UTC a hora local
     const convertUTCDateToLocalDate = (date) => {
         return new Date(date.getTime() - date.getTimezoneOffset() * 60000);
     };
+
+
     // Manejar eliminación de reserva con SweetAlert2
     const handleDelete = async (id) => {
         Swal.fire({
@@ -43,8 +55,12 @@ export const Admin = () => {
             cancelButtonColor: "#d33",
             confirmButtonText: "Sí, eliminarlo"
         }).then(async (result) => {
+
             if (result.isConfirmed) {
+                setIsLoading(true); // Mostrar spinner
                 const response = await actions.deleteReservation(id);
+                setIsLoading(false); // Ocultar spinner
+
                 if (response) {
                     setAppointments(appointments.filter(appointment => appointment.id !== id));
                     setFilteredAppointments(filteredAppointments.filter(appointment => appointment.id !== id));
@@ -53,10 +69,18 @@ export const Admin = () => {
                         text: "La reserva ha sido eliminada con éxito.",
                         icon: "success"
                     });
+                } else {
+                    Swal.fire({
+                        title: "Error",
+                        text: "No se pudo eliminar la reserva.",
+                        icon: "error"
+                    });
                 }
             }
         });
     };
+
+
     return (
         <div className="admin-container">
             <div className="admin-header">
@@ -67,9 +91,15 @@ export const Admin = () => {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     className="search-input"
+                    disabled={isLoading}
                 />
             </div>
-            <div className="admin-table-container">
+            {isLoading && (
+                <div className="spinner-overlay">
+                    <Spinner /> {/* Mostrar el Spinner */}
+                </div>
+            )}
+            <div className="admin-table-container" style={{ opacity: isLoading ? 0.5 : 1 }}>
                 <table className="admin-table">
                     <thead>
                         <tr>
