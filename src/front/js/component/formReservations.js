@@ -117,19 +117,24 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
   };
 
   const isAvailable = (offices) => offices.length < 4;
+  
   const isPastHour = (hour) => {
-
     if (!selectedDate) return false;
+  
     const currentDateTime = new Date();
     const selectedDateTime = new Date(`${selectedDate}T${hour}:00`);
-
+  
+    // Si la fecha seleccionada es hoy, comparar las horas
     if (selectedDateTime.toDateString() === currentDateTime.toDateString()) {
       const currentHour = currentDateTime.getHours();
-      const selectedHour = parseInt(hour.split(":")[0]);
-
-      return selectedHour < currentHour;
+      const currentMinutes = currentDateTime.getMinutes();
+      const [hourPart, minutePart] = hour.split(":").map(Number);
+  
+      // La hora es pasada si es menor o igual a la hora actual
+      return hourPart < currentHour || (hourPart === currentHour && minutePart <= currentMinutes);
     }
-
+  
+    // Comparar fechas completas para días pasados
     return selectedDateTime < currentDateTime;
   };
 
@@ -161,8 +166,9 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
             const row = getRowData(hour);
             const status = isAvailable(row.offices) ? 'Disponible' : 'No disponible';
             const pastHour = isPastHour(hour);
+            
             return (
-              <tr key={hour} className={status === 'No disponible' || pastHour ? 'no-available' : ''}>
+              <tr key={hour} className={pastHour ? 'no-available' : ''}>
                 <td>{row.hour}</td>
                 <td>{pastHour ? 'No disponible' : status}</td>
                 {[1, 2, 3, 4].map((office) => (
@@ -207,10 +213,6 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
   );
 };
 export default FormReservations;
-
-
-
-
 
 
 

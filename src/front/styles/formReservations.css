@@ -57,6 +57,7 @@
 /* Horas no disponibles */
 .no-available td {
   background-color: rgb(172, 169, 169); /* gris */
+  pointer-events: none; /* evita la selección */
   color: white;
 }
 
