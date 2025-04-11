@@ -2,8 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate, Link } from "react-router-dom";
 import { Modal } from "bootstrap";
-import '../../styles/navbar.css'; 
-
+import '../../styles/navbar.css';
 
 export const Navbar = () => {
   const navigate = useNavigate();
@@ -24,6 +23,26 @@ export const Navbar = () => {
     }
   }, [actions]);
 
+  // Listener para cuando el modal se oculte completamente
+  useEffect(() => {
+    const loginModalElement = document.getElementById("loginModal");
+
+    if (loginModalElement) {
+      const handleHidden = () => {
+        // Elimina la clase que bloquea el scroll y resetea estilos aplicados
+        document.body.classList.remove("modal-open");
+        document.body.style.overflow = "auto";
+        document.body.style.paddingRight = "0";
+      };
+
+      loginModalElement.addEventListener("hidden.bs.modal", handleHidden);
+
+      return () => {
+        loginModalElement.removeEventListener("hidden.bs.modal", handleHidden);
+      };
+    }
+  }, []);
+
   const handleLogout = () => {
     actions.logout();
     navigate("/");
@@ -37,22 +56,33 @@ export const Navbar = () => {
     }));
   };
 
+  // Función auxiliar para cerrar el modal
+  const closeLoginModal = () => {
+    const loginModalElement = document.getElementById("loginModal");
+    const modalInstance =
+      Modal.getInstance(loginModalElement) || new Modal(loginModalElement);
+    modalInstance.hide();
+
+    // Forzamos de inmediato una limpieza, aunque el listener se encargará cuando se termine la transición
+    document.body.classList.remove("modal-open");
+    document.body.style.overflow = "auto";
+    document.body.style.paddingRight = "0";
+
+    // Removemos el backdrop en caso de que no se elimine solo
+    const backdrop = document.querySelector(".modal-backdrop");
+    if (backdrop) {
+      backdrop.remove();
+    }
+  };
+
   const loginUser = async (e) => {
     e.preventDefault();
     const resp = await actions.login(user);
-  
+
     if (resp) {
       // Cerrar el modal de login al ingresar de forma exitosa
-      const loginModalElement = document.getElementById("loginModal");
-      const modalInstance = Modal.getInstance(loginModalElement) || new Modal(loginModalElement);
-      modalInstance.hide();
-  
-      // Elimina el backdrop manualmente (en caso de que no se remueva automáticamente)
-      const backdrop = document.querySelector(".modal-backdrop");
-      if (backdrop) {
-        backdrop.remove();
-      }
-  
+      closeLoginModal();
+
       if (user.rememberMe) {
         localStorage.setItem("rememberedEmail", user.email);
       } else {
@@ -64,7 +94,10 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary navbarcolor" aria-label="Eleventh navbar example mx-5">
+    <nav
+      className="navbar navbar-expand-lg bg-body-tertiary navbarcolor"
+      aria-label="Eleventh navbar example mx-5"
+    >
       <div className="container-fluid">
         {store.user?.email ? (
           <button
@@ -77,9 +110,7 @@ export const Navbar = () => {
             Espacio Novem
           </button>
         ) : (
-          <button className="adminbutton">
-            Espacio Novem
-          </button>
+          <button className="adminbutton">Espacio Novem</button>
         )}
 
         <button
@@ -170,12 +201,25 @@ export const Navbar = () => {
         </div>
       </div>
 
-      <div className="modal fade" id="loginModal" tabIndex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div
+        className="modal fade"
+        id="loginModal"
+        tabIndex="-1"
+        aria-labelledby="loginModalLabel"
+        aria-hidden="true"
+      >
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <h5 className="modal-title" id="loginModalLabel">
+                Iniciar Sesión
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
             <div className="modal-body">
               <form onSubmit={loginUser}>
@@ -220,12 +264,12 @@ export const Navbar = () => {
                   </label>
                 </div>
                 <div className="mb-3">
-                  <Link to="/register" className="custom-link">
+                  <Link to="/register" className="custom-link" onClick={closeLoginModal}>
                     <p>¿No tienes cuenta? Regístrate</p>
                   </Link>
                 </div>
                 <div className="mb-3">
-                  <Link to="/send-email" className="custom-link">
+                  <Link to="/send-email" className="custom-link" onClick={closeLoginModal}>
                     <p>¿Olvidaste tu contraseña?</p>
                   </Link>
                 </div>

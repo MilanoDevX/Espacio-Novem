@@ -7,7 +7,9 @@ npm run build
 
 pipenv install
 
-# pipenv shell
+# pipenv shell  # Agregado por Alexis para generar automáticamente administradores en la BD
 
-# pipenv run upgrade
-# flask insert-users
+# pipenv run upgrade  # Agregado por Alexis para generar automáticamente administradores en la BD
+# flask insert-users  # Agregado por Alexis para generar automáticamente administradores en la BD
+
+
