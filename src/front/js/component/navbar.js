@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate, Link } from "react-router-dom";
 import { Modal } from "bootstrap";
-import '../../styles/navbar.css'; 
+import '../../styles/navbar.css';
 
 
 export const Navbar = () => {
@@ -37,21 +37,25 @@ export const Navbar = () => {
     }));
   };
 
+  // Función auxiliar para cerrar el modal
+  const closeLoginModal = () => {
+    const loginModalElement = document.getElementById("loginModal");
+    const modalInstance = Modal.getInstance(loginModalElement) || new Modal(loginModalElement);
+    modalInstance.hide();
+    // Elimina el backdrop manualmente en caso de que no se remueva automáticamente
+    const backdrop = document.querySelector(".modal-backdrop");
+    if (backdrop) {
+      backdrop.remove();
+    }
+  };
+
   const loginUser = async (e) => {
     e.preventDefault();
     const resp = await actions.login(user);
-  
+
     if (resp) {
       // Cerrar el modal de login al ingresar de forma exitosa
-      const loginModalElement = document.getElementById("loginModal");
-      const modalInstance = Modal.getInstance(loginModalElement) || new Modal(loginModalElement);
-      modalInstance.hide();
-  
-      // Elimina el backdrop manualmente (en caso de que no se remueva automáticamente)
-      const backdrop = document.querySelector(".modal-backdrop");
-      if (backdrop) {
-        backdrop.remove();
-      }
+      closeLoginModal();
   
       if (user.rememberMe) {
         localStorage.setItem("rememberedEmail", user.email);
@@ -220,12 +224,12 @@ export const Navbar = () => {
                   </label>
                 </div>
                 <div className="mb-3">
-                  <Link to="/register" className="custom-link">
+                  <Link to="/register" className="custom-link" onClick={closeLoginModal}>
                     <p>¿No tienes cuenta? Regístrate</p>
                   </Link>
                 </div>
                 <div className="mb-3">
-                  <Link to="/send-email" className="custom-link">
+                  <Link to="/send-email" className="custom-link" onClick={closeLoginModal}>
                     <p>¿Olvidaste tu contraseña?</p>
                   </Link>
                 </div>
