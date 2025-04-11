@@ -11,3 +11,5 @@ pipenv install
 
 # pipenv run upgrade  # Agregado por Alexis para generar automáticamente administradores en la BD
 # flask insert-users  # Agregado por Alexis para generar automáticamente administradores en la BD
+
+
