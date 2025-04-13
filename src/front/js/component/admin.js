@@ -105,6 +105,9 @@ export const Admin = () => {
     <div className="admin-container">
       <div className="admin-header">
         <h2>Registro de Consultas</h2>
+        <h4>Si accedés desde celular, colócalo en posición </h4>
+        <h4 className="mb-4">horizontal para una mejor experiencia</h4>
+
         <input
           type="text"
           placeholder=" Filtrar por nombre o apellido"
