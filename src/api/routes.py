@@ -12,15 +12,19 @@ from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_requir
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS
 from datetime import datetime, date, timedelta
+
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 api = Blueprint('api', __name__)
 CORS(api)
+
 sender_email = os.getenv("SMTP_USERNAME")
 sender_password = os.getenv("SMTP_PASSWORD")
 smtp_host = os.getenv("SMTP_HOST")
 smtp_port = os.getenv("SMTP_PORT")
 receiver_email = [""]
+
+
 ### Enviar email
 def send_signup_email(receivers_email):
     message = MIMEMultipart("alternative")
@@ -48,11 +52,15 @@ def send_signup_email(receivers_email):
     except Exception as e:
         print(f"Error al enviar correo: {str(e)}")
         return False
+
+
 ### Random password
 def generate_random_password(length=10):
     chars = string.ascii_letters + string.digits + string.punctuation
     password = ''.join(random.choice(chars) for _ in range(length))
     return password
+
+
 ### Reset-Password
 @api.route('/send-email', methods=['PUT'])
 def send_email():
@@ -94,6 +102,8 @@ def send_email():
        return jsonify({"msg": "Correo enviado correctamente"}), 200
    except Exception as e:
        return jsonify({"msg": f"Error al enviar correo: {str(e)}"}), 500
+
+
 ### Password recuperar
 @api.route('/reset-password', methods=['PUT'])
 def recuperar_password():
@@ -109,6 +119,8 @@ def recuperar_password():
     exist_user.set_password(nueva)
     db.session.commit()
     return jsonify({"msg": "Contraseña actualizada con éxito"}), 200
+
+
 ### Registro
 @api.route('/signup', methods=['POST'])
 def register():
@@ -135,6 +147,7 @@ def register():
     send_signup_email([email])
     return jsonify({"message":"User crated successfully"}),201
 
+
 ### Login
 @api.route('/login', methods=['POST'])
 def login():
@@ -152,6 +165,8 @@ def login():
         return jsonify({"msg": "Bad username or password"}), 401
     access_token = create_access_token(identity=email)
     return jsonify(access_token=access_token, user=user.serialize()), 200
+
+
 ### Funcion de  send email al user y admin
 def send_reservation_email(receivers_email, action, reservation_details, performed_by=None, reservation_id=None):
     sender_email = os.getenv("SMTP_USERNAME")
@@ -192,6 +207,8 @@ def send_reservation_email(receivers_email, action, reservation_details, perform
         print(f"Error al enviar correo: {str(e)}")
         return False
     return True
+
+
 ### Endpoint for reservations from one user
 @api.route('/reservations', methods=['GET'])
 @jwt_required()
@@ -220,6 +237,8 @@ def get_reservations_by_email():
         return jsonify(reservas_list), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
+
+
 ### Endpoint for reservations from all users
 @api.route('/reservations_all', methods=['GET'])
 @jwt_required()
@@ -230,6 +249,8 @@ def get_all_reservations():
         return jsonify(serialized_reservations), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
+
+
 ### Endpoint for reservations from all users (for Administrator)
 @api.route('/admin', methods=['GET'])
 @jwt_required()
@@ -272,6 +293,8 @@ def get_reservations_admin():
         return jsonify(serialized_reservations), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
+
+
 ### Endpoint to delete a specific reservation of a user (ID in the body)
 @api.route('/reservations', methods=['DELETE'])
 @jwt_required()
@@ -351,6 +374,8 @@ def guardar_reserva():
     except Exception as e:
         db.session.rollback()
         return jsonify({"message": f"Error al guardar las reservas: {str(e)}"}), 500
+
+
 ### UserPerofile
 @api.route('/userProfile', methods=['GET'])
 @jwt_required()

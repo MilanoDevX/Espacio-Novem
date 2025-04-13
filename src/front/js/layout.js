@@ -33,7 +33,7 @@ const FooterComponent = () => {
     const isResetPass = location.pathname.startsWith("/reset-password");
     const isAgendaRoute = location.pathname.startsWith("/agenda"); 
 
-    if (isAdminRoute || isRegister || isSendEmail || isResetPass || isAgendaRoute) {
+    if (isRegister || isSendEmail || isResetPass) {
         return null; 
     }
 
