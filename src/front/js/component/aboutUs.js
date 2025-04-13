@@ -22,7 +22,7 @@ export const AboutUs = () => {
                 <div className="d-flex align-items-center">
                     <img className="registeruser juntas rounded-circle m-2" src={user} alt="Psicologa atendiedno a paciente en el consultorio" />
                     <div className="d-flex">
-                        <h5 className="card-title about ">Julia: </h5>
+                        <h5 className="card-title about ">Lucía: </h5>
                         <p className="card-text about "> Soy Psicologa desde hace 15 años y estoy convencida que elegi la mejor carrera .</p>
                     </div>
                 </div>
@@ -30,7 +30,7 @@ export const AboutUs = () => {
                 <div className="d-flex align-items-center">
                     <img className="registeruser juntas rounded-circle m-2" src={user} alt="Psicologa atendiedno a paciente en el consultorio" />
                     <div className="d-flex">
-                        <h5 className="card-title about ">Sofia: </h5>
+                        <h5 className="card-title about ">Lucía: </h5>
                         <p className="card-text about "> Soy Psicologa desde hace 10 años comprometida con mi trabajo .</p>
                     </div>
                 </div>

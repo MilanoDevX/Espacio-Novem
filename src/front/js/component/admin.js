@@ -27,10 +27,14 @@ export const Admin = () => {
     return baseDate;
   };
 
+  const { getReservationsAdmin, deleteReservation } = actions;
+
   useEffect(() => {
+    let isMounted = true;
+
     const fetchAppointments = async () => {
-      const data = await actions.getReservationsAdmin();
-      if (data) {
+      const data = await getReservationsAdmin();
+      if (data && isMounted) {
         // Ordenamos las reservas de forma descendente considerando fecha y hora
         const sortedAppointments = data.sort((a, b) => {
           const dateA = getAppointmentDateTime(a);
@@ -41,8 +45,14 @@ export const Admin = () => {
         setFilteredAppointments(sortedAppointments);
       }
     };
+
     fetchAppointments();
-  }, [actions]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [getReservationsAdmin]);
+
 
   useEffect(() => {
     setFilteredAppointments(
@@ -95,6 +105,9 @@ export const Admin = () => {
     <div className="admin-container">
       <div className="admin-header">
         <h2>Registro de Consultas</h2>
+        <h4>Si accedés desde celular, colócalo en posición </h4>
+        <h4 className="mb-4">horizontal para una mejor experiencia</h4>
+
         <input
           type="text"
           placeholder=" Filtrar por nombre o apellido"
@@ -120,7 +133,7 @@ export const Admin = () => {
               <th>Nombre</th>
               <th>Apellido</th>
               <th>Email</th>
-              <th>Acciones</th>
+              <th>Acción</th>
             </tr>
           </thead>
           <tbody>
@@ -134,8 +147,8 @@ export const Admin = () => {
                   appointmentDateTime <= now
                     ? "admin-past-date-row"
                     : appointmentDateTime > now && appointmentDateTime <= addHours(now, 24)
-                    ? "admin-within-24h-row"
-                    : "";
+                      ? "admin-within-24h-row"
+                      : "";
 
                 return (
                   <tr key={appointment.id} className={rowClass}>
@@ -147,10 +160,12 @@ export const Admin = () => {
                     <td>{appointment.user_last_name}</td>
                     <td>{appointment.user_email}</td>
                     <td>
-                      {appointmentDateTime > now && (
+                      {appointmentDateTime > now ? (
                         <button className="delete-btn" onClick={() => handleDelete(appointment.id)}>
                           Eliminar
                         </button>
+                      ) : (
+                        <span className="italic">Utilizada</span>
                       )}
                     </td>
                   </tr>

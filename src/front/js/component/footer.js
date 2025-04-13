@@ -41,7 +41,7 @@ export const Footer = () => {
                     <div className="politica-reserva">
                         <h3 className="reserva-title">Política de Reserva</h3>
                         <p>
-                            Si necesitas camilla o mesa para niños, agéndalo en los horarios 4 y 5.
+                            Si necesitas camilla o mesa para niños, haznos la solicitud por email y haz tu reserva en los consultorios 4 ó 5.
                         </p>
                         <h3 className="reserva-title">Política de cancelación</h3>
                         <p>Puedes cancelar o reprogramar hasta 24 horas antes de la cita.</p>

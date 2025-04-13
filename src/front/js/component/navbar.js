@@ -14,6 +14,9 @@ export const Navbar = () => {
     rememberMe: false,
   });
 
+  // Estado para saber si el menú responsive está abierto
+  const [navOpen, setNavOpen] = useState(false);
+
   // Obtenemos el usuario actual si la acción está definida
   useEffect(() => {
     if (actions.getCurrentUser) {
@@ -29,7 +32,6 @@ export const Navbar = () => {
 
     if (loginModalElement) {
       const handleHidden = () => {
-        // Elimina la clase que bloquea el scroll y resetea estilos aplicados
         document.body.classList.remove("modal-open");
         document.body.style.overflow = "auto";
         document.body.style.paddingRight = "0";
@@ -42,6 +44,35 @@ export const Navbar = () => {
       };
     }
   }, []);
+
+  // Listener para actualizar el estado cuando se muestre/oculte el collapse
+  useEffect(() => {
+    const navContent = document.getElementById("navbarContent");
+    if (navContent) {
+      const handleShown = () => setNavOpen(true);
+      const handleHidden = () => setNavOpen(false);
+      navContent.addEventListener("shown.bs.collapse", handleShown);
+      navContent.addEventListener("hidden.bs.collapse", handleHidden);
+      return () => {
+        navContent.removeEventListener("shown.bs.collapse", handleShown);
+        navContent.removeEventListener("hidden.bs.collapse", handleHidden);
+      };
+    }
+  }, []);
+
+  // Handler para togglear el menú responsive
+  const handleToggle = () => {
+    const navContent = document.getElementById("navbarContent");
+    // Usamos la API de Bootstrap para el collapse
+    const collapseInstance = window.bootstrap?.Collapse.getInstance(navContent);
+    if (collapseInstance) {
+      collapseInstance.toggle();
+    } else if (navContent) {
+      // Si no existe una instancia, la creamos manualmente
+      const newCollapse = new window.bootstrap.Collapse(navContent, { toggle: true });
+      newCollapse.toggle();
+    }
+  };
 
   const handleLogout = () => {
     actions.logout();
@@ -62,13 +93,9 @@ export const Navbar = () => {
     const modalInstance =
       Modal.getInstance(loginModalElement) || new Modal(loginModalElement);
     modalInstance.hide();
-
-    // Forzamos de inmediato una limpieza, aunque el listener se encargará cuando se termine la transición
     document.body.classList.remove("modal-open");
     document.body.style.overflow = "auto";
     document.body.style.paddingRight = "0";
-
-    // Removemos el backdrop en caso de que no se elimine solo
     const backdrop = document.querySelector(".modal-backdrop");
     if (backdrop) {
       backdrop.remove();
@@ -78,17 +105,13 @@ export const Navbar = () => {
   const loginUser = async (e) => {
     e.preventDefault();
     const resp = await actions.login(user);
-
     if (resp) {
-      // Cerrar el modal de login al ingresar de forma exitosa
       closeLoginModal();
-
       if (user.rememberMe) {
         localStorage.setItem("rememberedEmail", user.email);
       } else {
         localStorage.removeItem("rememberedEmail");
       }
-      // Redirecciona según el rol del usuario
       navigate(store.user?.is_admin ? "/admin" : "/");
     }
   };
@@ -113,16 +136,18 @@ export const Navbar = () => {
           <button className="adminbutton">Espacio Novem</button>
         )}
 
+        {/* Botón toggler usando onClick para controlar el collapse */}
         <button
           className="navbar-toggler text-light border-0 ms-auto"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarContent"
-          aria-controls="navbarContent"
-          aria-expanded="false"
+          onClick={handleToggle}
           aria-label="Toggle navigation"
         >
-          <span className="fa-solid fa-bars"></span>
+          {navOpen ? (
+            <span className="fa-solid fa-xmark"></span>
+          ) : (
+            <span className="fa-solid fa-bars"></span>
+          )}
         </button>
 
         <div className="collapse navbar-collapse justify-content-end" id="navbarContent">
@@ -135,7 +160,6 @@ export const Navbar = () => {
                 Inicio
               </Link>
             </li>
-
             {store.user?.email && (
               <>
                 <li className="nav-item">
@@ -156,7 +180,6 @@ export const Navbar = () => {
                 </li>
               </>
             )}
-
             {store.user?.is_admin && (
               <li className="nav-item">
                 <Link className="nav-link text-light" to="/admin">
@@ -167,7 +190,6 @@ export const Navbar = () => {
                 </Link>
               </li>
             )}
-
             <li className="nav-item">
               <Link className="nav-link text-light" to="/aboutUs">
                 <span className="d-lg-none me-1">
@@ -176,7 +198,6 @@ export const Navbar = () => {
                 Quienes Somos
               </Link>
             </li>
-
             {store.user?.email && (
               <li className="nav-item">
                 <button onClick={handleLogout} className="btn closenav m-2">
@@ -184,7 +205,6 @@ export const Navbar = () => {
                 </button>
               </li>
             )}
-
             {!store.user?.email && (
               <li className="nav-item">
                 <button
@@ -214,12 +234,7 @@ export const Navbar = () => {
               <h5 className="modal-title" id="loginModalLabel">
                 Iniciar Sesión
               </h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
               <form onSubmit={loginUser}>
