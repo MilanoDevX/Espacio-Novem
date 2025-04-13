@@ -31,10 +31,10 @@ const FooterComponent = () => {
     const isRegister = location.pathname.startsWith("/register");
     const isSendEmail = location.pathname.startsWith("/send-email");
     const isResetPass = location.pathname.startsWith("/reset-password");
-    const isAgendaRoute = location.pathname.startsWith("/agenda"); 
+    const isAgendaRoute = location.pathname.startsWith("/agenda");
 
     if (isRegister || isSendEmail || isResetPass) {
-        return null; 
+        return null;
     }
 
     return location.pathname === "/" ? <Footer /> : <FooterLogin />;
@@ -46,26 +46,28 @@ const Layout = () => {
     if (!process.env.BACKEND_URL || process.env.BACKEND_URL === "") return <BackendURL />;
 
     return (
-        <div>
+        <div className="app-container">
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
-                    <Navbar />
-                    <Routes>
-                        <Route element={<Home />} path="/" />
-                        <Route element={<Demo />} path="/demo" />
-                        <Route element={<AboutUs />} path="/aboutUs" />
-                        <Route element={<Single />} path="/single/:theid" />
-                        <Route element={<ProtectedRoute><Reservations /></ProtectedRoute>} path="/reservations" />
-                        <Route element={<ProtectedRoute><Agenda /></ProtectedRoute>} path="/agenda" />
-                        <Route element={<SendEmail />} path="/send-email" />
-                        <Route element={<ProtectedRoute><UserProfile /></ProtectedRoute>} path="/userProfile" />
-                        <Route element={<ResetPassword />} path="/reset-password" />
-                        <Route element={<ProtectedRoute><Admin /></ProtectedRoute>} path="/admin" />
-                        <Route element={<Register />} path="/register" />
-                        <Route element={<Benefits />} path="/benefits" />
-                        <Route element={<Header />} path="/home" />
-                        <Route element={<h1>Not found!</h1>} />
-                    </Routes>
+                    <div className="main-content">
+                        <Navbar />
+                        <Routes>
+                            <Route element={<Home />} path="/" />
+                            <Route element={<Demo />} path="/demo" />
+                            <Route element={<AboutUs />} path="/aboutUs" />
+                            <Route element={<Single />} path="/single/:theid" />
+                            <Route element={<ProtectedRoute><Reservations /></ProtectedRoute>} path="/reservations" />
+                            <Route element={<ProtectedRoute><Agenda /></ProtectedRoute>} path="/agenda" />
+                            <Route element={<SendEmail />} path="/send-email" />
+                            <Route element={<ProtectedRoute><UserProfile /></ProtectedRoute>} path="/userProfile" />
+                            <Route element={<ResetPassword />} path="/reset-password" />
+                            <Route element={<ProtectedRoute><Admin /></ProtectedRoute>} path="/admin" />
+                            <Route element={<Register />} path="/register" />
+                            <Route element={<Benefits />} path="/benefits" />
+                            <Route element={<Header />} path="/home" />
+                            <Route element={<h1>Not found!</h1>} />
+                        </Routes>
+                    </div>
                     <FooterComponent /> {/* Aquí renderizamos el Footer o FooterLogin según la ruta */}
                 </ScrollToTop>
             </BrowserRouter>
