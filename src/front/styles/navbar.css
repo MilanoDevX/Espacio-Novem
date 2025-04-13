@@ -75,7 +75,7 @@
   }
 
   .navbar-profile {
-    order: 1; 
+    order: 1;
   }
 
   .btn-consult {
@@ -87,20 +87,37 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
-}
+  }
 
-.btn-consult:hover {
+  .btn-consult:hover {
     background-color: #AFB796;
     color: #6A7562;
-}
+  }
 
-.btn-consult:active {
+  .btn-consult:active {
     background-color: #9AA082;
     transform: translateY(1px);
-}
-}
+  }
 
-.inicio{
-  background-color: #afb796;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  .inicio {
+    background-color: #afb796;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .navbar-toggler span {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .navbar-toggler {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  
+  .navbar-toggler:focus,
+  .navbar-toggler:active {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
 }
