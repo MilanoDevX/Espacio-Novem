@@ -199,7 +199,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             getReservations: async () => {
                 try {
                     const token = localStorage.getItem("access_token");
-                    const response = await fetch(process.env.BACKEND_URL + "/reservations", {
+                    const response = await fetch(process.env.BACKEND_URL + "/reservations_all", {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json",
