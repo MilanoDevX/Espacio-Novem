@@ -38,7 +38,6 @@ export const Agenda = () => {
             confirmButtonText: 'Sí, eliminar',
             cancelButtonText: 'Cancelar'
         });
-
         if (result.isConfirmed) {
             setLoading(true); // Mostrar spinner mientras se elimina la reserva
             const response = await actions.deleteReservation(id);

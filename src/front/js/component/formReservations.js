@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useContext } from 'react';
 import '../../styles/formReservations.css';
 import { Context } from "../store/appContext"
@@ -46,7 +45,6 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
       const selectedOffice = document.querySelector(
         `input[name="office-${hour}"]:checked`
       )?.value;
-
       if (selectedOffice && selectedOffice !== "Ninguno") {
         selectedReservations.push({
           date: selectedDate,
@@ -55,7 +53,6 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
         });
       }
     });
-
     if (selectedReservations.length > 0) {
       const resp = await actions.submitReservations(selectedReservations);
       // Ocultar spinner al terminar la petición
@@ -79,11 +76,9 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
           showConfirmButton: false,
         }); v
       }
-
       if (onReservationsUpdated) {
         await onReservationsUpdated();
       }
-
       const updatedData = await actions.getReservations();
 
       if (updatedData) {
@@ -108,14 +103,12 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
   const getRowData = (hour) => {
     const filteredEntries = schedule.filter((entry) => entry.hour === hour);
     const reservedoffices = filteredEntries.flatMap(entry => entry.office);
-
     return {
       hour,
       offices: reservedoffices,
       default: 'Ninguno',
     };
   };
-
   const isAvailable = (offices) => offices.length < 4;
   
   const isPastHour = (hour) => {
@@ -137,8 +130,6 @@ const FormReservations = ({ selectedDate, onReservationsUpdated }) => {
     // Comparar fechas completas para días pasados
     return selectedDateTime < currentDateTime;
   };
-
-
   return (
     <div className="form-reservations-container container"  style={{ opacity: loading ? 0.5 : 1 }}>
       {loading && (

@@ -1,3 +1,4 @@
+
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Reservation
 from api.utils import generate_sitemap, APIException
@@ -16,6 +17,7 @@ from datetime import datetime, date, timedelta
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 api = Blueprint('api', __name__)
+
 CORS(api)
 
 sender_email = os.getenv("SMTP_USERNAME")
@@ -23,7 +25,6 @@ sender_password = os.getenv("SMTP_PASSWORD")
 smtp_host = os.getenv("SMTP_HOST")
 smtp_port = os.getenv("SMTP_PORT")
 receiver_email = [""]
-
 
 ### Enviar email
 def send_signup_email(receivers_email):
@@ -55,6 +56,7 @@ def send_signup_email(receivers_email):
 
 
 ### Random password
+
 def generate_random_password(length=10):
     chars = string.ascii_letters + string.digits + string.punctuation
     password = ''.join(random.choice(chars) for _ in range(length))
@@ -62,6 +64,7 @@ def generate_random_password(length=10):
 
 
 ### Reset-Password
+
 @api.route('/send-email', methods=['PUT'])
 def send_email():
    data = request.json
@@ -105,6 +108,7 @@ def send_email():
 
 
 ### Password recuperar
+
 @api.route('/reset-password', methods=['PUT'])
 def recuperar_password():
     data = request.json
@@ -122,6 +126,7 @@ def recuperar_password():
 
 
 ### Registro
+
 @api.route('/signup', methods=['POST'])
 def register():
     data=request.json
@@ -166,8 +171,8 @@ def login():
     access_token = create_access_token(identity=email)
     return jsonify(access_token=access_token, user=user.serialize()), 200
 
-
 ### Funcion de  send email al user y admin
+
 def send_reservation_email(receivers_email, action, reservation_details, performed_by=None, reservation_id=None):
     sender_email = os.getenv("SMTP_USERNAME")
     sender_password = os.getenv("SMTP_PASSWORD")
@@ -208,8 +213,8 @@ def send_reservation_email(receivers_email, action, reservation_details, perform
         return False
     return True
 
-
 ### Endpoint for reservations from one user
+
 @api.route('/reservations', methods=['GET'])
 @jwt_required()
 def get_reservations_by_email():
@@ -240,6 +245,7 @@ def get_reservations_by_email():
 
 
 ### Endpoint for reservations from all users
+
 @api.route('/reservations_all', methods=['GET'])
 @jwt_required()
 def get_all_reservations():
@@ -252,6 +258,7 @@ def get_all_reservations():
 
 
 ### Endpoint for reservations from all users (for Administrator)
+
 @api.route('/admin', methods=['GET'])
 @jwt_required()
 def get_reservations_admin():
@@ -296,6 +303,7 @@ def get_reservations_admin():
 
 
 ### Endpoint to delete a specific reservation of a user (ID in the body)
+
 @api.route('/reservations', methods=['DELETE'])
 @jwt_required()
 def delete_reservation():
@@ -377,6 +385,7 @@ def guardar_reserva():
 
 
 ### UserPerofile
+
 @api.route('/userProfile', methods=['GET'])
 @jwt_required()
 def get_user_profile():
