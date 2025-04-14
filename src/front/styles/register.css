@@ -156,3 +156,10 @@
   color: #6A7562;
   margin-top: 5px;
 }
+
+
+.error-text {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
