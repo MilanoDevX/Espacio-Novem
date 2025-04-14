@@ -47,9 +47,10 @@ export const Register = () => {
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.toLowerCase())) {
             newErrors.email = "Correo electrónico inválido.";
         }
-        if (!/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,20}$/.test(password)) {
-            newErrors.password = "Contraseña inválida (8-20 caracteres, 1 mayúscula, 1 número).";
+        if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,20}$/.test(password)) {
+            newErrors.password = "Contraseña inválida (8-20 caracteres, al menos 1 minúscula, 1 mayúscula y 1 número).";
         }
+        
         if (confirmar !== password) {
             newErrors.confirmar = "Las contraseñas no coinciden.";
         }
