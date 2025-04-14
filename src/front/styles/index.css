@@ -1,0 +1,11 @@
+/* Contenedor principal que abarca toda la pantalla */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;  /* La altura mínima es igual a la altura del viewport */
+  }
+  
+  /* El contenido principal se expande para ocupar el espacio disponible */
+  .main-content {
+    flex: 1;
+  }

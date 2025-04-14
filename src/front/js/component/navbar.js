@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import { useNavigate, Link } from "react-router-dom";
 import { Modal } from "bootstrap";
 import '../../styles/navbar.css';
+
 export const Navbar = () => {
   const navigate = useNavigate();
   const { store, actions } = useContext(Context);
@@ -11,6 +12,10 @@ export const Navbar = () => {
     password: "",
     rememberMe: false,
   });
+
+  // Estado para saber si el menú responsive está abierto
+  const [navOpen, setNavOpen] = useState(false);
+
   // Obtenemos el usuario actual si la acción está definida
   useEffect(() => {
     if (actions.getCurrentUser) {
@@ -19,6 +24,55 @@ export const Navbar = () => {
       });
     }
   }, [actions]);
+
+  // Listener para cuando el modal se oculte completamente
+  useEffect(() => {
+    const loginModalElement = document.getElementById("loginModal");
+
+    if (loginModalElement) {
+      const handleHidden = () => {
+        document.body.classList.remove("modal-open");
+        document.body.style.overflow = "auto";
+        document.body.style.paddingRight = "0";
+      };
+
+      loginModalElement.addEventListener("hidden.bs.modal", handleHidden);
+
+      return () => {
+        loginModalElement.removeEventListener("hidden.bs.modal", handleHidden);
+      };
+    }
+  }, []);
+
+  // Listener para actualizar el estado cuando se muestre/oculte el collapse
+  useEffect(() => {
+    const navContent = document.getElementById("navbarContent");
+    if (navContent) {
+      const handleShown = () => setNavOpen(true);
+      const handleHidden = () => setNavOpen(false);
+      navContent.addEventListener("shown.bs.collapse", handleShown);
+      navContent.addEventListener("hidden.bs.collapse", handleHidden);
+      return () => {
+        navContent.removeEventListener("shown.bs.collapse", handleShown);
+        navContent.removeEventListener("hidden.bs.collapse", handleHidden);
+      };
+    }
+  }, []);
+
+  // Handler para togglear el menú responsive
+  const handleToggle = () => {
+    const navContent = document.getElementById("navbarContent");
+    // Usamos la API de Bootstrap para el collapse
+    const collapseInstance = window.bootstrap?.Collapse.getInstance(navContent);
+    if (collapseInstance) {
+      collapseInstance.toggle();
+    } else if (navContent) {
+      // Si no existe una instancia, la creamos manualmente
+      const newCollapse = new window.bootstrap.Collapse(navContent, { toggle: true });
+      newCollapse.toggle();
+    }
+  };
+
   const handleLogout = () => {
     actions.logout();
     navigate("/");
@@ -30,6 +84,22 @@ export const Navbar = () => {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
+
+  // Función auxiliar para cerrar el modal
+  const closeLoginModal = () => {
+    const loginModalElement = document.getElementById("loginModal");
+    const modalInstance =
+      Modal.getInstance(loginModalElement) || new Modal(loginModalElement);
+    modalInstance.hide();
+    document.body.classList.remove("modal-open");
+    document.body.style.overflow = "auto";
+    document.body.style.paddingRight = "0";
+    const backdrop = document.querySelector(".modal-backdrop");
+    if (backdrop) {
+      backdrop.remove();
+    }
+  };
+
   const loginUser = async (e) => {
     e.preventDefault();
     const resp = await actions.login(user);
@@ -43,17 +113,20 @@ export const Navbar = () => {
       if (backdrop) {
         backdrop.remove();
       }
+      closeLoginModal();
       if (user.rememberMe) {
         localStorage.setItem("rememberedEmail", user.email);
       } else {
         localStorage.removeItem("rememberedEmail");
       }
-      // Redirecciona según el rol del usuario
       navigate(store.user?.is_admin ? "/admin" : "/");
     }
   };
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary navbarcolor" aria-label="Eleventh navbar example mx-5">
+    <nav
+      className="navbar navbar-expand-lg bg-body-tertiary navbarcolor"
+      aria-label="Eleventh navbar example mx-5"
+    >
       <div className="container-fluid">
         {store.user?.email ? (
           <button
@@ -66,20 +139,21 @@ export const Navbar = () => {
             Espacio Novem
           </button>
         ) : (
-          <button className="adminbutton">
-            Espacio Novem
-          </button>
+          <button className="adminbutton">Espacio Novem</button>
         )}
+
+        {/* Botón toggler usando onClick para controlar el collapse */}
         <button
           className="navbar-toggler text-light border-0 ms-auto"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarContent"
-          aria-controls="navbarContent"
-          aria-expanded="false"
+          onClick={handleToggle}
           aria-label="Toggle navigation"
         >
-          <span className="fa-solid fa-bars"></span>
+          {navOpen ? (
+            <span className="fa-solid fa-xmark"></span>
+          ) : (
+            <span className="fa-solid fa-bars"></span>
+          )}
         </button>
         <div className="collapse navbar-collapse justify-content-end" id="navbarContent">
           <ul className="navbar-nav me-3 mb-2 mb-lg-0 d-flex align-items-center">
@@ -151,11 +225,20 @@ export const Navbar = () => {
           </ul>
         </div>
       </div>
-      <div className="modal fade" id="loginModal" tabIndex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+
+      <div
+        className="modal fade"
+        id="loginModal"
+        tabIndex="-1"
+        aria-labelledby="loginModalLabel"
+        aria-hidden="true"
+      >
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+              <h5 className="modal-title" id="loginModalLabel">
+                Iniciar Sesión
+              </h5>
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
@@ -201,12 +284,12 @@ export const Navbar = () => {
                   </label>
                 </div>
                 <div className="mb-3">
-                  <Link to="/register" className="custom-link">
+                  <Link to="/register" className="custom-link" onClick={closeLoginModal}>
                     <p>¿No tienes cuenta? Regístrate</p>
                   </Link>
                 </div>
                 <div className="mb-3">
-                  <Link to="/send-email" className="custom-link">
+                  <Link to="/send-email" className="custom-link" onClick={closeLoginModal}>
                     <p>¿Olvidaste tu contraseña?</p>
                   </Link>
                 </div>

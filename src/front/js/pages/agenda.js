@@ -77,7 +77,7 @@ export const Agenda = () => {
             <div className="agenda-header">
                 <h2>Registro de reservas</h2>
             </div>
-            <div className="agenda-table-container"  style={{ opacity: loading ? 0.5 : 1 }}>
+            <div className="agenda-table-container" style={{ opacity: loading ? 0.5 : 1 }}>
                 <table className="agenda-table">
                     <thead>
                         <tr>
@@ -89,55 +89,64 @@ export const Agenda = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {reservations
-                            .filter(r =>
-                                !isBefore(parseISO(r.date + 'T' + r.hour + ':00'), now) ||
-                                reservations
-                                    .filter(res => isBefore(parseISO(res.date + 'T' + res.hour + ':00'), now))
-                                    .slice(0, 10)
-                                    .includes(r)
-                            )
-                            .map(({ id, date, hour, office }) => {
-                                const dateTimeStr = `${date}T${hour}:00`;
-                                const dateObj = parseISO(dateTimeStr);
-                                const isPastDate = isBefore(dateObj, now);
-                                const isWithin24Hours = isWithinInterval(dateObj, {
-                                    start: now,
-                                    end: addHours(now, 24)
-                                });
-                                return (
-                                    <tr
-                                        key={id}
-                                        className={
-                                            isPastDate
-                                                ? "agenda-past-date-row"
-                                                : isWithin24Hours
-                                                    ? "agenda-within-24h-row"
-                                                    : "same-height-row"
-                                        }
-                                    >
-                                        <td>{id}</td>
-                                        <td>{format(dateObj, 'dd/MM/yyyy')}</td>
-                                        <td>{hour}</td>
-                                        <td>{office}</td>
-                                        <td>
-                                            {isPastDate ? (
-                                                <i className="italic">Utilizada</i>
-                                            ) : isWithin24Hours ? (
-                                                <i className="italic">Próxima</i>
-                                            ) : (
-                                                <button
-                                                    className="agenda-delete-btn"
-                                                    onClick={() => handleDelete(id)}
-                                                >
-                                                    Eliminar
-                                                </button>
-                                            )}
-                                        </td>
-                                    </tr>
-                                );
-                            })}
+                        {reservations.length === 0 ? (
+                            <tr>
+                                <td colSpan={5} style={{ textAlign: 'center', color: 'red', padding: '20px' }}>
+                                    No hay consultas registradas
+                                </td>
+                            </tr>
+                        ) : (
+                            reservations
+                                .filter(r =>
+                                    !isBefore(parseISO(r.date + 'T' + r.hour + ':00'), now) ||
+                                    reservations
+                                        .filter(res => isBefore(parseISO(res.date + 'T' + res.hour + ':00'), now))
+                                        .slice(0, 10)
+                                        .includes(r)
+                                )
+                                .map(({ id, date, hour, office }) => {
+                                    const dateTimeStr = `${date}T${hour}:00`;
+                                    const dateObj = parseISO(dateTimeStr);
+                                    const isPastDate = isBefore(dateObj, now);
+                                    const isWithin24Hours = isWithinInterval(dateObj, {
+                                        start: now,
+                                        end: addHours(now, 24)
+                                    });
+                                    return (
+                                        <tr
+                                            key={id}
+                                            className={
+                                                isPastDate
+                                                    ? "agenda-past-date-row"
+                                                    : isWithin24Hours
+                                                        ? "agenda-within-24h-row"
+                                                        : "same-height-row"
+                                            }
+                                        >
+                                            <td>{id}</td>
+                                            <td>{format(dateObj, 'dd/MM/yyyy')}</td>
+                                            <td>{hour}</td>
+                                            <td>{office}</td>
+                                            <td>
+                                                {isPastDate ? (
+                                                    <i className="italic">Utilizada</i>
+                                                ) : isWithin24Hours ? (
+                                                    <i className="italic">Próxima</i>
+                                                ) : (
+                                                    <button
+                                                        className="agenda-delete-btn"
+                                                        onClick={() => handleDelete(id)}
+                                                    >
+                                                        Eliminar
+                                                    </button>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    );
+                                })
+                        )}
                     </tbody>
+
                 </table>
             </div>
         </div>

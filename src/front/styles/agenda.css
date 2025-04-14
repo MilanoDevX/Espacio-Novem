@@ -93,8 +93,8 @@
     }
 
     .agenda-table th, .agenda-table td {
-        padding: 6px;
-        font-size: 1em;
+        padding: 0px;
+        font-size: 0.8em;
         height: 35px; /* Ajusta la altura de todas las filas */
         width: 100px;
 
@@ -102,6 +102,6 @@
 
     .agenda-delete-btn {
         padding: 6px 10px;
-        font-size: 1em;
+        font-size: 0.8em;
     }
 }

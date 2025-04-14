@@ -13,6 +13,7 @@ from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_requir
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS
 from datetime import datetime, date, timedelta
+
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 api = Blueprint('api', __name__)
@@ -52,7 +53,8 @@ def send_signup_email(receivers_email):
     except Exception as e:
         print(f"Error al enviar correo: {str(e)}")
         return False
-    
+
+
 ### Random password
 
 def generate_random_password(length=10):
@@ -103,7 +105,8 @@ def send_email():
        return jsonify({"msg": "Correo enviado correctamente"}), 200
    except Exception as e:
        return jsonify({"msg": f"Error al enviar correo: {str(e)}"}), 500
-   
+
+
 ### Password recuperar
 
 @api.route('/reset-password', methods=['PUT'])
@@ -120,6 +123,8 @@ def recuperar_password():
     exist_user.set_password(nueva)
     db.session.commit()
     return jsonify({"msg": "Contraseña actualizada con éxito"}), 200
+
+
 ### Registro
 
 @api.route('/signup', methods=['POST'])
@@ -146,6 +151,7 @@ def register():
     db.session.commit()
     send_signup_email([email])
     return jsonify({"message":"User crated successfully"}),201
+
 
 ### Login
 @api.route('/login', methods=['POST'])
@@ -236,7 +242,8 @@ def get_reservations_by_email():
         return jsonify(reservas_list), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
-    
+
+
 ### Endpoint for reservations from all users
 
 @api.route('/reservations_all', methods=['GET'])
@@ -248,7 +255,8 @@ def get_all_reservations():
         return jsonify(serialized_reservations), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
-    
+
+
 ### Endpoint for reservations from all users (for Administrator)
 
 @api.route('/admin', methods=['GET'])
@@ -292,7 +300,8 @@ def get_reservations_admin():
         return jsonify(serialized_reservations), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
-    
+
+
 ### Endpoint to delete a specific reservation of a user (ID in the body)
 
 @api.route('/reservations', methods=['DELETE'])
@@ -373,7 +382,8 @@ def guardar_reserva():
     except Exception as e:
         db.session.rollback()
         return jsonify({"message": f"Error al guardar las reservas: {str(e)}"}), 500
-    
+
+
 ### UserPerofile
 
 @api.route('/userProfile', methods=['GET'])

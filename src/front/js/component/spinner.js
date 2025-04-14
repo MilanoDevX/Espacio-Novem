@@ -5,9 +5,9 @@ const Spinner = () => {
   return (
     <div className="spinner-container d-flex flex-column align-items-center justify-content-center">
       <div className="spinner-border text-dark" role="status">
-        <span className="visually-hidden">Espere...</span>
+        <span className="visually-hidden">...</span>
       </div>
-      <h3>Esperando...</h3>
+      <h3>Procesando...</h3>
     </div>
   );
 };

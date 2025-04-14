@@ -30,7 +30,8 @@
   table-layout: auto;
 }
 
-.admin-table th, .admin-table td {
+.admin-table th,
+.admin-table td {
   padding: 5px 30px;
   border: 1px solid #6A7562;
   text-align: center;
@@ -76,29 +77,57 @@
   font-size: 110%;
 }
 
-/* Estilos Responsivos */
-@media screen and (max-width: 768px) {
-  .admin-header {
-      font-size: 0.8em;
-  }
-
-  .admin-table-container {
-      overflow-x: auto;
-  }
-
-  .admin-table th, .admin-table td {
-      padding: 6px;
-      font-size: 0.82em;
-      height: 35px;
-  }
-
-  .delete-btn {
-      padding: 5px 6px;
-      font-size: 0.9em;
-  }
+.search-input::placeholder {
+  font-size: 20px;
+  /* O el tamaño que prefieras */
+  text-align: center;
 }
 
 .search-input {
-  background-color:  #AFB796;
+  background-color: #AFB796;
   color: #6A7562;
+  width: 300px;
+  /* O el ancho que se adapte a tu diseño */
+  font-size: 20px;
+  /* Para asegurarnos que el texto del input también se vea acorde */
+  padding: 5px 10px;
+  /* Opcional, para mejorar la apariencia */
+}
+
+
+/* Estilos Responsivos */
+@media screen and (max-width: 768px) {
+  .admin-header {
+    font-size: 0.8em;
+  }
+
+  .admin-table-container {
+    overflow-x: auto;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    padding: 6px;
+    font-size: 0.82em;
+    height: 35px;
+  }
+
+  .delete-btn {
+    padding: 5px 6px;
+    font-size: 0.9em;
+  }
+
+  .search-input {
+    background-color: #AFB796;
+    color: #6A7562;
+    width: 300px; 
+    font-size: 20px; 
+    padding: 5px 10px 
+  }
+
+  .search-input::placeholder {
+    font-size: 17px;
+    text-align: center;
+  }
+
 }
