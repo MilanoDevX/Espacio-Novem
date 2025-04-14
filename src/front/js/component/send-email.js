@@ -1,51 +1,63 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom";
 import "/src/front/styles/sendEmail.css";
 import mujer from "../../img/mujer.png";
-import Swal from 'sweetalert2'
-
+import Swal from 'sweetalert2';
 
 export const SendEmail = () => {
     const { store, actions } = useContext(Context);
-    const navigate = useNavigate()
-    const [email, setEmail] = useState("")
-    const mensaje = (titulo, icon = "error", title = "error de ingreso") => {
+    const navigate = useNavigate();
+    const [email, setEmail] = useState("");
+
+    const mensaje = (titulo, icon = "error", title = "Error de ingreso") => {
         Swal.fire({
             icon: icon,
             title: title,
             text: titulo,
+            timer: 2000,
+            showConfirmButton: false
         });
-    }
+    };
+
     const envio = async (e) => {
-        e.preventDefault()
-        if (email == "") {
-            mensaje("Ingrese los datos solicitados")
-            return
+        e.preventDefault();
+        if (email === "") {
+            mensaje("Ingrese los datos solicitados");
+            return;
         }
-        let resp = await actions.restablecerPassword(email)
-        if (!resp) {
-            mensaje("Usuario no registrado")
-            navigate("/register")
+
+        let resp = await actions.restablecerPassword(email);
+
+        if (resp) {
+            mensaje("Correo enviado con éxito", "success", "¡Listo!");
+            setTimeout(() => navigate("/reset-password"), 2000); // espera que el usuario vea el mensaje
+        } else {
+            mensaje("Usuario no registrado");
+            setTimeout(() => navigate("/register"), 2000);
         }
-    }
+    };
+
     return (
-        <>
-            <div className="mt-5 mx-auto d-flex flex-wrap justify-content-center login" >
-                <div className="text-center">
-                    <img className="loginimage m-2" src={mujer} alt="Descripción de la imagen" />
+        <div className="login-container">
+            <div className="login-content">
+                <div className="image-container text-center">
+                    <img className="loginimage" src={mujer} alt="Descripción de la imagen" />
                 </div>
-                <form className="form content" style={{ width: "370px" }}>
-                    <h3>Olvidaste tu Contraseña</h3>
+                <form className="form-content" onSubmit={envio}>
+                    <h3>¿Olvidaste tu Contraseña?</h3>
                     <div className="mb-3">
                         <label className="form-label">Correo electrónico</label>
-                        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="form-control" id="exampleInputEmail221" aria-describedby="emailHelp" />
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="form-control"
+                        />
                     </div>
                     <div className="text-center">
-                        <button type="button" onClick={(e) => envio(e)} className="btn btn-primary"><Link className="custom-link text-light " to={"/reset-password"}>
+                        <button type="submit" className="btn btn-primary boton">
                             Enviar Correo
-                        </Link>
                         </button>
                     </div>
                     <div className="text-center mt-2">
@@ -55,6 +67,6 @@ export const SendEmail = () => {
                     </div>
                 </form>
             </div>
-        </>
+        </div>
     );
 };
