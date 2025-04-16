@@ -88,7 +88,7 @@ export const Navbar = () => {
   const validateForm = () => {
     let valid = true;
     let validationErrors = { email: "", password: "" };
-
+  
     if (!user.email) {
       validationErrors.email = "El correo electrónico es obligatorio.";
       valid = false;
@@ -96,19 +96,16 @@ export const Navbar = () => {
       validationErrors.email = "Por favor ingresa un correo electrónico válido.";
       valid = false;
     }
-
+  
     if (!user.password) {
       validationErrors.password = "La contraseña es obligatoria.";
       valid = false;
-    } else {
-  
-      validationErrors.password = "La contraseña no es correcta.";
-      valid = false;
     }
-
+  
     setErrors(validationErrors);
     return valid;
-};
+  };
+  
 
   const loginUser = async (e) => {
     e.preventDefault();
