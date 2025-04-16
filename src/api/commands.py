@@ -27,12 +27,14 @@ def setup_commands(app):
             db.session.commit()
             print("User: ", user.email, " created.")
         print("All test users created")
+        
     # @app.cli.command("insert-users")
     # def insert_users():
+
     #     new_admin = User(
-    #     name = "Espacio",
-    #     last_name = "Novem",
-    #     email = "espacionovem@gmail.com",
+    #     name = "Admin",
+    #     last_name = "Admin",
+    #     email = "@gmail.com",
     #     password = "123456789",
     #     telefono = "123456789",
     #     is_admin = True,
@@ -40,9 +42,10 @@ def setup_commands(app):
     #     db.session.add(new_admin)
     #     db.session.commit()
     #     print("Admin user created")
+
         # new_admin2 = User(
-        # name = "Lucía",
-        # last_name = "Eguren",
+        # name = "Admin2",
+        # last_name = "Admin2",
         # email = "@gmail.com",
         # password = "123456789",
         # telefono = "123456789",
@@ -51,15 +54,16 @@ def setup_commands(app):
         # db.session.add(new_admin2)
         # db.session.commit()
         # print("Admin user created")
-        # new_admin2 = User(
-        # name = "Admin",
-        # last_name = "Admin",
-        # email = "trabajosdeveloper2025@gmail.com",
+
+        # new_admin3 = User(
+        # name = "Admin3",
+        # last_name = "Admin3",
+        # email = "@gmail.com",
         # password = "123456789",
         # telefono = "123456789",
         # is_admin = True,
         # )
-        # db.session.add(new_admin2)
+        # db.session.add(new_admin3)
         # db.session.commit()
         # print("Admin user created")
 

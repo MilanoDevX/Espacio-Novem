@@ -1,43 +1,75 @@
+
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #F2E5D5; 
+}
+
+
+.login-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #F2E5D5;
+  padding: 30px;
+  flex-direction: column; 
+  max-width: 900px;
+  width: 100%;
+  gap: 20px;
+}
+
+
+.loginimage {
+  width: 250px;
+  max-width: 100%;
+  height: auto;
+}
+
+
+.form-content {
+  width: 100%;
+  max-width: 370px;
+}
+
+
+.boton {
+  width: 100%;
+  font-weight: bold;
+  padding: 10px;
+  background-color: #6A7562; 
+  color: white; 
+  border: none;
+  border-radius: 5px;
+}
+
+.boton:hover {
+  background-color: #afb796; 
+}
+
+
 .customs-links {
-    text-decoration: none;
-    color: #6A7562;
+  text-decoration: none;
+  color: #6A7562; 
 }
 
 .customs-links:hover {
-    text-decoration: none;
-    color: #afb796;
+  color: #afb796; 
 }
 
-/* Ajustes para hacer la vista responsive */
-.login {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-}
 
-.loginimage {
-    max-width: 50%;
-    height: auto;
-}
-
-.content {
-    width: 90%;
-    max-width: 370px;
-}
-
-/* Media queries para diferentes tamaños de pantalla */
 @media (max-width: 768px) {
-    .login {
-        flex-direction: column;
-    }
-}
+  .login-content {
+      padding: 20px;
+  }
 
-@media (max-width: 480px) {
-    .content {
-        width: 100%;
-    }
-    .btn {
-        width: 100%;
-    }
+  .loginimage {
+      width: 200px;
+  }
+
+  .form-content {
+      width: 100%;
+  }
 }
