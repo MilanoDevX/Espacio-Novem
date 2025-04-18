@@ -11,25 +11,29 @@ const getState = ({ getStore, getActions, setStore }) => {
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(useNew),
                     });
+            
                     if (!resp.ok) {
                         setStore({ auth: false });
-                        return false, { status: false };
+                        return false;
                     }
+            
                     const data = await resp.json();
+            
                     if (data.access_token) {
                         localStorage.setItem("access_token", data.access_token);
                         setStore({ user: data.user, token: data.access_token, auth: true });
-                        return true, { status: true, rol: data.user.is_admin };
+                        return true;
                     } else {
                         setStore({ auth: false });
-                        return false, { status: false };
+                        return false;
                     }
                 } catch (error) {
                     console.error("Error en la solicitud:", error);
                     setStore({ auth: false });
-                    return false, { status: false };
+                    return false;
                 }
             },
+            
             signup: async (user) => {
                 try {
                     const resp = await fetch(process.env.BACKEND_URL + "/signup", {
