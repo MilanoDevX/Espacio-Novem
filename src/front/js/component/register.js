@@ -186,7 +186,7 @@ export const Register = () => {
                             <i className={`fa ${shownPassword ? "fa-eye" : "fa-eye-slash"}`}></i>
                         </button>
                     </div>
-                    <span className="form-text">Debe contener de 8 a 20 caracteres, una mayúscula y un número.</span>
+                    <span className="form-text">Debe contener de 8 a 20 caracteres, una mayúscula, una minúscula y un número.</span>
                     {errors.password && <p className="error-text">{errors.password}</p>}
                 </div>
             </div>
