@@ -121,3 +121,20 @@
   }
 
 }
+.password-input {
+  padding-right: 35px; 
+}
+
+.password-toggle-icon {
+  position: absolute;
+  top: 60%; 
+  right: 15px;
+  cursor: pointer;
+  color: #6A7562; 
+  transition: color 0.3s ease; 
+  cursor: pointer;
+}
+
+.password-toggle-icon:hover {
+  color:#6A7562; 
+}
