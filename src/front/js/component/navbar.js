@@ -102,15 +102,12 @@ export const Navbar = () => {
     if (!user.password) {
       validationErrors.password = "La contraseña es obligatoria.";
       valid = false;
-    } else {
-  
-      validationErrors.password = "La contraseña no es correcta.";
-      valid = false;
     }
 
     setErrors(validationErrors);
     return valid;
-};
+  };
+
 
   const loginUser = async (e) => {
     e.preventDefault();
@@ -134,6 +131,7 @@ export const Navbar = () => {
       }));
     }
   };
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary navbarcolor">
@@ -224,16 +222,20 @@ export const Navbar = () => {
                   />
                   {errors.email && <div className="text-danger">{errors.email}</div>}
                 </div>
-                <div className="mb-3">
+                <div className="mb-3 position-relative">
                   <label htmlFor="exampleInputPassword1" className="form-label">Contraseña</label>
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     name="password"
                     value={user.password}
-                    className="form-control form-control-lg dos"
+                    className="form-control form-control-lg dos password-input"
                     id="exampleInputPassword1"
                     onChange={handleChange}
                   />
+                  <i
+                    className={`fa-solid ${showPassword ? "fa-eye" : "fa-eye-slash"} password-toggle-icon`}
+                    onClick={() => setShowPassword(!showPassword)}
+                  ></i>
                   {errors.password && <div className="text-danger">{errors.password}</div>}
                 </div>
                 <div className="mb-3 d-flex align-items-center">

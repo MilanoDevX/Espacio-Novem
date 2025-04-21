@@ -48,6 +48,18 @@ export const Footer = () => {
                     </div>
                 </div>
             </div>
+            <div className="footer-credit">
+                <p>
+                Sitio desarrollado por el equipo de{" "}
+                    <a
+                        href="https://novem-devteam.onrender.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        DevTeam
+                    </a>
+                </p>
+            </div>
         </footer>
     );
 };

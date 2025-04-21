@@ -103,3 +103,23 @@
     padding: 6px;
   }
 }
+
+.footer-credit {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #fff; 
+  padding: 15px 0;
+  border-top: 3px solid #d4af37; 
+}
+
+.footer-credit a {
+  color: #d4af37; 
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.footer-credit a:hover {
+  text-decoration: underline;
+  color: #2ba5aa;
+}
