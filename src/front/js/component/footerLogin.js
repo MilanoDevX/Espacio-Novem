@@ -26,6 +26,18 @@ export const FooterLogin = () => {
           <p>Correo Electrónico</p>
         </div>
       </div>
+      <div className="footer-credit mt-3">
+  <p>
+    Sitio desarrollado por el equipo de{" "}
+    <a
+      href="https://novem-devteam.onrender.com"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      DevTeam
+    </a>
+  </p>
+</div>
     </footer>
   );
 };
