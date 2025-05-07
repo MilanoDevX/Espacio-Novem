@@ -8,7 +8,7 @@ import { Single } from "./pages/single";
 import { Reservations } from "./pages/reservations";
 import { Agenda } from "./pages/agenda";
 import injectContext from "./store/appContext";
-import { Header } from "./component/header";
+import { Hero } from "./component/hero.js";
 import { Navbar } from "./component/navbar";
 import { UserProfile } from "./component/userProfile";
 import { Register } from "./component/register";
@@ -64,7 +64,7 @@ const Layout = () => {
                             <Route element={<ProtectedRoute><Admin /></ProtectedRoute>} path="/admin" />
                             <Route element={<Register />} path="/register" />
                             <Route element={<Benefits />} path="/benefits" />
-                            <Route element={<Header />} path="/home" />
+                            <Route element={<Hero />} path="/home" />
                             <Route element={<h1>Not found!</h1>} />
                         </Routes>
                     </div>

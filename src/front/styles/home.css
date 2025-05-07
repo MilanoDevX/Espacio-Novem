@@ -41,12 +41,6 @@ body {
 
 /*Texto del background*/
 
-.titlenovem {
-  font-family: "Playfair Display", serif;
-  font-style: italic;
-}
-
-
 .benefits {
   background-color: #afb796;
   text-align: center;
@@ -144,8 +138,4 @@ body {
   background-color: #dbb79f;
 }
 
-.titlenovem {
-  font-family: "Playfair Display", serif;
-  font-style: italic;
-}
 

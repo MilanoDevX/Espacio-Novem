@@ -141,7 +141,7 @@ export const Navbar = () => {
             Espacio Novem
           </button>
         ) : (
-          <button className="adminbutton">Espacio Novem</button>
+          <button className="adminbutton ms-3">Espacio Novem</button>
         )}
 
         <button
@@ -192,7 +192,7 @@ export const Navbar = () => {
             )}
             {!store.user?.email && (
               <li className="nav-item">
-                <button type="button" className="btn btn-secondary text-light" data-bs-toggle="modal" data-bs-target="#loginModal">
+                <button type="button" className="btn btn-secondary text-light my-1" data-bs-toggle="modal" data-bs-target="#loginModal">
                   Iniciar Sesión
                 </button>
               </li>

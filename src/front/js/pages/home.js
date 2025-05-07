@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import { Header } from "../component/header";
+import { Hero } from "../component/hero";
 import { Cards } from "../component/cards";
 import { UserProfile } from "../component/userProfile";
 
@@ -9,13 +9,13 @@ import { UserProfile } from "../component/userProfile";
 export const Home = () => {
 	const { store, actions } = useContext(Context);
 
-	const isHomePage = true; 
+	const isHomePage = true;
 	return (
 		<>
-			<Header/>
-			<Cards/>
-			<UserProfile/>
-	
+			<Hero />
+			<Cards />
+			<UserProfile />
+
 		</>
 	);
 };
