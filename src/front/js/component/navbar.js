@@ -153,11 +153,11 @@ export const Navbar = () => {
             </li>
             {store.user?.email && (
               <>
-                <li>
+                <li className="nav-item mx-0 px-0">
                   <button type="button" className="btn dos m-1 d-none d-lg-inline" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample">
                     Perfil
                   </button>
-                  <button type="button" className="btn dos m-1 d-lg-none ms-0 me-auto" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample">
+                  <button type="button" className="btn dos m-1 mx-0 px-0 d-lg-none ms-0 me-auto" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample">
                     <i className="fa-solid fa-user-tie me-1"></i> Perfil
                   </button>
                 </li>
@@ -176,7 +176,7 @@ export const Navbar = () => {
             {store.user?.is_admin && (
               <li className="nav-item">
                 <Link className="nav-link text-light" to="/admin">
-                  <span className="d-lg-none me-1"><i className="fa-solid fa-user-tie"></i></span> Administrar
+                  <span className="d-lg-none me-1"><i className="fa-solid fa-pen-to-square"></i></span> Administrar
                 </Link>
               </li>
             )}
