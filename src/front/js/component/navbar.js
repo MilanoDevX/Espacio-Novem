@@ -136,14 +136,6 @@ export const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary navbarcolor">
       <div className="container-fluid">
-        {store.user?.email ? (
-          <button type="button" className="btn dos m-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample">
-            Espacio Novem
-          </button>
-        ) : (
-          <button className="adminbutton ms-3">Espacio Novem</button>
-        )}
-
         <button
           className="navbar-toggler text-light border-0 ms-auto"
           type="button"
@@ -161,6 +153,14 @@ export const Navbar = () => {
             </li>
             {store.user?.email && (
               <>
+                <li>
+                  <button type="button" className="btn dos m-1 d-none d-lg-inline" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample">
+                    Perfil
+                  </button>
+                  <button type="button" className="btn dos m-1 d-lg-none ms-0 me-auto" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample">
+                    <i className="fa-solid fa-user-tie me-1"></i> Perfil
+                  </button>
+                </li>
                 <li className="nav-item">
                   <Link className="nav-link text-light" to="/reservations">
                     <span className="d-lg-none me-1"><i className="fa-solid fa-clock"></i></span> Reservas

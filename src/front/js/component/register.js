@@ -106,8 +106,8 @@ export const Register = () => {
 
     return (
         <div className="mx-auto pt-3 register">
-            <div className="text-center pt-5">
-                <h1 className="text-center">Registrarse</h1>
+            <div className="text-center pt-2">
+                <h1 className="register-header text-center">Registro</h1>
             </div>
 
             {/* Nombre */}
@@ -186,7 +186,7 @@ export const Register = () => {
                             <i className={`fa ${shownPassword ? "fa-eye" : "fa-eye-slash"}`}></i>
                         </button>
                     </div>
-                    <span className="form-text">Debe contener de 8 a 20 caracteres, una mayúscula, una minúscula y un número.</span>
+                    <span className="form-text">Debe contener de 8 a 20 caracteres, un número, una letra mayúscula y una minúscula.</span>
                     {errors.password && <p className="error-text">{errors.password}</p>}
                 </div>
             </div>
@@ -212,7 +212,7 @@ export const Register = () => {
             </div>
 
             <div className="text-center mb-4">
-                <button type="button" className="boton" onClick={signup}>Registrarse</button>
+                <button type="button" className="boton" onClick={signup}>Enviar</button>
                 <button type="button" className="boton" onClick={volver}>Volver</button>
             </div>
         </div>

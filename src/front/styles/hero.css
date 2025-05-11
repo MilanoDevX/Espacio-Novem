@@ -1,4 +1,4 @@
-.header {
+.hero-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -15,8 +15,6 @@
   }
   
   .titlenovem {
-    /* font-family: "Playfair Display", serif;
-    font-style: italic; */
     font-family: "Montserrat", serif;
     font-style: italic;
     position: absolute;
@@ -36,7 +34,20 @@
     position: absolute;
     top: 0;
     left: 0;
-    opacity: 0.9;
+    opacity: 0.95;
     z-index: 0;
   }
   
+  /* Estilos Responsivos */
+@media screen and (max-width: 768px) {
+  .title {
+    font-size:xx-large;
+  }
+
+  .titlenovem {
+    padding: 10px 25px;
+
+  }
+
+
+}

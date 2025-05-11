@@ -3,9 +3,18 @@
 }
 
 .dos {
-  background-color: #afb796;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #6a7562;
+  border-color: #6a7562;
   color: white;
+  cursor: pointer;
+  border-color: black;
+  
+}
+
+.dos:hover {
+  color: white;
+  cursor: pointer;
+  
 }
 
 .closenav {

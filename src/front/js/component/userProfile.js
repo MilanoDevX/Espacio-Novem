@@ -82,7 +82,7 @@ export const UserProfile = () => {
 
   return (
     <div
-      className="offcanvas offcanvas-start"
+      className="offcanvas offcanvas-end"
       tabIndex="-1"
       id="offcanvasExample"
       aria-labelledby="offcanvasExampleLabel"
