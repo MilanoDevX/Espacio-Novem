@@ -6,13 +6,18 @@
   background-color: #6a7562;
   border-color: #6a7562;
   color: white;
-  cursor: pointer;
+  cursor: default;
 }
 
 .dos:hover {
   color: white;
-  cursor: pointer;
-  
+  cursor: default;
+}
+
+.dos:focus, .dos:active, .dos:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #6a7562;
 }
 
 .closenav {
@@ -45,7 +50,6 @@
   background: none;
   border: none;
   padding: 0;
-  cursor: pointer;
   font-family: "Montserrat", serif;
   font-style: italic;
   color: #F2E5D5;
