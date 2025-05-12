@@ -45,7 +45,7 @@ export const Cards = () => {
     };
 
     return (
-        <div className="container my-5">
+        <div className="container mt-3 mb-3">
             <h3 className="text-center title-espacio fs-2">Nuestros consultorios</h3>
             <div className="card-container">
                 {offices.map((office) => (

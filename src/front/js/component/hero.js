@@ -1,7 +1,6 @@
 import React from "react";
 import "../../styles/hero.css";
 import consultories from "../../img/hero2.webp";
-import { Benefits } from "./benefits";
 
 export const Hero = () => {
 	return (
@@ -15,7 +14,6 @@ export const Hero = () => {
 					<img className="imageconsultories img-fluid" src={consultories} alt="Consultorio" />
 				</div>
 			</div>
-			<Benefits />
 		</>
 	);
 }

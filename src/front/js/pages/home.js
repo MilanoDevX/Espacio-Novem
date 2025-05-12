@@ -4,6 +4,7 @@ import "../../styles/home.css";
 import { Hero } from "../component/hero";
 import { Cards } from "../component/cards";
 import { UserProfile } from "../component/userProfile";
+import { Benefits } from "../component/benefits";
 
 
 export const Home = () => {
@@ -13,6 +14,7 @@ export const Home = () => {
 	return (
 		<>
 			<Hero />
+			<Benefits />
 			<Cards />
 			<UserProfile />
 		</>
