@@ -52,7 +52,6 @@
     justify-content: center;
     gap: 10px;
     font-size: 18px;
-    margin-bottom: 15px;
 }
 
 .contact-detail i {
@@ -103,7 +102,7 @@ h5 {
 
 @media (max-width: 768px) {
     .footer-container {
-        padding: 15px;
+        padding-inline: 15px;
     }
 
     .contact-detail {
@@ -129,9 +128,6 @@ h5 {
 
 
 @media (max-width: 480px) {
-    .footer-container {
-        padding: 10px;
-    }
 
     .contact-detail {
         font-size: 14px;
@@ -142,7 +138,7 @@ h5 {
     }
 
     .map-container {
-        height: 250px;
+        height: 235px;
     }
 
     .politica-reserva p {

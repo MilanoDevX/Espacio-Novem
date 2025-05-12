@@ -5,7 +5,7 @@ import kitchenette from "../../img/kitchenette.webp";
 
 export const Benefits = () => {
     return (
-        <div className="benefits text-light py-3">
+        <div className="benefits text-light pt-4 pb-3">
             <div className="container">
                 <div className="row">
                     <div className="col-12 col-md-6 col-lg-3 benefit-item d-flex align-items-center justify-content-center mb-4 mb-md-0">

@@ -32,12 +32,40 @@
     height: 100%;
     object-fit: cover;
     position: absolute;
-    top: 0;
+    top: 8px;
     left: 0;
     opacity: 0.95;
     z-index: 0;
   }
   
+  .scroll-button {
+  position: absolute;
+  bottom: 20px;           
+  left: 50%;              
+  transform: translateX(-50%);
+  width: 50px;            
+  height: 50px;
+  border: none;
+  border-radius: 50%;     
+  background-color: #6A7562; /* verde obscuro*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;             /* por encima de la imagen */
+  transition: transform 0.2s ease;
+}
+
+.scroll-button:hover {
+  transform: translateX(-50%) scale(1.1);
+}
+
+.scroll-button svg {
+  color: #fff;            
+  width: 24px;
+  height: 24px;
+}
+
   /* Estilos Responsivos */
 @media screen and (max-width: 768px) {
   .title {
@@ -46,8 +74,15 @@
 
   .titlenovem {
     padding: 10px 25px;
-
   }
+
+  .imageconsultories {
+    top: 0px;
+  }
+  
+  .scroll-button {
+  bottom: 20px;           
+}
 
 
 }
