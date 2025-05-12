@@ -13,6 +13,17 @@ export const Admin = () => {
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  // Estado para el modal de orientación en móvil
+  const [showOrientationModal, setShowOrientationModal] = useState(false);
+
+  // Detectar dispositivo móvil y mostrar el modal al montar
+  useEffect(() => {
+    const isMobileDevice = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if (isMobileDevice) {
+      setShowOrientationModal(true);
+    }
+  }, []);
+
   // Función para convertir UTC a hora local (suma el offset)
   const convertUTCDateToLocalDate = (date) => {
     return new Date(date.getTime() + date.getTimezoneOffset() * 60000);
@@ -20,9 +31,7 @@ export const Admin = () => {
 
   // Función para combinar la fecha y la hora de la reserva en un solo objeto Date
   const getAppointmentDateTime = (appointment) => {
-    // Convertimos la fecha del backend a local
     const baseDate = convertUTCDateToLocalDate(new Date(appointment.date));
-    // Suponiendo que appointment.hour tiene el formato "HH:mm"
     const [hour, minute] = appointment.hour.split(":").map(Number);
     baseDate.setHours(hour, minute, 0, 0);
     return baseDate;
@@ -36,7 +45,6 @@ export const Admin = () => {
     const fetchAppointments = async () => {
       const data = await getReservationsAdmin();
       if (data && isMounted) {
-        // Ordenamos las reservas de forma descendente considerando fecha y hora
         const sortedAppointments = data.sort((a, b) => {
           const dateA = getAppointmentDateTime(a);
           const dateB = getAppointmentDateTime(b);
@@ -53,7 +61,6 @@ export const Admin = () => {
       isMounted = false;
     };
   }, [getReservationsAdmin]);
-
 
   useEffect(() => {
     setFilteredAppointments(
@@ -76,9 +83,9 @@ export const Admin = () => {
       confirmButtonText: "Sí, eliminarlo",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        setIsLoading(true); // Mostrar spinner
+        setIsLoading(true);
         const response = await actions.deleteReservation(id);
-        setIsLoading(false); // Ocultar spinner
+        setIsLoading(false);
 
         if (response) {
           setAppointments(appointments.filter(appointment => appointment.id !== id));
@@ -99,16 +106,23 @@ export const Admin = () => {
     });
   };
 
-  // Para asignar estilos según el datetime de la reserva
   const now = new Date();
 
   return (
     <div className="admin-container">
-      <div className="admin-header">
-        <h2>Registro de Consultas</h2>
-        <h4>Si accedés desde celular, colócalo en posición </h4>
-        <h4 className="mb-4">horizontal para una mejor experiencia</h4>
+      {showOrientationModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <p>Si accedes a esta sección desde dispositivo celular, te recomendamos colocarlo en posición horizontal para una mejor experiencia</p>
+            <button className="modal-close-btn" onClick={() => setShowOrientationModal(false)}>
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
 
+      <div className="admin-header">
+        <h2 className="admin-title">Registro de Consultas</h2>
         <input
           type="text"
           placeholder=" Filtrar por nombre o apellido"
@@ -118,11 +132,13 @@ export const Admin = () => {
           disabled={isLoading}
         />
       </div>
+
       {isLoading && (
         <div className="spinner-overlay">
-          <Spinner /> {/* Mostrar el Spinner */}
+          <Spinner />
         </div>
       )}
+
       <div className="admin-table-container" style={{ opacity: isLoading ? 0.5 : 1 }}>
         <table className="admin-table">
           <thead>
@@ -141,9 +157,6 @@ export const Admin = () => {
             {filteredAppointments.length > 0 ? (
               filteredAppointments.map((appointment) => {
                 const appointmentDateTime = getAppointmentDateTime(appointment);
-                // Asignar estilos:
-                // Si la reserva es igual o menor a la hora actual -> admin-past-date-row
-                // Si es mayor a ahora y menor o igual a (now + 24 horas) -> admin-within-24h-row
                 const rowClass =
                   appointmentDateTime <= now
                     ? "admin-past-date-row"

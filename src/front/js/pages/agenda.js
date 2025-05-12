@@ -75,7 +75,7 @@ export const Agenda = () => {
                 </div>
             )}
             <div className="agenda-header">
-                <h2>Registro de reservas</h2>
+                <h2 className="agenda-title">Registro de reservas</h2>
             </div>
             <div className="agenda-table-container" style={{ opacity: loading ? 0.5 : 1 }}>
                 <table className="agenda-table">

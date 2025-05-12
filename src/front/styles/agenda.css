@@ -11,6 +11,10 @@
     font-family: "Josefin Sans";
 }
 
+.agenda-title {
+    font-size: 2.5em;
+}
+
 .agenda-header {
     text-align: center;
     color: #6A7562;

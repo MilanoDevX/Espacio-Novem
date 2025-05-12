@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import Calendar from '../component/calendar';
 import FormReservations from '../component/formReservations';
+import "../../styles/reservations.css";
 import { format, startOfToday, parseISO } from 'date-fns';
 import { Context } from "../store/appContext"
 import { useContext } from "react";
@@ -26,7 +27,7 @@ export const Reservations = () => {
     return (
         <div>
             <div className="pt-3 pb-0 mb-0">
-                <h2 className="text-center">Reserva de Consultorios</h2>
+                <h2 className="reservations-title text-center">Reserva de Consultorios</h2>
                 <h3 className="text-center mt-2">
                     Disponibilidad para día {format(parseISO(selectedDate), 'dd/MM/yyyy')}
                 </h3>
