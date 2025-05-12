@@ -6,7 +6,7 @@ import image from "../../img/despacho-psicologia.webp";
 export const AboutUs = () => {
     return (
         <>
-            <div className="aboutUs-container d-flex justify-space-between pt-5">
+            <div className="aboutUs-container d-flex justify-space-between pt-4">
                 <div>
                     <h4 className="aboutUs-subtitle mx-4">Nuestro Equipo</h4>
                     <p className="mx-4">

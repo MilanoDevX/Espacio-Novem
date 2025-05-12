@@ -160,14 +160,6 @@ export const Navbar = () => {
 
             {store.user?.email && (
               <>
-                <li className="nav-item mx-0 px-0">
-                  <button type="button" className="btn dos m-1 d-none d-lg-inline" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample">
-                    Perfil
-                  </button>
-                  <button type="button" className="btn dos m-1 mx-0 px-0 d-lg-none ms-0 me-auto" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample">
-                    <i className="fa-solid fa-user-tie me-1"></i> Perfil
-                  </button>
-                </li>
                 <li className="nav-item">
                   <Link className="nav-link text-light" to="/reservations">
                     <span className="d-lg-none me-1"><i className="fa-solid fa-clock"></i></span> Reservas
@@ -186,6 +178,18 @@ export const Navbar = () => {
                   <span className="d-lg-none me-1"><i className="fa-solid fa-pen-to-square"></i></span> Administrar
                 </Link>
               </li>
+            )}
+            {store.user?.email && (
+              <>
+                <li className="nav-item mx-0 px-0">
+                  <button type="button" className="btn dos m-1 d-none d-lg-inline" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample">
+                    Usuario
+                  </button>
+                  <button type="button" className="btn dos m-1 mx-0 px-0 d-lg-none ms-0 me-auto" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample">
+                    <i className="fa-solid fa-user-tie me-1"></i> Usuario
+                  </button>
+                </li>
+              </>
             )}
             {store.user?.email && (
               <li className="nav-item">

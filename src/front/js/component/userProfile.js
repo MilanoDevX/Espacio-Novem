@@ -89,7 +89,7 @@ export const UserProfile = () => {
     >
       <div className="offcanvas-header">
         <h4 className="offcanvas-title" id="offcanvasExampleLabel">
-       Perfil del Usuario 
+       Perfil de Usuario 
         </h4>
         <button
           type="button"
