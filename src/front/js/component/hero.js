@@ -3,10 +3,10 @@ import "../../styles/hero.css";
 import consultories from "../../img/hero2.webp";
 
 export const Hero = () => {
-  // Scroll handler: mueve la ventana hacia abajo una altura de viewport
+  
   const handleScroll = () => {
     window.scrollTo({
-      top: window.innerHeight,
+      top: window.innerHeight,   // mueve la ventana hacia abajo una altura de viewport
       behavior: 'smooth',
     });
   };
@@ -23,7 +23,7 @@ export const Hero = () => {
           src={consultories}
           alt="Consultorio"
         />
-        {/* Botón de scroll: desplaza la vista hacia abajo */}
+        
         <button
           onClick={handleScroll}
           className="scroll-button"

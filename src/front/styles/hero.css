@@ -38,7 +38,7 @@
     z-index: 0;
   }
   
-  .scroll-button {
+.scroll-button {
   position: absolute;
   bottom: 20px;           
   left: 50%;              
@@ -84,14 +84,17 @@
     bottom: 20px;           
   }
 
-  .imageconsultories {
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 8px;
-    left: 0;
-    opacity: 0.95;
-    z-index: 0;
+  .hero-container {
+    height: calc(90vh - env(safe-area-inset-bottom, 0px));   /* restar la altura de la barra inferior para que el 90vh no se extienda tras ella */
+    height: calc(90vh - constant(safe-area-inset-bottom, 0px));   /* para navegadores iOS antiguos */
+    padding: 0;
+    padding-bottom: env(safe-area-inset-bottom, 0px);     /* añade un padding bottom igual al inset para que nada se “esconda” tras la barra inferior */
+    padding-bottom: constant(safe-area-inset-bottom, 0px);
+  }
+
+  .scroll-button {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 15px);
+    bottom: calc(constant(safe-area-inset-bottom, 0px) + 15px);
   }
 
 }
