@@ -15,7 +15,6 @@ export const Home = () => {
 			<Hero />
 			<Cards />
 			<UserProfile />
-
 		</>
 	);
 };

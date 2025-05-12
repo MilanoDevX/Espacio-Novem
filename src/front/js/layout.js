@@ -51,6 +51,9 @@ const Layout = () => {
                 <ScrollToTop>
                     <div className="main-content">
                         <Navbar />
+                        <ProtectedRoute>
+                            <UserProfile />
+                        </ProtectedRoute>
                         <Routes>
                             <Route element={<Home />} path="/" />
                             <Route element={<Demo />} path="/demo" />
