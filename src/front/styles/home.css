@@ -69,6 +69,13 @@ body {
 }
 
 @media (max-width: 768px) {
+
+ .benefits {
+  padding-top: 50px !important;
+  padding-bottom: 10px !important;
+}
+
+  
   .benefit {
     font-size: 30px;
   }

@@ -20,6 +20,7 @@
 
 .title-location {
     color: #d4af37;
+    padding-bottom: 15px;
 }
 
 .map-container {
@@ -124,6 +125,11 @@ h5 {
     .map-container {
         height: 300px;
     }
+
+    .title-location {
+        color: #d4af37;
+        padding-bottom: 0px;
+    }
 }
 
 
@@ -143,6 +149,11 @@ h5 {
 
     .politica-reserva p {
         font-size: 13px;
+    }
+
+    .title-location {
+        color: #d4af37;
+        padding-bottom: 0px;
     }
 }
 

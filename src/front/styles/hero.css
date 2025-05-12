@@ -81,8 +81,17 @@
   }
   
   .scroll-button {
-  bottom: 20px;           
-}
+    bottom: 20px;           
+  }
 
+  .imageconsultories {
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 8px;
+    left: 0;
+    opacity: 0.95;
+    z-index: 0;
+  }
 
 }
