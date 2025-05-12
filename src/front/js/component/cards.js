@@ -20,21 +20,21 @@ export const Cards = () => {
             id: 2,
             img: consultorio2,
             name: "Consultorio 2",
-            description: "Espacio cálido, moderno y funcional. Diseñado para brindar comodidad y privacidad en sesiones terapéuticas. La decoración combina colores neutros, con luz natural, creando un ambiente acogedor y profesional.\n\nAlquiler flexible por horas o franjas horarias. Espacio ideal para sesiones individuales, de pareja o familiares.\nAmbiente profesional con buena onda y compañerismo entre colegas.\nUn lugar pensado para brindar bienestar tanto a terapeutas como a pacientes.",
+            description: "Espacio cálido, moderno y funcional. Diseñado para brindar comodidad y privacidad en sesiones terapéuticas. La decoración combina colores neutros, con luz natural, creando un ambiente acogedor y profesional.\n\nAlquiler flexible por horas o franjas horarias. Espacio ideal para sesiones individuales, de pareja o familiares.\nAmbiente profesional con apoyo y compañerismo entre colegas.\nUn lugar pensado para brindar bienestar tanto a terapeutas como a pacientes.",
             price: "230",
         },
         {
             id: 3,
             img: consultorio3,
             name: "Consultorio 3",
-            description: "Espacio acogedor, minimalista y profesional. Ideal para sesiones terapéuticas con adolescentes y adultos.\nAmbientación diseñada para generar confianza y comodidad. Iluminación cálida y detalles que favorecen la relajación.\nDos sillones cómodos, ubicados estratégicamente para una conversación fluida y cercana.\nAlquiler para psicólogos, disponibilidad horaria amplia.\nUn lugar pensado para el bienestar del terapeuta y el paciente. Con todo lo necesario para un trabajo cómodo y efectivo.",
+            description: "Espacio acogedor, minimalista y profesional. Ideal para sesiones terapéuticas con adolescentes y adultos.\nAmbientación diseñada para generar confianza y comodidad. Iluminación cálida y detalles que favorecen la relajación.\nDos sillones cómodos, ubicados adecuadamente para una conversación fluida y cercana.\nAlquiler para psicólogos, disponibilidad horaria amplia.\nUn lugar pensado para el bienestar del terapeuta y el paciente.",
             price: "230",
         },
         {
             id: 4,
             img: consultorio3,
             name: "Consultorio 4",
-            description: "Espacio cálido y funcional, diseñado para generar un ambiente de confianza y comodidad en sesiones terapéuticas. Atmósfera tranquila y segura. Ideal para sesiones individuales, de pareja o familia. Amplia disponibilidad horaria. Espacio versátil.Un lugar pensado para el bienestar del terapeuta y el paciente, con todo lo necesario para un trabajo cómodo y efectivo.",
+            description: "Espacio cálido y funcional, diseñado para generar un ambiente de confianza y comodidad en sesiones terapéuticas. Atmósfera tranquila y segura. Ideal para sesiones individuales, de pareja o familia. Amplia disponibilidad horaria. Espacio versátil. Un lugar pensado para el bienestar del terapeuta y el paciente.",
             price: "230",
         }
     ];

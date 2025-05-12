@@ -1,0 +1,48 @@
+.about {
+  color: #6A7562;
+  padding: 10px;
+}
+
+.juntas {
+  width: 250px; 
+  object-fit: cover; 
+  margin-right: 15px; 
+}
+
+.about-us {
+  font-style: italic;
+  z-index: 1;
+}
+
+
+@media screen and (max-width: 768px) {
+ 
+  .card-img {
+    width: 100%; 
+    height: auto; 
+    position: relative; 
+  }
+
+  .card-img-overlay {
+    position: static;
+    background-color: transparent; 
+    padding: 20px; 
+    text-align: center;
+  }
+
+  .juntas {
+    width: 200px;
+    margin-bottom: 10px; 
+  }
+
+  .about {
+    font-size: 1rem;
+    margin-bottom: 10px; 
+  }
+
+  .card-title.about-us {
+    font-size: 1.5rem; 
+    margin-top: 20px; 
+  }
+}
+

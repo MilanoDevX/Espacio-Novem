@@ -8,7 +8,7 @@ export const Benefits = () => {
         <div className="benefits text-light py-4">
             <div className="container">
                 <div className="row">
-                    <div className="col-12 col-md-6 col-lg-3 benefit-item d-flex align-items-center mb-4 mb-md-0">
+                    <div className="col-12 col-md-6 col-lg-3 benefit-item d-flex align-items-center justify-content-center mb-4 mb-md-0">
                         <h3 className="benefit me-2">4</h3>
                         <div>
                             <h4 className="benefit-name my-0">Consultorios</h4>

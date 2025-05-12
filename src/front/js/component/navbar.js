@@ -152,6 +152,12 @@ export const Navbar = () => {
                 <span className="d-lg-none me-1"><i className="fa-solid fa-house"></i></span> Inicio
               </Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link text-light" to="/aboutUs">
+                <span className="d-lg-none me-1"><i className="fa-solid fa-hand-holding-heart"></i></span> Quiénes Somos
+              </Link>
+            </li>
+
             {store.user?.email && (
               <>
                 <li className="nav-item mx-0 px-0">
@@ -181,11 +187,6 @@ export const Navbar = () => {
                 </Link>
               </li>
             )}
-            <li className="nav-item">
-              <Link className="nav-link text-light" to="/aboutUs">
-                <span className="d-lg-none me-1"><i className="fa-solid fa-hand-holding-heart"></i></span> Quienes Somos
-              </Link>
-            </li>
             {store.user?.email && (
               <li className="nav-item">
                 <button onClick={handleLogout} className="btn closenav m-2">Cerrar Sesión</button>
