@@ -1,4 +1,9 @@
 
+.aboutUs-subtitle {
+  font-style: italic;
+  font-weight: 700;
+}
+
 @media screen and (max-width: 768px) {
 
 .aboutUs-container {
@@ -7,10 +12,6 @@
     flex-direction: column !important;
     align-items: center !important;
     padding: 10px;
-}
-
-.aboutUs-subtitle {
-  font-style: italic !important;
 }
 
   .picture {

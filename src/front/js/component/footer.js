@@ -21,22 +21,17 @@ export const Footer = () => {
 
                     <div className="contact-detail">
                         <i className="fa-brands fa-whatsapp"></i>
-                        <a href="https://wa.me/59891744816?text=Hola,%20quiero%20más%20información" target="_blank" rel="noopener noreferrer">
-                            +598 91 744 816
+                        <a href="https://wa.me/59899123456?text=Hola,%20quiero%20más%20información" target="_blank" rel="noopener noreferrer">
+                            +598 99 123 456
                         </a>
                     </div>
 
                     <div className="contact-detail">
                         <i className="fa-regular fa-envelope"></i>
-                        <a href="mailto:espacionovem@gmail.com">espacionovem@gmail.com</a>
+                        <a href="mailto:espacio.novem@example.com">espacio.novem@example.com</a>
                     </div>
 
-                    <div className="contact-detail">
-                        <i className="fa-brands fa-instagram"></i>
-                        <a href="https://www.instagram.com/espacio_novem" target="_blank" rel="noopener noreferrer">
-                            Espacio_Novem
-                        </a>
-                    </div>
+
 
                     <div className="politica-reserva">
                         <h3 className="reserva-title">Política de Reserva</h3>
@@ -48,7 +43,7 @@ export const Footer = () => {
                     </div>
                 </div>
             </div>
-            <div className="footer-credit">
+            <div className="footer-credit mt-3">
                 <p>
                 Sitio desarrollado por el equipo de{" "}
                     <a
