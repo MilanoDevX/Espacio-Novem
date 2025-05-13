@@ -68,27 +68,6 @@ body {
   margin: 0;
 }
 
-@media (max-width: 768px) {
-
- .benefits {
-  padding-top: 50px !important;
-  padding-bottom: 10px !important;
-}
-
-  
-  .benefit {
-    font-size: 30px;
-  }
-
-  .benefit-description {
-    font-size: 12px;
-  }
-
-  .icon-img {
-    width: 35px;
-  }
-
-}
 
 .porteria {
   width: 50px;
@@ -97,8 +76,6 @@ body {
 .kitchenette {
   width: 60px;
 }
-
-
 
 .category {
   text-transform: uppercase;
@@ -142,3 +119,29 @@ body {
 }
 
 
+@media (max-width: 768px) {
+
+ .benefits {
+  padding-top: 50px !important;
+  padding-bottom: 10px !important;
+}
+  
+  .benefit {
+    font-size: 30px;
+  }
+
+  .benefit-description {
+    font-size: 12px;
+  }
+
+  .icon-img {
+    width: 35px;
+  }
+
+  .benefit-item {
+    flex: 1;
+    min-width: 180px;
+    margin: 20px;
+  }
+  
+}

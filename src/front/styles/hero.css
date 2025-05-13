@@ -76,25 +76,16 @@
     padding: 10px 25px;
   }
 
+  .hero-container {
+    height: 94vh;
+  }
+
   .imageconsultories {
     top: 0px;
   }
   
   .scroll-button {
-    bottom: 20px;           
-  }
-
-  .hero-container {
-    height: calc(90vh - env(safe-area-inset-bottom, 0px));   /* restar la altura de la barra inferior para que el 90vh no se extienda tras ella */
-    height: calc(90vh - constant(safe-area-inset-bottom, 0px));   /* para navegadores iOS antiguos */
-    padding: 0;
-    padding-bottom: env(safe-area-inset-bottom, 0px);     /* añade un padding bottom igual al inset para que nada se “esconda” tras la barra inferior */
-    padding-bottom: constant(safe-area-inset-bottom, 0px);
-  }
-
-  .scroll-button {
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 15px);
-    bottom: calc(constant(safe-area-inset-bottom, 0px) + 15px);
+    visibility: hidden;
   }
 
 }

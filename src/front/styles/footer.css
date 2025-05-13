@@ -2,11 +2,13 @@
     background-color: #6a7562;
     color: antiquewhite;
     padding-top: 20px;
+    padding-bottom: 0px;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+
 }
 
 .footer-content {
@@ -44,6 +46,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    
 }
 
 
@@ -53,6 +56,7 @@
     justify-content: center;
     gap: 10px;
     font-size: 18px;
+    
 }
 
 .contact-detail i {
@@ -93,76 +97,14 @@ h5 {
     margin-bottom: 8px;
 }
 
-/* RESPONSIVIDAD */
-
-@media (max-width: 1024px) {
-    .map-container {
-        height: 350px;
-    }
-}
-
-@media (max-width: 768px) {
-    .footer-container {
-        padding-inline: 15px;
-    }
-
-    .contact-detail {
-        font-size: 16px;
-    }
-
-    .contact-detail i {
-        font-size: 20px;
-    }
-
-    .reserva-title {
-        font-size: 18px;
-    }
-
-    .politica-reserva p {
-        font-size: 14px;
-    }
-
-    .map-container {
-        height: 300px;
-    }
-
-    .title-location {
-        color: #d4af37;
-        padding-bottom: 0px;
-    }
-}
-
-
-@media (max-width: 480px) {
-
-    .contact-detail {
-        font-size: 14px;
-    }
-
-    .contact-detail i {
-        font-size: 18px;
-    }
-
-    .map-container {
-        height: 235px;
-    }
-
-    .politica-reserva p {
-        font-size: 13px;
-    }
-
-    .title-location {
-        color: #d4af37;
-        padding-bottom: 0px;
-    }
-}
-
 .footer-credit {
     text-align: center;
     font-size: 0.85rem;
     color: #fff; 
-    padding: 15px 0;
+    padding-top: 15px;
+    padding-bottom: 0px !important;
     border-top: 3px solid antiquewhite; 
+
 }
 
 .footer-credit a {
@@ -176,3 +118,54 @@ h5 {
     text-decoration: underline;
     color: #2ba5aa;
 }
+
+
+/* RESPONSIVIDAD */
+
+@media (max-width: 1024px) {
+    .map-container {
+        height: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        padding-inline: 15px;
+        padding-bottom: 0px;
+    }
+
+    .contact-detail {
+        font-size: 14px;
+    }
+
+    .contact-detail i {
+        font-size: 18px;
+    }
+
+    .reserva-title {
+        font-size: 18px;
+    }
+
+    .politica-reserva p {
+        font-size: 13px;
+    }
+
+    .map-container {
+        height: 235px;
+    }
+
+    .title-location {
+        color: #d4af37;
+        padding-bottom: 0px;
+    }
+
+    .footer-credit {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #fff; 
+    padding: 15px 0;
+    border-top: 3px solid antiquewhite; 
+    }
+}
+
+
