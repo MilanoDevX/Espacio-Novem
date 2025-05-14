@@ -48,7 +48,7 @@ export const Footer = () => {
                 <p>
                 Sitio desarrollado por el equipo de{" "}
                     <a
-                        href="https://novem-devteam.onrender.com"
+                        href="https://psicoespacio-devteam.onrender.com/"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
