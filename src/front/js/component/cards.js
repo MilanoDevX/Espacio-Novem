@@ -75,8 +75,8 @@ export const Cards = () => {
                     aria-hidden="true"
                     style={{ display: "block" }}
                 >
-                    <div className="modal-dialog modal-dialog-centered">
-                        <div className="modal-content">
+                    <div className="modal-dialog modal-dialog-centered card-modal-dialog">
+                        <div className="modal-content card-modal-content">
                             <div
                                 className="modal-header"
                                 style={{
