@@ -102,7 +102,7 @@ export const UserProfile = () => {
       <div className="offcanvas-body">
         <div className="d-flex flex-column align-items-center">
           <div className="card p-3">
-          <img src={logo} className="card-img-top" alt="avatar" />
+          {/* <img src={logo} className="card-img-top" alt="avatar" /> */}
             <div className="card-body">
               {["name", "last_name", "telefono"].map((field) => (
                 <div className="d-flex justify-content-between align-items-center mb-2" key={field}>

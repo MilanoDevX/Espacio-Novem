@@ -106,7 +106,7 @@ export const Cards = () => {
                                         height: "auto",
                                     }}
                                 />
-                                <div className="ms-md-3">
+                                <div className="ms-md-3 mt-3">
                                     <h5>{selectedOffice.name}</h5>
                                     <p>Precio: ${selectedOffice.price}</p>
                                     <p>{selectedOffice.description}</p>

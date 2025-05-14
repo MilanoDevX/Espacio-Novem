@@ -43,6 +43,7 @@
   color: white; 
   border: none;
   border-radius: 5px;
+  margin-inline: auto;
 }
 
 .boton:hover {
