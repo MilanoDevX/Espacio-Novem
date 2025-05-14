@@ -29,18 +29,18 @@ receiver_email = [""]
 ### Enviar email
 def send_signup_email(receivers_email):
     message = MIMEMultipart("alternative")
-    message["Subject"] = "Bienvenido a Espacio Novem!"
+    message["Subject"] = "Bienvenido a PsicoEspacio!"
     message["From"] = os.getenv("SMTP_USERNAME")
     message["To"] = ",".join(receivers_email)
     html_content = """
         <html>
             <body>
-                <h1>Bienvenido a Espacio Novem!</h1>
+                <h1>Bienvenido a PsicoEspacio!</h1>
                 <p>Gracias por unirte a nuestra plataforma.</p>
             </body>
         </html>
     """
-    text = "Correo enviado desde la API Espacio Novem. Saludos:hola:."
+    text = "Correo enviado desde la API PsicoEspacio. Saludos:hola:."
     message.attach(MIMEText(text, "plain"))
     message.attach(MIMEText(html_content, "html"))
     try:
@@ -80,20 +80,20 @@ def send_email():
    exist_user.set_password(user_random_password)
    db.session.commit()
    message = MIMEMultipart("alternative")
-   message["Subject"] = "Olvido de contraseña - Espacio Novem!"
-   message["From"] = "aespacionovem@gmail.com"
+   message["Subject"] = "Olvido de contraseña - PsicoEspacio!"
+   message["From"] = "psicoespacio@example.com"
    message["To"] = ",".join(receivers_email)
    html_content = f"""
        <html>
            <body>
-               <h1>Bienvenido a Espacio Novem!</h1>
+               <h1>Bienvenido a PsicoEspacio!</h1>
                <p>¿Olvidaste la contraseña?</p>
                <p>Tu password aleatorio es  {user_random_password}</p>
                <p>Recuerda volver a la aplicación web para continuar el cambio de contraseña</p>
            </body>
        </html>
    """
-   text = "Correo enviado desde la API Espacio Novem. Saludos:hola:."
+   text = "Correo enviado desde la API PsicoEspacio. Saludos:hola:."
    message.attach(MIMEText(text, "plain"))
    message.attach(MIMEText(html_content, "html"))
    try:
@@ -179,13 +179,13 @@ def send_reservation_email(receivers_email, action, reservation_details, perform
     smtp_host = os.getenv("SMTP_HOST")
     smtp_port = os.getenv("SMTP_PORT")
     message = MIMEMultipart("alternative")
-    message["Subject"] = f"Reserva {action} - Espacio Novem!"
+    message["Subject"] = f"Reserva {action} - PsicoEspacio!"
     message["From"] = sender_email
     message["To"] = ",".join(receivers_email)
     html_content = f"""
         <html>
             <body>
-                <h1>Reserva {action} en Espacio Novem</h1>
+                <h1>Reserva {action} en PsicoEspacio</h1>
                 <p><strong>Numero de reserva:</strong> {reservation_id}</p>
                 <p><strong>Nombre:</strong> {reservation_details['user_name']} {reservation_details['user_last_name']}</p>
                 <p><strong>Fecha:</strong> {reservation_details['date']}</p>
@@ -199,7 +199,7 @@ def send_reservation_email(receivers_email, action, reservation_details, perform
             </body>
         </html>
     """
-    text = "Correo enviado desde la API Espacio Novem. Saludos:hola:."
+    text = "Correo enviado desde la API PsicoEspacio. Saludos:hola:."
     message.attach(MIMEText(text, "plain"))
     message.attach(MIMEText(html_content, "html"))
     try:

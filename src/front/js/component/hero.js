@@ -14,8 +14,8 @@ export const Hero = () => {
   return (
     <div className="hero-container">
       <div className="image-container">
-        <div className="titlenovem">
-          <h1 className="title">Espacio Novem</h1>
+        <div className="title-hero">
+          <h1 className="title">PsicoEspacio</h1>
           <h3>Alquiler de espacios profesionales</h3>
         </div>
         <img

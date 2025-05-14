@@ -18,7 +18,7 @@ export const Footer = () => {
                 </div>
 
                 <div className="contact-container">
-                    <h5 className="my-3">Espacio Novem</h5>
+                    <h5 className="my-3">PsicoEspacio</h5>
 
                     <div className="contact-detail">
                         <i className="fa-brands fa-whatsapp"></i>
@@ -29,7 +29,7 @@ export const Footer = () => {
 
                     <div className="contact-detail">
                         <i className="fa-regular fa-envelope"></i>
-                        <a href="mailto:espacio.novem@example.com">espacio.novem@example.com</a>
+                        <a href="mailto:psicoespacio@example.com">psicoespacio@example.com</a>
                     </div>
 
 

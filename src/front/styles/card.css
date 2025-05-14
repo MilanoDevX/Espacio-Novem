@@ -55,27 +55,33 @@
 }
 
 /* MODAL */
-.card-modal-body {
+.modal-body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     text-align: center;
     background-color: #F2E5D5;
+    padding: 20px;
 }
 
-.card-modal-body img {
+.modal-body img {
     width: 100%;
     max-width: 300px;
     height: auto;
     object-fit: cover;
     margin-bottom: 10px;
-    padding: 10px;
 }
 
-.card-modal-content {
-    max-width: 500%;
-    margin: 5px;
+.modal-content {             /*Para centrar en pantalla el contenido del modal */
+    max-width: 100%;
+    margin-inline: 30%;
+    margin-top: 10px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: center;
 }
 
 .btn3 {
@@ -84,59 +90,49 @@
     background-color:#afb796;
     color:white ;
     border-radius: 5px;
-    width: 25%; 
-    padding: 10px; 
-  }
+    width: auto;            
+    padding: 10px 20px;     
+    margin: 7px;            
+}
 
-  
+  .modal-dialog {
+    max-width: none !important;              
+    width: calc(100% - 10px) !important;     
+    margin: 0 auto !important;               
+}
+
+
 /* Responsividad */
 @media (max-width: 1024px) {
-    .card-container {
+    .container {
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     }
 }
 
 @media (max-width: 768px) {
-    .card-container {
+    .container {
         grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
     }
 
-    .card-modal-body {
+    .modal-body {
         flex-direction: column;
     }
 
-    .card-modal-body img {
+    .modal-body img {
         max-width: 100%;
     }
 
+    .btn3 {
+        border-color: rgba(91, 73, 62, 0.5);
+        background-color: #afb796;
+        color: white;
+        border-radius: 5px;
+    }
 
-    /* ===== Ajuste full‐width con márgenes de 15px ===== */
-.card-modal-dialog {
-  max-width: none !important;              /* anula el max-width por defecto */
-  width: calc(100% - 10px) !important;     /* 5px + 5px */
-  margin: 0 auto !important;               /* fuerza el centrado */
-}
-
-
-.btn3 {
-  width: auto;            /* deja que el ancho se ajuste al contenido */
-  padding: 10px 20px;     /* 20px a cada lado, simétrico */
-  margin: 7px;            /* mantiene tu margen existente */
-  border-color: rgba(91, 73, 62, 0.5);
-  background-color: #afb796;
-  color: white;
-  border-radius: 5px;
-}
-
-/* Si quieres que el botón quede alineado a la derecha en el footer */
-.card-modal-footer {
-  display: flex;
-  justify-content: flex-end;  /* o center, según prefieras */
-}
-
-
-
-
+    .modal-content {
+        max-width: 100%;
+        margin: 5px;
+    }
 
 
 }

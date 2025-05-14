@@ -7,13 +7,13 @@ export const FooterLogin = () => {
   };
   
   const abrirOutlook = () => {
-    window.location.href = "mailto:espacio.novem@example.com?subject=";
+    window.location.href = "mailto:psicoespacio@example.com?subject=";
   };
   
   return (
     <footer className="footerLogin">
       <div className="footerLogin-title">
-        <p>Espacio Novem</p>
+        <p>PsicoEspacio</p>
         <p>Contacto</p>
       </div>
       <div className="footerLogin-content">

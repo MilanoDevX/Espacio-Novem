@@ -136,7 +136,7 @@ export const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary navbarcolor">
       <div className="container-fluid">
-        <span className="adminbutton ms-3">Espacio Novem</span>
+        <span className="adminbutton ms-3">PsicoEspacio</span>
         <button
           className="navbar-toggler text-light border-0 ms-auto"
           type="button"
