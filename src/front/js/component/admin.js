@@ -111,10 +111,10 @@ export const Admin = () => {
   return (
     <div className="admin-container">
       {showOrientationModal && (
-        <div className="modal-overlay">
-          <div className="modal-content">
+        <div className="admin-modal-overlay">
+          <div className="admin-modal-content">
             <p>Si accedes a esta sección desde dispositivo celular, te recomendamos colocarlo en posición horizontal para una mejor experiencia</p>
-            <button className="modal-close-btn" onClick={() => setShowOrientationModal(false)}>
+            <button className="admin-modal-close-btn" onClick={() => setShowOrientationModal(false)}>
               Cerrar
             </button>
           </div>

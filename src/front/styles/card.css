@@ -3,7 +3,7 @@
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
     justify-content: center;
-    padding-inline: 20px;
+    padding-inline: 10px;
 }
 
 .card {
@@ -55,7 +55,7 @@
 }
 
 /* MODAL */
-.modal-body {
+.card-modal-body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -64,7 +64,7 @@
     background-color: #F2E5D5;
 }
 
-.modal-body img {
+.card-modal-body img {
     width: 100%;
     max-width: 300px;
     height: auto;
@@ -73,37 +73,11 @@
     padding: 10px;
 }
 
-.modal-content {
+.card-modal-content {
     max-width: 500%;
     margin: 5px;
 }
 
-/* Responsividad */
-@media (max-width: 1024px) {
-    .card-container {
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    }
-}
-
-@media (max-width: 768px) {
-    .card-container {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
-
-    .modal-body {
-        flex-direction: column;
-    }
-}
-
-@media (max-width: 480px) {
-    .card-container {
-        grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
-    }
-
-    .modal-body img {
-        max-width: 100%;
-    }
-}
 .btn3 {
     margin: 7px 7px 0 7px;
     border-color: rgba(91, 73, 62, 0.5);
@@ -113,3 +87,58 @@
     width: 25%; 
     padding: 10px; 
   }
+
+  
+/* Responsividad */
+@media (max-width: 1024px) {
+    .card-container {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .card-container {
+        grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+    }
+
+    .card-modal-body {
+        flex-direction: column;
+    }
+
+    .card-modal-body img {
+        max-width: 100%;
+    }
+
+
+    /* ===== Ajuste full‐width con márgenes de 15px ===== */
+.card-modal-dialog {
+  max-width: none !important;              /* anula el max-width por defecto */
+  width: calc(100% - 10px) !important;     /* 5px + 5px */
+  margin: 0 auto !important;               /* fuerza el centrado */
+}
+
+
+.btn3 {
+  width: auto;            /* deja que el ancho se ajuste al contenido */
+  padding: 10px 20px;     /* 20px a cada lado, simétrico */
+  margin: 7px;            /* mantiene tu margen existente */
+  border-color: rgba(91, 73, 62, 0.5);
+  background-color: #afb796;
+  color: white;
+  border-radius: 5px;
+}
+
+/* Si quieres que el botón quede alineado a la derecha en el footer */
+.card-modal-footer {
+  display: flex;
+  justify-content: flex-end;  /* o center, según prefieras */
+}
+
+
+
+
+
+
+}
+
+

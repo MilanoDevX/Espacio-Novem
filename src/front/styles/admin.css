@@ -140,7 +140,7 @@
   }
 
   /* Overlay semi-transparente */
-.modal-overlay {
+.admin-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -154,7 +154,7 @@
 }
 
 /* Contenedor del contenido del modal */
-.modal-content {
+.admin-modal-content {
   background: #fff;
   padding: 1.5rem;
   max-width: 90%;
@@ -178,7 +178,7 @@
 }
 
 /* Texto del mensaje */
-.modal-content p {
+.admin-modal-content p {
   margin-bottom: 1rem;
   font-size: 1rem;
   line-height: 1.4;
@@ -186,7 +186,7 @@
 }
 
 /* Botón de cerrar */
-.modal-close-btn {
+.admin-modal-close-btn {
   background: #6A7562;
   color: #fff;
   border: none;
@@ -198,7 +198,7 @@
 }
 
 /* Efecto hover del botón */
-.modal-close-btn:hover {
+.admin-modal-close-btn:hover {
   background: #6A7562;
 }
 

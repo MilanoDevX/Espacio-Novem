@@ -75,8 +75,8 @@ export const Cards = () => {
                     aria-hidden="true"
                     style={{ display: "block" }}
                 >
-                    <div className="modal-dialog modal-dialog-centered">
-                        <div className="modal-content">
+                    <div className="card-modal-dialog modal-dialog-centered">
+                        <div className="card-modal-content">
                             <div
                                 className="modal-header"
                                 style={{
@@ -94,7 +94,7 @@ export const Cards = () => {
                                     onClick={() => toggleModal(null)}
                                 ></button>
                             </div>
-                            <div className="modal-body d-flex flex-column flex-md-row align-items-center" style={{ backgroundColor: "#F2E5D5" }}>
+                            <div className="card-modal-body d-flex flex-column flex-md-row align-items-center" style={{ backgroundColor: "#F2E5D5" }}>
                                 <img
                                     src={selectedOffice.img}
                                     alt={selectedOffice.name}
@@ -112,7 +112,7 @@ export const Cards = () => {
                                     <p>{selectedOffice.description}</p>
                                 </div>
                             </div>
-                            <div className="modal-footer" style={{ backgroundColor: "#F2E5D5" }}>
+                            <div className="card-modal-footer" style={{ backgroundColor: "#F2E5D5" }}>
                                 <button
                                     type="button"
                                     className="btn3 btn-secondary"
