@@ -39,8 +39,9 @@ jwt = JWTManager(app)
 
 
 
-# add the admin
-setup_admin(app) # borrar admin de flask
+# Only setup admin in development environment
+if ENV == "development":
+    setup_admin(app)
 
 
 # add the admin
