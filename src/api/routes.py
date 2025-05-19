@@ -14,11 +14,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS
 from datetime import datetime, date, timedelta
 
-app = Flask(__name__)
-CORS(app, supports_credentials=True)
 api = Blueprint('api', __name__)
-
-CORS(api)
 
 sender_email = os.getenv("SMTP_USERNAME")
 sender_password = os.getenv("SMTP_PASSWORD")
@@ -156,20 +152,64 @@ def register():
 ### Login
 @api.route('/login', methods=['POST'])
 def login():
-    data = request.json
-    print("Datos recibidos:", data)
-    email = data.get("email", None)
-    password = data.get("password", None)
-    if not email or not password:
-        return jsonify({"msg": "Email y contraseña son requeridos"}), 400
-    user = User.query.filter_by(email=email).first()
-    print("Usuario encontrado:", user)
-    if user is None:
-        return jsonify({"msg": "No existe el usuario"}), 404
-    if not check_password_hash(user.password_hash, password):
-        return jsonify({"msg": "Bad username or password"}), 401
-    access_token = create_access_token(identity=email)
-    return jsonify(access_token=access_token, user=user.serialize()), 200
+    try:
+        # Obtener y validar datos
+        data = request.json
+        print("[DEBUG] Datos recibidos:", data)
+        
+        if not data:
+            print("[DEBUG] No se recibieron datos")
+            return jsonify({"msg": "No se recibieron datos"}), 400
+            
+        email = data.get("email", None)
+        password = data.get("password", None)
+        
+        print("[DEBUG] Email:", email)
+        print("[DEBUG] Password recibido:", "***" if password else None)
+        
+        if not email or not password:
+            return jsonify({"msg": "Email y contraseña son requeridos"}), 400
+        
+        # Buscar usuario
+        user = User.query.filter_by(email=email).first()
+        print("[DEBUG] Usuario encontrado:", user)
+        
+        if user is None:
+            return jsonify({"msg": "No existe el usuario"}), 404
+            
+        print("[DEBUG] Is active:", user.is_active)
+        if not user.is_active:
+            return jsonify({"msg": "La cuenta está inactiva"}), 401
+            
+        # Verificar contraseña
+        password_valid = user.check_password(password)
+        print("[DEBUG] Password válido:", password_valid)
+        
+        if not password_valid:
+            return jsonify({"msg": "Contraseña incorrecta"}), 401
+        
+        # Generar token y respuesta
+        try:
+            serialized_user = user.serialize()
+            print("[DEBUG] Usuario serializado:", serialized_user)
+            
+            access_token = create_access_token(identity=email)
+            print("[DEBUG] Token generado correctamente")
+            
+            response = jsonify({
+                "access_token": access_token,
+                "user": serialized_user
+            })
+            
+            print("[DEBUG] Respuesta preparada")
+            return response, 200
+            
+        except Exception as e:
+            print("[DEBUG] Error en serialización/token:", str(e))
+            return jsonify({"msg": "Error al procesar la información del usuario", "error": str(e)}), 500
+    except Exception as e:
+        print("Error en login:", str(e))
+        return jsonify({"msg": "Error interno del servidor", "error": str(e)}), 500
 
 ### Funcion de  send email al user y admin
 

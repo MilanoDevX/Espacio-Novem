@@ -11,6 +11,7 @@ from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 
 
 
@@ -21,6 +22,14 @@ static_file_dir = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../public/')
 app = Flask(__name__)
 app.url_map.strict_slashes = False
+
+# Enable CORS for all routes
+CORS(app, 
+     origins=["http://localhost:3000"],
+     allow_credentials=True,
+     supports_credentials=True,
+     expose_headers=["Content-Type", "Authorization"],
+     allow_headers=["Content-Type", "Authorization"])
 
 # database condiguration
 db_url = os.getenv("DATABASE_URL")
@@ -34,14 +43,21 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 MIGRATE = Migrate(app, db, compare_type=True)
 db.init_app(app)
 
-app.config['JWT_SECRET_KEY'] = os.getenv("JWT_SECRET_KEY")
+# Configuración de JWT
+if not os.getenv("JWT_SECRET_KEY"):
+    # Si no existe la variable de entorno, usar una clave por defecto en desarrollo
+    if ENV == "development":
+        app.config['JWT_SECRET_KEY'] = "dev-secret-key-123"  # Solo para desarrollo
+    else:
+        raise ValueError("JWT_SECRET_KEY environment variable must be set in production")
+else:
+    app.config['JWT_SECRET_KEY'] = os.getenv("JWT_SECRET_KEY")
+
 jwt = JWTManager(app)
 
 
-
-# Only setup admin in development environment
-if ENV == "development":
-    setup_admin(app)
+# add the admin
+#setup_admin(app) # borrar admin de flask
 
 
 # add the admin
