@@ -19,10 +19,9 @@ import { Admin } from "./component/admin";
 import { Footer } from "./component/footer";
 import { FooterLogin } from "./component/footerLogin";
 import { Benefits } from "./component/benefits";
-
+import { NotFound } from "./component/notFound";
 
 import ProtectedRoute from "./component/protectedRoute.js";
-
 
 // Componente que decide si renderizar Footer o FooterLogin y sacar eel admin
 const FooterComponent = () => {
@@ -51,7 +50,7 @@ const Layout = () => {
                 <ScrollToTop>
                     <div className="main-content">
                         <Navbar />
-                            <UserProfile />
+                        <UserProfile />
                         <Routes>
                             <Route element={<Home />} path="/" />
                             <Route element={<Demo />} path="/demo" />
@@ -66,7 +65,7 @@ const Layout = () => {
                             <Route element={<Register />} path="/register" />
                             <Route element={<Benefits />} path="/benefits" />
                             <Route element={<Hero />} path="/home" />
-                            <Route element={<h1>Not found!</h1>} />
+                            <Route path="*" element={<NotFound />} />
                         </Routes>
                     </div>
                     <FooterComponent /> {/* Aquí renderizamos el Footer o FooterLogin según la ruta */}
